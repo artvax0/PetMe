@@ -32,8 +32,17 @@ const getUsers = async () => {
     let users = await User.find();
     return users;
   } catch (error) {
-    throw new Error(chalk.red('Mongoose: ', error))
+    throw new Error(chalk.red('Mongoose: ', error));
   }
 }
 
-export { registerUser, login, getUsers };
+const getUser = async (userId) => {
+  try {
+    let user = await User.findById(userId);
+    return user;
+  } catch (error) {
+    throw new Error(chalk.red('Mongoose: ', error));
+  }
+}
+
+export { registerUser, login, getUsers, getUser };
