@@ -22,4 +22,13 @@ const getCategories = async () => {
   }
 }
 
-export { newCategory, getCategories };
+const getCategory = async (categoryId) => {
+  try {
+    const category = await Category.findById(categoryId);
+    return category;
+  } catch (error) {
+    throw new Error(chalk.red('Mongoose: ', error));
+  }
+}
+
+export { newCategory, getCategories, getCategory };
