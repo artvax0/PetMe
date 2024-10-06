@@ -12,5 +12,14 @@ const newCategory = async (categoryInfo) => {
   }
 }
 
+// [GET]
+const getCategories = async () => {
+  try {
+    const categories = await Category.find();
+    return categories;
+  } catch (error) {
+    throw new Error(chalk.red('Mongoose: ', error));
+  }
+}
 
-export { newCategory };
+export { newCategory, getCategories };
