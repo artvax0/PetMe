@@ -1,6 +1,6 @@
 import chalk from "chalk";
 import { Router } from "express";
-import { login, registerUser } from "../services/usersService.js";
+import { getUsers, login, registerUser } from "../services/usersService.js";
 
 const router = Router();
 
@@ -18,6 +18,15 @@ router.post('/login', async (req, res) => {
     let { email, password } = req.body;
     const user = await login(email, password);
     res.send(user);
+  } catch (error) {
+    throw new Error(chalk.red(error.message));
+  }
+})
+
+router.get('/', async (req, res) => {
+  try {
+    const users = await getUsers();
+    res.send(users);
   } catch (error) {
     throw new Error(chalk.red(error.message));
   }

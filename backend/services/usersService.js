@@ -9,7 +9,7 @@ const registerUser = async (newUser) => {
     user = await user.save();
     return _.pick(user, ['_id', 'email', 'name']);
   } catch (error) {
-    throw new Error(chalk.red(error));
+    throw new Error(chalk.red('Mongoose: ', error));
   }
 }
 
@@ -26,4 +26,14 @@ const login = async (email, password) => {
   }
 }
 
-export { registerUser, login };
+// [GET]
+const getUsers = async () => {
+  try {
+    let users = await User.find();
+    return users;
+  } catch (error) {
+    throw new Error(chalk.red('Mongoose: ', error))
+  }
+}
+
+export { registerUser, login, getUsers };
