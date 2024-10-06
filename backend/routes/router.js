@@ -1,9 +1,9 @@
 import { Router } from "express";
-import usersController from '../controllers/usersController';
-import categoriesController from '../controllers/categoriesController';
-import productsController from '../controllers/productsController';
-import cartsController from '../controllers/cartsController';
-import ordersController from '../controllers/ordersController';
+import usersController from '../controllers/usersController.js';
+import categoriesController from '../controllers/categoriesController.js';
+import productsController from '../controllers/productsController.js';
+import cartsController from '../controllers/cartsController.js';
+import ordersController from '../controllers/ordersController.js';
 
 const router = Router();
 router.use('/users', usersController);
