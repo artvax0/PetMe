@@ -31,4 +31,13 @@ const getCategory = async (categoryId) => {
   }
 }
 
-export { newCategory, getCategories, getCategory };
+const getCategoryByName = async (categoryName) => {
+  try {
+    const category = await Category.findOne({ name: categoryName });
+    return category;
+  } catch (error) {
+    throw new Error(chalk.red('Mongoose: ', error));
+  }
+}
+
+export { newCategory, getCategories, getCategory, getCategoryByName };

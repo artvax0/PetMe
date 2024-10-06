@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getCategories, getCategory, newCategory } from "../services/categoriesService.js";
+import { getCategories, getCategory, getCategoryByName, newCategory } from "../services/categoriesService.js";
 import chalk from "chalk";
 
 const router = Router();
@@ -14,11 +14,21 @@ router.post('/', async (req, res) => {
 })
 
 router.get('/', async (req, res) => {
-  try {
-    const categories = await getCategories();
-    res.send(categories);
-  } catch (error) {
-    throw new Error(chalk.red(error.message));
+  if (Object.keys(req.body).length > 0) {
+    try {
+      const { name } = req.body;
+      const category = await getCategoryByName(name);
+      res.send(category);
+    } catch (error) {
+      throw new Error(chalk.red(error.message));
+    }
+  } else {
+    try {
+      const categories = await getCategories();
+      res.send(categories);
+    } catch (error) {
+      throw new Error(chalk.red(error.message));
+    }
   }
 })
 
