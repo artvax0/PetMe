@@ -18,6 +18,6 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, async () => {
-  console.log(chalk.yellow(`[Server] Listening to port ${PORT}`));
+  console.log(chalk.cyan(`[Server] Listening to port ${PORT}`));
   await connectToDb();
 })
