@@ -1,13 +1,14 @@
-import chalk from "chalk";
 import User from "../models/collections/Users.js"
 import _ from 'lodash'
 import { createError } from "../utils/handleErrors.js";
+import { createCart } from "./cartsService.js";
 
 // [POST]
 const registerUser = async (newUser) => {
   try {
     let user = new User(newUser);
     user = await user.save();
+    await createCart(user._id);
     return _.pick(user, ['_id', 'email', 'name']);
   } catch (error) {
     return createError('Mongoose', error);
@@ -22,7 +23,8 @@ const login = async (email, password) => {
       let error = new Error('Invalid email or password');
       error.status = 401;
       return createError('Authentication', error);
-    }
+    };
+
     return `user logged in: ${user._id}`;
   } catch (error) {
     return createError('Mongoose', error);
