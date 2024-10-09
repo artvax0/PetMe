@@ -45,4 +45,14 @@ const getUser = async (userId) => {
   }
 }
 
-export { registerUser, login, getUsers, getUser };
+// [PUT]
+const updateUser = async (userId, updatedUser) => {
+  try {
+    let user = await User.findByIdAndUpdate(userId, updatedUser, { new: true });
+    return user;
+  } catch (error) {
+    throw new Error(chalk.red('Mongoose: ', error));
+  }
+}
+
+export { registerUser, login, getUsers, getUser, updateUser };
