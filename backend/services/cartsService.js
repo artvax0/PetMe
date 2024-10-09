@@ -12,4 +12,14 @@ const createCart = async (userId) => {
   }
 }
 
-export { createCart };
+// [GET]
+const getCart = async (userId) => {
+  try {
+    let cart = await Cart.findOne({ user_id: userId });
+    return cart;
+  } catch (error) {
+    return createError('Mongoose', error.message);
+  }
+}
+
+export { createCart, getCart };
