@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { newProduct } from "../services/productsService.js";
+import { getProduct, getProducts, newProduct, updateProduct } from "../services/productsService.js";
 import { getCategoryByName } from "../services/categoriesService.js";
 import chalk from "chalk";
 
@@ -30,6 +30,16 @@ router.get('/:id', async (req, res) => {
   try {
     const { id } = req.params;
     let product = await getProduct(id);
+    res.send(product);
+  } catch (error) {
+    throw new Error(chalk.red(error.message));
+  }
+})
+
+router.put('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    let product = await updateProduct(id, req.body);
     res.send(product);
   } catch (error) {
     throw new Error(chalk.red(error.message));
