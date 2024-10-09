@@ -26,4 +26,14 @@ router.get('/', async (req, res) => {
   }
 })
 
+router.get('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    let product = await getProduct(id);
+    res.send(product);
+  } catch (error) {
+    throw new Error(chalk.red(error.message));
+  }
+})
+
 export default router;

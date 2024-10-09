@@ -31,14 +31,4 @@ const getProduct = async (productId) => {
   }
 }
 
-// [PUT]
-const updateProduct = async (productId, newProduct) => {
-  try {
-    let product = await Product.findByIdAndUpdate(productId, newProduct, { new: true });
-    return product;
-  } catch (error) {
-    throw new Error(chalk.red('Mongoose: ', error));
-  }
-}
-
 export { newProduct, getProducts, getProduct, updateProduct };
