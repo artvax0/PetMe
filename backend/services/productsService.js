@@ -41,4 +41,14 @@ const updateProduct = async (productId, newProduct) => {
   }
 }
 
-export { newProduct, getProducts, getProduct, updateProduct };
+// [DELETE]
+const deleteProduct = async (productId) => {
+  try {
+    let product = await Product.findByIdAndDelete(productId);
+    return product;
+  } catch (error) {
+    throw new Error(chalk.red('Mongoose: '), error);
+  }
+}
+
+export { newProduct, getProducts, getProduct, updateProduct, deleteProduct };
