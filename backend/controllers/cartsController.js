@@ -10,7 +10,7 @@ router.post('/:id', async (req, res) => {
     let cart = await createCart(id);
     res.send(cart);
   } catch (error) {
-    return handleError(res, 400, error.message);
+    return handleError(res, error.status || 400, error.message);
   }
 });
 
