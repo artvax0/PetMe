@@ -8,6 +8,7 @@ const registerUser = async (newUser) => {
   try {
     let user = new User(newUser);
     user = await user.save();
+    // when user registers - create an empty cart for them
     await createCart(user._id);
     return _.pick(user, ['_id', 'email', 'name']);
   } catch (error) {
