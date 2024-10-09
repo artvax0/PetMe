@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { deleteProduct, getProduct, getProducts, newProduct, updateProduct } from "../services/productsService.js";
 import { getCategoryByName } from "../services/categoriesService.js";
-import chalk from "chalk";
+import { handleError } from "../utils/handleErrors.js";
 
 const router = Router();
 
@@ -13,7 +13,7 @@ router.post('/', async (req, res) => {
     const product = await newProduct(req.body);
     res.send(product);
   } catch (error) {
-    throw new Error(chalk.red(error.message));
+    return handleError(res, 400, error.message);
   }
 })
 
@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
     let products = await getProducts();
     res.send(products);
   } catch (error) {
-    throw new Error(chalk.red(error.message));
+    return handleError(res, 400, error.message);
   }
 })
 
@@ -32,7 +32,7 @@ router.get('/:id', async (req, res) => {
     let product = await getProduct(id);
     res.send(product);
   } catch (error) {
-    throw new Error(chalk.red(error.message));
+    return handleError(res, 400, error.message);
   }
 })
 
@@ -42,7 +42,7 @@ router.put('/:id', async (req, res) => {
     let product = await updateProduct(id, req.body);
     res.send(product);
   } catch (error) {
-    throw new Error(chalk.red(error.message));
+    return handleError(res, 400, error.message);
   }
 })
 
@@ -52,7 +52,7 @@ router.delete('/:id', async (req, res) => {
     let product = await deleteProduct(id);
     res.send(product);
   } catch (error) {
-    throw new Error(chalk.red(error.message));
+    return handleError(res, 400, error.message);
   }
 })
 

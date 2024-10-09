@@ -1,4 +1,3 @@
-import chalk from "chalk";
 import Product from "../models/collections/Product.js"
 
 // [POST]
@@ -8,7 +7,7 @@ const newProduct = async (productInfo) => {
     product = await product.save();
     return product;
   } catch (error) {
-    throw new Error(chalk.red('Mongoose: ', error));
+    return createError('Mongoose', error);
   }
 }
 
@@ -18,7 +17,7 @@ const getProducts = async () => {
     let products = await Product.find();
     return products;
   } catch (error) {
-    throw new Error(chalk.red('Mongoose: ', error));
+    return createError('Mongoose', error);
   }
 }
 
@@ -27,7 +26,7 @@ const getProduct = async (productId) => {
     let product = await Product.findById(productId);
     return product;
   } catch (error) {
-    throw new Error(chalk.red('Mongoose: ', error));
+    return createError('Mongoose', error);
   }
 }
 
@@ -37,7 +36,7 @@ const updateProduct = async (productId, newProduct) => {
     let product = await Product.findByIdAndUpdate(productId, newProduct, { new: true });
     return product;
   } catch (error) {
-    throw new Error(chalk.red('Mongoose: ', error));
+    return createError('Mongoose', error);
   }
 }
 
@@ -47,7 +46,7 @@ const deleteProduct = async (productId) => {
     let product = await Product.findByIdAndDelete(productId);
     return product;
   } catch (error) {
-    throw new Error(chalk.red('Mongoose: '), error);
+    return createError('Mongoose', error);
   }
 }
 

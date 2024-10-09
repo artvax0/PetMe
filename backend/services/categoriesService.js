@@ -1,4 +1,3 @@
-import chalk from "chalk";
 import Category from "../models/collections/Category.js"
 
 // [POST]
@@ -8,7 +7,7 @@ const newCategory = async (categoryInfo) => {
     category = await category.save();
     return category;
   } catch (error) {
-    throw new Error(chalk.red('Mongoose: ', error));
+    return createError('Mongoose', error);
   }
 }
 
@@ -18,7 +17,7 @@ const getCategories = async () => {
     const categories = await Category.find();
     return categories;
   } catch (error) {
-    throw new Error(chalk.red('Mongoose: ', error));
+    return createError('Mongoose', error);
   }
 }
 
@@ -27,7 +26,7 @@ const getCategory = async (categoryId) => {
     const category = await Category.findById(categoryId);
     return category;
   } catch (error) {
-    throw new Error(chalk.red('Mongoose: ', error));
+    return createError('Mongoose', error);
   }
 }
 
@@ -36,7 +35,7 @@ const getCategoryByName = async (categoryName) => {
     const category = await Category.findOne({ name: categoryName });
     return category;
   } catch (error) {
-    throw new Error(chalk.red('Mongoose: ', error));
+    return createError('Mongoose', error);
   }
 }
 
@@ -46,7 +45,7 @@ const updateCategory = async (categoryId, newCategory) => {
     const category = await Category.findByIdAndUpdate(categoryId, newCategory, { new: true });
     return category;
   } catch (error) {
-    throw new Error(chalk.red('Mongoose: ', error));
+    return createError('Mongoose', error);
   }
 }
 
