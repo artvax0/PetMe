@@ -64,4 +64,14 @@ const updateUser = async (userId, updatedUser) => {
   }
 }
 
-export { registerUser, login, getUsers, getUser, getUserOrders, updateUser };
+// [PATCH]
+const updateUserOrder = async (userId, ordersArray) => {
+  try {
+    let user = await User.findByIdAndUpdate(userId, { order_ids: ordersArray }, { new: true });
+    return user;
+  } catch (error) {
+    throw new Error(chalk.red('Mongoose: ', error));
+  }
+}
+
+export { registerUser, login, getUsers, getUser, getUserOrders, updateUser, updateUserOrder, };

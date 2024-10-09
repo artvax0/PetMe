@@ -1,6 +1,6 @@
 import chalk from "chalk";
 import { Router } from "express";
-import { getUser, getUserOrders, getUsers, login, registerUser, updateUser } from "../services/usersService.js";
+import { getUser, getUserOrders, getUsers, login, registerUser, updateUser, updateUserOrder } from "../services/usersService.js";
 
 const router = Router();
 
@@ -56,6 +56,16 @@ router.put('/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const user = await updateUser(id, req.body);
+    res.send(user);
+  } catch (error) {
+    throw new Error(chalk.red(error.message));
+  }
+})
+
+router.patch('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await updateUserOrder(id, req.body);
     res.send(user);
   } catch (error) {
     throw new Error(chalk.red(error.message));
