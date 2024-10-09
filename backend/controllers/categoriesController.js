@@ -42,4 +42,13 @@ router.get('/:id', async (req, res) => {
   }
 })
 
+// for when user attempts to delete a category
+router.delete('/:id', async (req, res) => {
+  try {
+    res.status(405).send('Not Allowed: Not allowed to delete categories');
+  } catch (error) {
+    throw new Error(chalk.red(error.message));
+  }
+})
+
 export default router;
