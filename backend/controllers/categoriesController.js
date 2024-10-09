@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { getCategories, getCategory, getCategoryByName, newCategory, updateCategory } from "../services/categoriesService.js";
-import chalk from "chalk";
+import { handleError } from "../utils/handleErrors.js";
 
 const router = Router();
 
@@ -9,7 +9,7 @@ router.post('/', async (req, res) => {
     const category = await newCategory(req.body);
     res.send(category);
   } catch (error) {
-    (chalk.red(error.message));
+    return handleError(res, 400, error.message);
   }
 })
 
@@ -20,14 +20,14 @@ router.get('/', async (req, res) => {
       const category = await getCategoryByName(name);
       res.send(category);
     } catch (error) {
-      (chalk.red(error.message));
+      return handleError(res, 400, error.message);
     }
   } else {
     try {
       const categories = await getCategories();
       res.send(categories);
     } catch (error) {
-      (chalk.red(error.message));
+      return handleError(res, 400, error.message);
     }
   }
 })
@@ -38,7 +38,7 @@ router.get('/:id', async (req, res) => {
     const category = await getCategory(id);
     res.send(category);
   } catch (error) {
-    (chalk.red(error.message));
+    return handleError(res, 400, error.message);
   }
 })
 
@@ -48,7 +48,7 @@ router.put('/:id', async (req, res) => {
     const category = await updateCategory(id, req.body);
     res.send(category);
   } catch (error) {
-    (chalk.red(error.message));
+    return handleError(res, 400, error.message);
   }
 })
 
@@ -57,7 +57,7 @@ router.delete('/:id', async (req, res) => {
   try {
     res.status(405).send('Not Allowed: Not allowed to delete categories');
   } catch (error) {
-    (chalk.red(error.message));
+    return handleError(res, 400, error.message);
   }
 })
 
