@@ -40,4 +40,14 @@ const getCategoryByName = async (categoryName) => {
   }
 }
 
-export { newCategory, getCategories, getCategory, getCategoryByName };
+// [UPDATE]
+const updateCategory = async (categoryId, newCategory) => {
+  try {
+    const category = await Category.findByIdAndUpdate(categoryId, newCategory, { new: true });
+    return category;
+  } catch (error) {
+    throw new Error(chalk.red('Mongoose: ', error));
+  }
+}
+
+export { newCategory, getCategories, getCategory, getCategoryByName, updateCategory };
