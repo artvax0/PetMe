@@ -45,6 +45,15 @@ const getUser = async (userId) => {
   }
 }
 
+const getUserOrders = async (userId) => {
+  try {
+    let user = await User.findById(userId);
+    return user.order_ids;
+  } catch (error) {
+    throw new Error(chalk.red('Mongoose: ', error));
+  }
+}
+
 // [PUT]
 const updateUser = async (userId, updatedUser) => {
   try {
@@ -55,4 +64,4 @@ const updateUser = async (userId, updatedUser) => {
   }
 }
 
-export { registerUser, login, getUsers, getUser, updateUser };
+export { registerUser, login, getUsers, getUser, getUserOrders, updateUser };
