@@ -7,7 +7,7 @@ const createCart = async (user_id) => {
     if (await getCart(user_id)) {
       let error = Error('Not Allowed');
       error.status = 405;
-      createError('Method', error);
+      return createError('Method', error);
     }
     let cart = new Cart({ user_id, products: [] });
     cart = await cart.save()

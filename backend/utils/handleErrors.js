@@ -1,14 +1,18 @@
 import chalk from "chalk";
 
 const createError = (validator, error) => {
-  error.message = `${validator} Error: ${error.message}`;
   error.status = error.status || 400;
+  error.validator = error.validator || validator;
   throw error;
 }
 
-const handleError = (res, status, msg = '') => {
-  console.log(chalk.redBright(msg));
-  return res.status(status).send(msg);
+const handleError = (res, { validator, message = '', status = 400 }) => {
+  if (validator) {
+    message = `${validator} Error: ${message}`;
+  }
+
+  console.log(chalk.redBright(message));
+  return res.status(status).send(message);
 }
 
 export { createError, handleError };

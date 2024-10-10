@@ -13,7 +13,7 @@ router.post('/', async (req, res) => {
     const product = await newProduct(req.body);
     res.send(product);
   } catch (error) {
-    return handleError(res, 400, error.message);
+    return handleError(res, error);;
   }
 })
 
@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
     let products = await getProducts();
     res.send(products);
   } catch (error) {
-    return handleError(res, 400, error.message);
+    return handleError(res, error);;
   }
 })
 
@@ -32,7 +32,7 @@ router.get('/:id', async (req, res) => {
     let product = await getProduct(id);
     res.send(product);
   } catch (error) {
-    return handleError(res, 400, error.message);
+    return handleError(res, error);;
   }
 })
 
@@ -42,7 +42,7 @@ router.put('/:id', async (req, res) => {
     let product = await updateProduct(id, req.body);
     res.send(product);
   } catch (error) {
-    return handleError(res, 400, error.message);
+    return handleError(res, error);;
   }
 })
 
@@ -52,7 +52,7 @@ router.delete('/:id', async (req, res) => {
     let product = await deleteProduct(id);
     res.send(product);
   } catch (error) {
-    return handleError(res, 400, error.message);
+    return handleError(res, error);;
   }
 })
 
