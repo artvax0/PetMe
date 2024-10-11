@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { handleError } from "../utils/handleErrors.js";
-import { createCart, getCart } from "../services/cartsService.js";
+import { addToCart, createCart, getCart } from "../services/cartsService.js";
 
 const router = Router();
 
@@ -23,5 +23,15 @@ router.get('/:id', async (req, res) => {
     return handleError(res, error);
   }
 });
+
+router.patch('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    let cart = await addToCart(id, req.body);
+    res.send(cart);
+  } catch (error) {
+    return handleError(res, error);
+  }
+})
 
 export default router;
