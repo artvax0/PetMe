@@ -32,6 +32,14 @@ router.patch('/:id', async (req, res) => {
   } catch (error) {
     return handleError(res, error);
   }
+});
+
+router.delete('/:id', async (req, res) => {
+  try {
+    res.status(405).send('Not Allowed: Deleting carts not permitted');
+  } catch (error) {
+    return handleError(res, error);;
+  }
 })
 
 export default router;
