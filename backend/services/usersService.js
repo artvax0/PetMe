@@ -74,7 +74,6 @@ const updateUser = async (userId, updatedUser) => {
 const updateUserOrders = async (userId, ordersArray) => {
   try {
     let orders = _.map(ordersArray, '_id');
-    console.log(orders, ordersArray);
     let user = await User.findByIdAndUpdate(userId, { order_ids: orders }, { new: true });
     return user;
   } catch (error) {
