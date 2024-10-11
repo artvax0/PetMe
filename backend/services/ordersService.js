@@ -1,6 +1,7 @@
 import Order from "../models/collections/Order.js"
 import { createError } from "../utils/handleErrors.js";
 
+// [POST]
 const newOrder = async (orderDetails) => {
   try {
     let order = new Order(orderDetails);
@@ -21,4 +22,14 @@ const newOrder = async (orderDetails) => {
   }
 }
 
-export { newOrder };
+// [PATCH]
+const changeOrderStatus = async (orderId, status) => {
+  try {
+    let order = await Order.findByIdAndUpdate(orderId, status, { new: true });
+    return order;
+  } catch (error) {
+    return createError('Mongoose', error);
+  }
+}
+
+export { newOrder, changeOrderStatus };
