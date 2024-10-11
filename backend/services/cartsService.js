@@ -70,7 +70,7 @@ const addToCart = async (user_id, { product_id, quantity }) => {
     // fail-safe: in-case product doesnt exist in cart and quantity is 0
     if (productIndex == -1 && !quantity) {
       let error = Error('Invalid Quantity');
-      error.status = 404;
+      error.status = 400;
       return createError('Bad Request', error);
     }
 
