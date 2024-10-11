@@ -8,9 +8,9 @@ const Order = mongoose.model('Order', new mongoose.Schema({
     quantity: { type: Number, required: true },
     price: { type: Number, required: true },
   }],
-  total: { type: Number, reqired: true },
+  total: { type: Number },
   address: ADDRESS,
-  status: { type: String, enum: ['Processing', 'En Route', 'Complete', 'Cancelled'] }
+  status: { type: String, enum: ['Processing', 'En Route', 'Complete', 'Cancelled'], default: 'Processing' }
 }, { timestamps: true }));
 
 export default Order;
