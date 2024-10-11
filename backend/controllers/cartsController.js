@@ -34,6 +34,7 @@ router.patch('/:id', async (req, res) => {
   }
 });
 
+// for when user attempts to delete a cart
 router.delete('/:id', async (req, res) => {
   try {
     res.status(405).send('Not Allowed: Deleting carts not permitted');
