@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { changeOrderStatus, getOrders, getOrdersFromUser, newOrder } from "../services/ordersService.js";
+import { changeOrderStatus, getOrder, getOrders, getOrdersFromUser, newOrder } from "../services/ordersService.js";
 import { handleError } from "../utils/handleErrors.js";
 
 const router = Router();
@@ -17,6 +17,16 @@ router.get('/', async (req, res) => {
   try {
     let orders = await getOrders();
     res.send(orders);
+  } catch (error) {
+    handleError(res, error);
+  }
+})
+
+router.get('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    let order = await getOrder(id);
+    res.send(order);
   } catch (error) {
     handleError(res, error);
   }
