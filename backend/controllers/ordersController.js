@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { changeOrderStatus, getOrder, getOrders, getOrdersFromUser, newOrder } from "../services/ordersService.js";
-import { handleError } from "../utils/handleErrors.js";
+import { createError, handleError } from "../utils/handleErrors.js";
 
 const router = Router();
 
@@ -47,6 +47,14 @@ router.patch('/:id', async (req, res) => {
     const { id } = req.params;
     let order = await changeOrderStatus(id, req.body);
     res.send(order);
+  } catch (error) {
+    handleError(res, error);
+  }
+})
+
+router.delete('/:id', async (req, res) => {
+  try {
+    res.status(405).send('Not Allowed: Deleting orders not permitted');
   } catch (error) {
     handleError(res, error);
   }
