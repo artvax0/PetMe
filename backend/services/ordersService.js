@@ -1,5 +1,6 @@
 import Order from "../models/collections/Order.js"
 import { createError } from "../utils/handleErrors.js";
+import { updateUserOrders } from "./usersService.js";
 
 // [POST]
 const newOrder = async (orderDetails) => {
@@ -16,6 +17,8 @@ const newOrder = async (orderDetails) => {
     }
 
     order = await order.save();
+    const userOrders = await getOrdersFromUser(order.user_id);
+    await updateUserOrders(order.user_id, userOrders);
     return order;
   } catch (error) {
     return createError('Mongoose', error);

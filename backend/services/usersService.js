@@ -71,13 +71,15 @@ const updateUser = async (userId, updatedUser) => {
 }
 
 // [PATCH]
-const updateUserOrder = async (userId, ordersArray) => {
+const updateUserOrders = async (userId, ordersArray) => {
   try {
-    let user = await User.findByIdAndUpdate(userId, { order_ids: ordersArray }, { new: true });
+    let orders = _.map(ordersArray, '_id');
+    console.log(orders, ordersArray);
+    let user = await User.findByIdAndUpdate(userId, { order_ids: orders }, { new: true });
     return user;
   } catch (error) {
     return createError('Mongoose', error);
   }
 }
 
-export { registerUser, login, getUsers, getUser, getUserOrders, updateUser, updateUserOrder, };
+export { registerUser, login, getUsers, getUser, getUserOrders, updateUser, updateUserOrders, };

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getUser, getUserOrders, getUsers, login, registerUser, updateUser, updateUserOrder } from "../services/usersService.js";
+import { getUser, getUserOrders, getUsers, login, registerUser, updateUser, updateUserOrders } from "../services/usersService.js";
 import { handleError } from "../utils/handleErrors.js";
 
 const router = Router();
@@ -65,7 +65,7 @@ router.put('/:id', async (req, res) => {
 router.patch('/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const user = await updateUserOrder(id, req.body);
+    const user = await updateUserOrders(id, req.body);
     res.send(user);
   } catch (error) {
     return handleError(res, error);;
