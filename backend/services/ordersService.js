@@ -22,6 +22,16 @@ const newOrder = async (orderDetails) => {
   }
 }
 
+// [GET]
+const getOrdersFromUser = async (user_id) => {
+  try {
+    let orders = await Order.find({ user_id });
+    return orders;
+  } catch (error) {
+    return createError('Mongoose', error);
+  }
+}
+
 // [PATCH]
 const changeOrderStatus = async (orderId, status) => {
   try {
@@ -32,4 +42,4 @@ const changeOrderStatus = async (orderId, status) => {
   }
 }
 
-export { newOrder, changeOrderStatus };
+export { newOrder, getOrdersFromUser, changeOrderStatus };
