@@ -4,6 +4,7 @@ import _ from 'lodash'
 import { createError } from "../utils/handleErrors.js";
 import { createCart } from "./cartsService.js";
 import dbError from "../utils/dbError.js";
+import { comparePasswords, generateUserPassword } from "../utils/bcrypt.js";
 
 const db = config.get('DB');
 
@@ -12,6 +13,7 @@ const registerUser = async (newUser) => {
   if (db == 'mongodb') {
     try {
       let user = new User(newUser);
+      user.password = generateUserPassword(user.password);
       user = await user.save();
       // when user registers - create an empty cart for them
       await createCart(user._id);
@@ -28,7 +30,7 @@ const login = async (email, password) => {
     try {
       let user = await User.findOne({ email });
 
-      if (!user || user.password != password) {
+      if (!user || !comparePasswords(password, user.password)) {
         let error = new Error('Invalid email or password');
         error.status = 401;
         return createError('Authentication', error);
