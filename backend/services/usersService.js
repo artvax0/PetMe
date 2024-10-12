@@ -3,8 +3,9 @@ import config from "config";
 import _ from 'lodash'
 import { createError } from "../utils/handleErrors.js";
 import { createCart } from "./cartsService.js";
-import dbError from "../utils/dbError.js";
+import configError from "../utils/configError.js";
 import { comparePasswords, generateUserPassword } from "../utils/bcrypt.js";
+import { generateAuthToken } from "./tokenService.js";
 
 const db = config.get('DB');
 
@@ -22,7 +23,7 @@ const registerUser = async (newUser) => {
       return createError('Mongoose', error);
     }
   }
-  return dbError();
+  return configError('db');
 }
 
 const login = async (email, password) => {
@@ -36,12 +37,12 @@ const login = async (email, password) => {
         return createError('Authentication', error);
       };
 
-      return `user logged in: ${user._id}`;
+      return generateAuthToken(user);
     } catch (error) {
       return createError('Mongoose', error);
     }
   }
-  return dbError();
+  return configError('db');
 }
 
 // [GET]
@@ -54,7 +55,7 @@ const getUsers = async () => {
       return createError('Mongoose', error);
     }
   }
-  return dbError();
+  return configError('db');
 }
 
 const getUser = async (userId) => {
@@ -66,7 +67,7 @@ const getUser = async (userId) => {
       return createError('Mongoose', error);
     }
   }
-  return dbError();
+  return configError('db');
 }
 
 const getUserOrders = async (userId) => {
@@ -78,7 +79,7 @@ const getUserOrders = async (userId) => {
       return createError('Mongoose', error);
     }
   }
-  return dbError();
+  return configError('db');
 }
 
 // [PUT]
@@ -91,7 +92,7 @@ const updateUser = async (userId, updatedUser) => {
       return createError('Mongoose', error);
     }
   }
-  return dbError();
+  return configError('db');
 }
 
 // [PATCH]
@@ -105,7 +106,7 @@ const updateUserOrders = async (userId, ordersArray) => {
       return createError('Mongoose', error);
     }
   }
-  return dbError();
+  return configError('db');
 }
 
 export { registerUser, login, getUsers, getUser, getUserOrders, updateUser, updateUserOrders, };

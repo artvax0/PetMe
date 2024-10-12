@@ -3,7 +3,7 @@ import config from "config";
 import Cart from "../models/collections/Cart.js"
 import { createError } from "../utils/handleErrors.js";
 import { getProduct } from "./productsService.js";
-import dbError from '../utils/dbError.js';
+import configError from '../utils/configError.js';
 
 const db = config.get('DB');
 
@@ -23,7 +23,7 @@ const createCart = async (user_id) => {
       return createError('Mongoose', error);
     }
   }
-  return dbError();
+  return configError('db');
 }
 
 // [GET]
@@ -36,7 +36,7 @@ const getCart = async (user_id) => {
       return createError('Mongoose', error);
     }
   }
-  return dbError();
+  return configError('db');
 }
 
 // [PATCH]
@@ -90,7 +90,7 @@ const addToCart = async (user_id, { product_id, quantity }) => {
       return createError('Mongoose', error);
     }
   }
-  return dbError();
+  return configError('db');
 }
 
 export { createCart, getCart, addToCart };

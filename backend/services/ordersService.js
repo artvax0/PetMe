@@ -1,6 +1,6 @@
 import Order from "../models/collections/Order.js"
 import config from "config";
-import dbError from "../utils/dbError.js";
+import configError from "../utils/configError.js";
 import { createError } from "../utils/handleErrors.js";
 import { updateUserOrders } from "./usersService.js";
 
@@ -29,7 +29,7 @@ const newOrder = async (orderDetails) => {
       return createError('Mongoose', error);
     }
   }
-  return dbError();
+  return configError('db');
 }
 
 // [GET]
@@ -42,7 +42,7 @@ const getOrders = async () => {
       return createError('Mongoose', error);
     }
   }
-  return dbError();
+  return configError('db');
 }
 
 const getOrder = async (orderId) => {
@@ -54,7 +54,7 @@ const getOrder = async (orderId) => {
       return createError('Mongoose', error);
     }
   }
-  return dbError();
+  return configError('db');
 }
 
 const getOrdersFromUser = async (user_id) => {
@@ -66,7 +66,7 @@ const getOrdersFromUser = async (user_id) => {
       return createError('Mongoose', error);
     }
   }
-  return dbError();
+  return configError('db');
 }
 
 // [PATCH]
@@ -79,7 +79,7 @@ const changeOrderStatus = async (orderId, status) => {
       return createError('Mongoose', error);
     }
   }
-  return dbError();
+  return configError('db');
 }
 
 export { newOrder, getOrders, getOrder, getOrdersFromUser, changeOrderStatus };

@@ -1,6 +1,6 @@
 import Category from "../models/collections/Category.js"
 import config from "config";
-import dbError from "../utils/dbError.js";
+import configError from "../utils/configError.js";
 
 const db = config.get('DB');
 
@@ -15,7 +15,7 @@ const newCategory = async (categoryInfo) => {
       return createError('Mongoose', error);
     }
   }
-  return dbError();
+  return configError('db');
 }
 
 // [GET]
@@ -28,7 +28,7 @@ const getCategories = async () => {
       return createError('Mongoose', error);
     }
   }
-  return dbError();
+  return configError('db');
 }
 
 const getCategory = async (categoryId) => {
@@ -40,7 +40,7 @@ const getCategory = async (categoryId) => {
       return createError('Mongoose', error);
     }
   }
-  return dbError();
+  return configError('db');
 }
 
 const getCategoryByName = async (categoryName) => {
@@ -52,7 +52,7 @@ const getCategoryByName = async (categoryName) => {
       return createError('Mongoose', error);
     }
   }
-  return dbError();
+  return configError('db');
 }
 
 // [UPDATE]
@@ -65,7 +65,7 @@ const updateCategory = async (categoryId, newCategory) => {
       return createError('Mongoose', error);
     }
   }
-  return dbError();
+  return configError('db');
 }
 
 export { newCategory, getCategories, getCategory, getCategoryByName, updateCategory };

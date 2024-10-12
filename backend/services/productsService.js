@@ -1,6 +1,6 @@
 import Product from "../models/collections/Product.js"
 import config from "config";
-import dbError from "../utils/dbError.js";
+import configError from "../utils/configError.js";
 
 const db = config.get('DB');
 
@@ -15,7 +15,7 @@ const newProduct = async (productInfo) => {
       return createError('Mongoose', error);
     }
   }
-  return dbError();
+  return configError('db');
 }
 
 // [GET]
@@ -28,7 +28,7 @@ const getProducts = async () => {
       return createError('Mongoose', error);
     }
   }
-  return dbError();
+  return configError('db');
 }
 
 const getProduct = async (productId) => {
@@ -40,7 +40,7 @@ const getProduct = async (productId) => {
       return createError('Mongoose', error);
     }
   }
-  return dbError();
+  return configError('db');
 }
 
 // [PUT]
@@ -53,7 +53,7 @@ const updateProduct = async (productId, newProduct) => {
       return createError('Mongoose', error);
     }
   }
-  return dbError();
+  return configError('db');
 }
 
 // [DELETE]
@@ -66,7 +66,7 @@ const deleteProduct = async (productId) => {
       return createError('Mongoose', error);
     }
   }
-  return dbError();
+  return configError('db');
 }
 
 export { newProduct, getProducts, getProduct, updateProduct, deleteProduct };
