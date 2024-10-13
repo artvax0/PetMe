@@ -3,11 +3,13 @@ import express from 'express';
 import chalk from 'chalk';
 import connectToDb from './services/dbService.js';
 import router from './routes/router.js';
+import logRequests from './services/loggingService.js';
 
 const PORT = process.env.PORT || 8181;
 
 const app = express();
 app.use(express.json());
+app.use(logRequests());
 app.use(express.static('./public'));
 
 app.use(router);
