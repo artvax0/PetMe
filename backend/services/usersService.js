@@ -50,7 +50,7 @@ const getUsers = async () => {
   if (db == 'mongodb') {
     try {
       let users = await User.find();
-      return users;
+      return _.map(users, user => _.pick(user, ['_id', 'email', 'name', 'image', 'phone', 'address', 'order_ids', 'isEmployee', 'isAdmin']));
     } catch (error) {
       return createError('Mongoose', error);
     }
@@ -62,7 +62,7 @@ const getUser = async (userId) => {
   if (db == 'mongodb') {
     try {
       let user = await User.findById(userId);
-      return user;
+      return _.pick(user, ['_id', 'email', 'name', 'image', 'phone', 'address', 'order_ids']);
     } catch (error) {
       return createError('Mongoose', error);
     }
