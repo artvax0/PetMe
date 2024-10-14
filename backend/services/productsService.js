@@ -1,6 +1,7 @@
 import Product from "../models/collections/Product.js"
 import config from "config";
 import configError from "../utils/configError.js";
+import { createError } from "../utils/handleErrors.js";
 
 const db = config.get('DB');
 
@@ -56,6 +57,19 @@ const updateProduct = async (productId, newProduct) => {
   return configError('db');
 }
 
+// [PATCH]
+const updateProductStock = async (productId, stock) => {
+  if (db == 'mongodb') {
+    try {
+      let product = await Product.findByIdAndUpdate(productId, stock, { new: true });
+      return product;
+    } catch (error) {
+      return createError('Mongoose', error);
+    }
+  }
+  return configError('db');
+}
+
 // [DELETE]
 const deleteProduct = async (productId) => {
   if (db == 'mongodb') {
@@ -69,4 +83,4 @@ const deleteProduct = async (productId) => {
   return configError('db');
 }
 
-export { newProduct, getProducts, getProduct, updateProduct, deleteProduct };
+export { newProduct, getProducts, getProduct, updateProduct, updateProductStock, deleteProduct };
