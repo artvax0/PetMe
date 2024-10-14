@@ -1,11 +1,19 @@
 import { Router } from "express";
 import { handleError } from "../utils/handleErrors.js";
 import { addPet, getPet, getPets } from "../services/petsService.js";
+import authLoggedUser from "../middlewares/userAuth.js";
 
 const router = Router();
 
-router.post('/', async (req, res) => {
+router.post('/', authLoggedUser, async (req, res) => {
   try {
+    const payload = res.locals.user;
+    if (!payload.isAdmin) {
+      let error = Error('Only system admins can add pets');
+      error.status = 405;
+      error.validator = 'Authorization';
+      return handleError(res, error);
+    }
     const pet = await addPet(req.body);
     res.send(pet);
   } catch (error) {
