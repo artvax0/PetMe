@@ -61,7 +61,7 @@ const addToCart = async (user_id, { product_id, quantity }) => {
       // set quantity and price of product if it exists and product quantity is above 0
       if (productIndex >= 0 && quantity) {
         cart.products[productIndex].quantity = quantity;
-        cart.products[productIndex].price = product.price * quantity;
+        cart.products[productIndex].price = product.price * (1 - product.discount / 100) * quantity;
       }
       // remove product from the cart if product quantity is 0
       if (productIndex >= 0 && !quantity) {
@@ -73,7 +73,7 @@ const addToCart = async (user_id, { product_id, quantity }) => {
         cart.products = [...cart.products, {
           product_id,
           quantity,
-          price: product.price * quantity
+          price: product.price * (1 - product.discount / 100) * quantity
         }];
       }
 
