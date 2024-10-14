@@ -18,4 +18,16 @@ const addPet = async (name) => {
   return configError('db');
 }
 
-export { addPet };
+const getPets = async () => {
+  if (db === 'mongodb') {
+    try {
+      let pets = await Pet.find();
+      return pets;
+    } catch (error) {
+      return createError('Mongoose', error);
+    }
+  }
+  return configError('db');
+}
+
+export { addPet, getPets };
