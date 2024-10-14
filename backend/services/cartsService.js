@@ -11,7 +11,7 @@ const db = config.get('DB');
 const createCart = async (user_id) => {
   if (db == 'mongodb') {
     try {
-      if (await getCart(user_id)) {
+      if (await Cart.findOne({ user_id })) {
         let error = Error('Not Allowed');
         error.status = 405;
         return createError('Method', error);
@@ -31,6 +31,27 @@ const getCart = async (user_id) => {
   if (db == 'mongodb') {
     try {
       let cart = await Cart.findOne({ user_id });
+
+      // update products array if discord still applies or is in stock
+      const updatedProducts = await Promise.all(cart.products.map(async (product) => {
+        // get product info
+        const productInfo = await getProduct(product.product_id);
+        // check if discount is valid
+        const now = new Date();
+        const isDiscountValid = productInfo.discount > 0 && productInfo.discountStartDate <= now && productInfo.discountEndDate >= now;
+        // check if product is in stock
+        product.isStocked = productInfo.stock >= product.quantity;
+        product.product_id = product.product_id;
+
+        if (isDiscountValid) {
+          product.price = productInfo.price * (1 - productInfo.discount / 100) * product.quantity
+        } else {
+          product.price = productInfo.price * product.quantity
+        }
+        return product;
+      }))
+      console.log(updatedProducts);
+      cart.products = updatedProducts;
       return cart;
     } catch (error) {
       return createError('Mongoose', error);

@@ -3,6 +3,7 @@ import config from "config";
 import configError from "../utils/configError.js";
 import { createError } from "../utils/handleErrors.js";
 import { updateUserOrders } from "./usersService.js";
+import { getProduct, updateProductStock } from "./productsService.js";
 
 const db = config.get('DB');
 
@@ -12,7 +13,39 @@ const newOrder = async (orderDetails) => {
     try {
       let order = new Order(orderDetails);
       order.total ??= 0;
-      order.products.forEach(product => order.total += product.price);
+
+      const checkStock = async () => {
+        for (const product of order.products) {
+          const productInfo = await getProduct(product.product_id);
+
+          if (productInfo.stock < product.quantity) {
+            let error = Error(`Product ${productInfo.name} is out of stock, or insufficient quantity`);
+            error.status = 400;
+            return createError('Validation', error);
+          }
+        }
+      }
+
+      await checkStock();
+
+      const processProducts = async () => {
+        for (const product of order.products) {
+          const productInfo = await getProduct(product.product_id);
+          const now = new Date();
+          const isDiscountValid = productInfo.discount > 0 && productInfo.discountStartDate <= now && productInfo.discountEndDate >= now;
+
+          if (isDiscountValid) {
+            product.price = productInfo.price * (1 - productInfo.discount / 100) * product.quantity
+          } else {
+            product.price = productInfo.price * product.quantity
+          }
+          let stock = productInfo.stock - product.quantity;
+          await updateProductStock(product.product_id, { stock });
+          order.total += product.price;
+        }
+      }
+
+      await processProducts();
 
       // if user provides status to a new order - that isnt processing, reject request
       if (order.status != 'Processing') {

@@ -7,6 +7,7 @@ const Order = mongoose.model('Order', new mongoose.Schema({
     product_id: { type: mongoose.Schema.Types.ObjectId, required: true },
     quantity: { type: Number, required: true },
     price: { type: Number, required: true },
+    isStocked: { type: Boolean, required: true },
   }],
   total: { type: Number },
   address: ADDRESS,
