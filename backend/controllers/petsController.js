@@ -40,7 +40,7 @@ router.get('/:id', async (req, res) => {
   }
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', authLoggedUser, async (req, res) => {
   try {
     res.status(405).send('Not Allowed: Deleting pets not permitted');
   } catch (error) {
