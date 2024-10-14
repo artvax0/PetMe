@@ -10,7 +10,9 @@ const Product = mongoose.model('Product', new mongoose.Schema({
   stock: { type: Number, required: true, min: 0 },
   category_id: { type: mongoose.Schema.Types.ObjectId, required: true },
   petType_id: [{ type: mongoose.Schema.Types.ObjectId, required: true }],
-  discount: { type: Number, min: 0, max: 100, default: 0 }
+  discount: { type: Number, min: 0, max: 100, default: 0 },
+  discountStartDate: { type: Date },
+  discountEndDate: { type: Date }
 }, { timestamps: true }));
 
 export default Product;
