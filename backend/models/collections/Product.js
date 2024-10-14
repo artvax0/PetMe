@@ -9,6 +9,7 @@ const Product = mongoose.model('Product', new mongoose.Schema({
   price: { type: Number, required: true, min: 0 },
   stock: { type: Number, required: true, min: 0 },
   category_id: { type: mongoose.Schema.Types.ObjectId, required: true },
+  petType_id: [{ type: mongoose.Schema.Types.ObjectId, required: true }]
 }, { timestamps: true }));
 
 export default Product;
