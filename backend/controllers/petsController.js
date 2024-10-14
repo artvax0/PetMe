@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { handleError } from "../utils/handleErrors.js";
-import { addPet, getPets } from "../services/petsService.js";
+import { addPet, getPet, getPets } from "../services/petsService.js";
 
 const router = Router();
 
@@ -22,6 +22,15 @@ router.get('/', async (req, res) => {
   }
 })
 
-router.delete()
+router.get('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const pet = await getPet(id);
+    res.send(pet);
+  } catch (error) {
+    handleError(res, error);
+  }
+})
+
 
 export default router;
