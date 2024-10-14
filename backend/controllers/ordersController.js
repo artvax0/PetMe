@@ -38,7 +38,7 @@ router.get('/', authLoggedUser, async (req, res) => {
   }
 })
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', authLoggedUser, async (req, res) => {
   try {
     const { id } = req.params;
     const payload = res.locals.user;
@@ -55,7 +55,7 @@ router.get('/:id', async (req, res) => {
   }
 })
 
-router.get('/user/:id', async (req, res) => {
+router.get('/user/:id', authLoggedUser, async (req, res) => {
   try {
     const { id } = req.params;
     const payload = res.locals.user;
@@ -72,7 +72,7 @@ router.get('/user/:id', async (req, res) => {
   }
 })
 
-router.patch('/:id', async (req, res) => {
+router.patch('/:id', authLoggedUser, async (req, res) => {
   try {
     const payload = res.locals.user;
     if (!payload.isAdmin || !payload.isEmployee) {
