@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-const productSchema = (product) => {
+const newProductSchema = (product) => {
   const schema = Joi.object({
     name: Joi.string().min(2).max(256).required(),
     description: Joi.string().min(2).max(256).required(),
@@ -18,4 +18,4 @@ const productSchema = (product) => {
   return schema.validate(product);
 }
 
-export default productSchema;
+export default newProductSchema;
