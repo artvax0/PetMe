@@ -1,12 +1,21 @@
 import { Router } from "express";
 import { getUser, getUserOrders, getUsers, login, registerUser, updateUser, updateUserOrders } from "../services/usersService.js";
-import { createError, handleError } from "../utils/handleErrors.js";
+import { handleError } from "../utils/handleErrors.js";
 import authLoggedUser from "../middlewares/userAuth.js";
+import { validateLogin, validateRegistry } from "../validators/validate.js";
 
 const router = Router();
 
 router.post('/', async (req, res) => {
   try {
+    const error = validateRegistry(req.body);
+    if (error) {
+      let err = Error(error);
+      err.status = 400;
+      err.validator = 'Validation';
+      return handleError(res, err);
+    }
+
     const user = await registerUser(req.body);
     res.send(user);
   } catch (error) {
@@ -17,6 +26,15 @@ router.post('/', async (req, res) => {
 router.post('/login', async (req, res) => {
   try {
     let { email, password } = req.body;
+
+    const error = validateLogin(req.body);
+    if (error) {
+      let err = Error(error);
+      err.status = 400;
+      err.validator = 'Validation';
+      return handleError(res, err);
+    }
+
     const user = await login(email, password);
     res.send(user);
   } catch (error) {
@@ -90,6 +108,15 @@ router.put('/:id', authLoggedUser, async (req, res) => {
         return handleError(res, error);
       }
     }
+
+    const error = validateRegistry(req.body);
+    if (error) {
+      let err = Error(error);
+      err.status = 400;
+      err.validator = 'Validation';
+      return handleError(res, err);
+    }
+
     const user = await updateUser(id, req.body);
     res.send(user);
   } catch (error) {
