@@ -2,6 +2,7 @@ import { Router } from "express";
 import { handleError } from "../utils/handleErrors.js";
 import { addToCart, createCart, getCart } from "../services/cartsService.js";
 import authLoggedUser from "../middlewares/userAuth.js";
+import { validateCart } from "../validators/validate.js";
 
 const router = Router();
 
@@ -14,6 +15,7 @@ router.post('/:id', authLoggedUser, async (req, res) => {
       error.validator = 'Authorization';
       return handleError(res, error);
     }
+
     const { id } = req.params;
     let cart = await createCart(id);
     res.send(cart);
@@ -53,6 +55,15 @@ router.patch('/:id', authLoggedUser, async (req, res) => {
         return handleError(res, error);
       }
     }
+
+    const error = validateCart(req.body);
+    if (error) {
+      let err = Error(error);
+      err.status = 400;
+      err.validator = 'Validation';
+      return handleError(res, err);
+    }
+
     let cart = await addToCart(id, req.body);
     res.send(cart);
   } catch (error) {
