@@ -2,6 +2,7 @@ import { Router } from "express";
 import { changeOrderStatus, getOrder, getOrders, getOrdersFromUser, newOrder } from "../services/ordersService.js";
 import { createError, handleError } from "../utils/handleErrors.js";
 import authLoggedUser from "../middlewares/userAuth.js";
+import { validateOrder } from "../validators/validate.js";
 
 const router = Router();
 
@@ -15,6 +16,15 @@ router.post('/:id', authLoggedUser, async (req, res) => {
       error.validator = 'Authorization';
       return handleError(res, error);
     }
+
+    const error = validateOrder(req.body);
+    if (error) {
+      let err = Error(error);
+      err.status = 400;
+      err.validator = 'Validation';
+      return handleError(res, err);
+    }
+
     let order = await newOrder(req.body);
     res.send(order);
   } catch (error) {
