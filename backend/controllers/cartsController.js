@@ -26,11 +26,13 @@ router.get('/:id', authLoggedUser, async (req, res) => {
   try {
     const { id } = req.params;
     const payload = res.locals.user;
-    if (!payload.isAdmin || payload._id != id) {
-      let error = Error('Users can only view their own cart');
-      error.status = 405;
-      error.validator = 'Authorization';
-      return handleError(res, error);
+    if (!payload.isAdmin) {
+      if (payload._id != id) {
+        let error = Error('Users can only view their own cart');
+        error.status = 405;
+        error.validator = 'Authorization';
+        return handleError(res, error);
+      }
     }
     let cart = await getCart(id);
     res.send(cart);
@@ -43,11 +45,13 @@ router.patch('/:id', authLoggedUser, async (req, res) => {
   try {
     const { id } = req.params;
     const payload = res.locals.user;
-    if (!payload.isAdmin || payload._id != id) {
-      let error = Error('Users can only add products to their own cart');
-      error.status = 405;
-      error.validator = 'Authorization';
-      return handleError(res, error);
+    if (!payload.isAdmin) {
+      if (payload._id != id) {
+        let error = Error('Users can only add products to their own cart');
+        error.status = 405;
+        error.validator = 'Authorization';
+        return handleError(res, error);
+      }
     }
     let cart = await addToCart(id, req.body);
     res.send(cart);

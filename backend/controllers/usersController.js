@@ -44,11 +44,13 @@ router.get('/:id', authLoggedUser, async (req, res) => {
   try {
     const { id } = req.params;
     const payload = res.locals.user;
-    if (!payload.isAdmin || !payload._id == id) {
-      let error = Error('A user cannot view other users');
-      error.status = 405;
-      error.validator = 'Authorization';
-      return handleError(res, error);
+    if (!payload.isAdmin) {
+      if (!payload._id == id) {
+        let error = Error('A user cannot view other users');
+        error.status = 405;
+        error.validator = 'Authorization';
+        return handleError(res, error);
+      }
     }
     const user = await getUser(id);
     res.send(user);
@@ -61,11 +63,13 @@ router.get('/:id/orders', authLoggedUser, async (req, res) => {
   try {
     const { id } = req.params;
     const payload = res.locals.user;
-    if (!payload.isAdmin || !payload._id == id) {
-      let error = Error('A user cannot view other user orders');
-      error.status = 405;
-      error.validator = 'Authorization';
-      return handleError(res, error);
+    if (!payload.isAdmin) {
+      if (!payload._id == id) {
+        let error = Error('A user cannot view other user orders');
+        error.status = 405;
+        error.validator = 'Authorization';
+        return handleError(res, error);
+      }
     }
     const userOrders = await getUserOrders(id);
     res.send(userOrders);
@@ -78,11 +82,13 @@ router.put('/:id', authLoggedUser, async (req, res) => {
   try {
     const { id } = req.params;
     const payload = res.locals.user;
-    if (!payload.isAdmin || !payload._id == id) {
-      let error = Error('A user cannot update other users');
-      error.status = 405;
-      error.validator = 'Authorization';
-      return handleError(res, error);
+    if (!payload.isAdmin) {
+      if (!payload._id == id) {
+        let error = Error('A user cannot update other users');
+        error.status = 405;
+        error.validator = 'Authorization';
+        return handleError(res, error);
+      }
     }
     const user = await updateUser(id, req.body);
     res.send(user);
@@ -95,11 +101,13 @@ router.patch('/:id', authLoggedUser, async (req, res) => {
   try {
     const { id } = req.params;
     const payload = res.locals.user;
-    if (!payload.isAdmin || !payload._id == id) {
-      let error = Error('A user cannot update other user orders');
-      error.status = 405;
-      error.validator = 'Authorization';
-      return handleError(res, error);
+    if (!payload.isAdmin) {
+      if (!payload._id == id) {
+        let error = Error('A user cannot update other user orders');
+        error.status = 405;
+        error.validator = 'Authorization';
+        return handleError(res, error);
+      }
     }
     const user = await updateUserOrders(id, req.body);
     res.send(user);

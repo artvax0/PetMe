@@ -42,11 +42,13 @@ router.get('/:id', authLoggedUser, async (req, res) => {
   try {
     const { id } = req.params;
     const payload = res.locals.user;
-    if (!payload.isAdmin || payload._id != id) {
-      let error = Error('Cannot view an other user order');
-      error.status = 405;
-      error.validator = 'Authorization';
-      return handleError(res, error);
+    if (!payload.isAdmin) {
+      if (payload._id != id) {
+        let error = Error('Cannot view an other user order');
+        error.status = 405;
+        error.validator = 'Authorization';
+        return handleError(res, error);
+      }
     }
     let order = await getOrder(id);
     res.send(order);
@@ -59,11 +61,13 @@ router.get('/user/:id', authLoggedUser, async (req, res) => {
   try {
     const { id } = req.params;
     const payload = res.locals.user;
-    if (!payload.isAdmin || payload._id != id) {
-      let error = Error('Cannot view an other user orders');
-      error.status = 405;
-      error.validator = 'Authorization';
-      return handleError(res, error);
+    if (!payload.isAdmin) {
+      if (payload._id != id) {
+        let error = Error('Cannot view an other user orders');
+        error.status = 405;
+        error.validator = 'Authorization';
+        return handleError(res, error);
+      }
     }
     let orders = await getOrdersFromUser(id);
     res.send(orders);
@@ -75,11 +79,13 @@ router.get('/user/:id', authLoggedUser, async (req, res) => {
 router.patch('/:id', authLoggedUser, async (req, res) => {
   try {
     const payload = res.locals.user;
-    if (!payload.isAdmin || !payload.isEmployee) {
-      let error = Error('Only employees can change an order status');
-      error.status = 405;
-      error.validator = 'Authorization';
-      return handleError(res, error);
+    if (!payload.isAdmin) {
+      if (!payload.isEmployee) {
+        let error = Error('Only employees can change an order status');
+        error.status = 405;
+        error.validator = 'Authorization';
+        return handleError(res, error);
+      }
     }
     const { id } = req.params;
     let order = await changeOrderStatus(id, req.body);

@@ -9,11 +9,13 @@ const router = Router();
 router.post('/', authLoggedUser, async (req, res) => {
   try {
     const payload = res.locals.user;
-    if (!payload.isAdmin || !payload.isEmployee) {
-      let error = Error('Only employees can add products');
-      error.status = 405;
-      error.validator = 'Authorization';
-      return handleError(res, error);
+    if (!payload.isAdmin) {
+      if (!payload.isEmployee) {
+        let error = Error('Only employees can add products');
+        error.status = 405;
+        error.validator = 'Authorization';
+        return handleError(res, error);
+      }
     }
     let category = req.body.category_id;
     category = await getCategoryByName(category);
@@ -48,11 +50,13 @@ router.get('/:id', async (req, res) => {
 router.put('/:id', authLoggedUser, async (req, res) => {
   try {
     const payload = res.locals.user;
-    if (!payload.isAdmin || !payload.isEmployee) {
-      let error = Error('Only employees can edit products');
-      error.status = 405;
-      error.validator = 'Authorization';
-      return handleError(res, error);
+    if (!payload.isAdmin) {
+      if (!payload.isEmployee) {
+        let error = Error('Only employees can edit products');
+        error.status = 405;
+        error.validator = 'Authorization';
+        return handleError(res, error);
+      }
     }
     const { id } = req.params;
     let product = await updateProduct(id, req.body);
@@ -65,11 +69,13 @@ router.put('/:id', authLoggedUser, async (req, res) => {
 router.patch('/:id', authLoggedUser, async (req, res) => {
   try {
     const payload = res.locals.user;
-    if (!payload.isAdmin || !payload.isEmployee) {
-      let error = Error('Only employees can update product stock');
-      error.status = 405;
-      error.validator = 'Authorization';
-      return handleError(res, error);
+    if (!payload.isAdmin) {
+      if (!payload.isEmployee) {
+        let error = Error('Only employees can update product stock');
+        error.status = 405;
+        error.validator = 'Authorization';
+        return handleError(res, error);
+      }
     }
     const { id } = req.params;
     let product = await updateProductStock(id, req.body);
@@ -82,11 +88,13 @@ router.patch('/:id', authLoggedUser, async (req, res) => {
 router.delete('/:id', authLoggedUser, async (req, res) => {
   try {
     const payload = res.locals.user;
-    if (!payload.isAdmin || !payload.isEmployee) {
-      let error = Error('Only employees can delete products');
-      error.status = 405;
-      error.validator = 'Authorization';
-      return handleError(res, error);
+    if (!payload.isAdmin) {
+      if (!payload.isEmployee) {
+        let error = Error('Only employees can delete products');
+        error.status = 405;
+        error.validator = 'Authorization';
+        return handleError(res, error);
+      }
     }
     const { id } = req.params;
     let product = await deleteProduct(id);

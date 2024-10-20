@@ -8,11 +8,13 @@ const router = Router();
 router.post('/', authLoggedUser, async (req, res) => {
   try {
     const payload = res.locals.user;
-    if (!payload.isAdmin || !payload.isEmployee) {
-      let error = Error('Only employees can add a category');
-      error.status = 405;
-      error.validator = 'Authorization';
-      return handleError(res, error);
+    if (!payload.isAdmin) {
+      if (!payload.isEmployee) {
+        let error = Error('Only employees can add a category');
+        error.status = 405;
+        error.validator = 'Authorization';
+        return handleError(res, error);
+      }
     }
     const category = await newCategory(req.body);
     res.send(category);
@@ -54,11 +56,13 @@ router.put('/:id', authLoggedUser, async (req, res) => {
   try {
     const { id } = req.params;
     const payload = res.locals.user;
-    if (!payload.isAdmin || !payload.isEmployee) {
-      let error = Error('Only employees can edit a category');
-      error.status = 405;
-      error.validator = 'Authorization';
-      return handleError(res, error);
+    if (!payload.isAdmin) {
+      if (!payload.isEmployee) {
+        let error = Error('Only employees can edit a category');
+        error.status = 405;
+        error.validator = 'Authorization';
+        return handleError(res, error);
+      }
     }
     const category = await updateCategory(id, req.body);
     res.send(category);
