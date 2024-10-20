@@ -6,6 +6,7 @@ import newProductSchema from './schemas/newProductSchema.js';
 import productSchema from './schemas/productSchema.js';
 import orderSchema from './schemas/orderSchema.js';
 import categorySchema from './schemas/categorySchema.js';
+import cartSchema from './schemas/cartSchema.js';
 
 const validator = config.get('VALIDATOR');
 
@@ -63,4 +64,13 @@ const validateCategory = (category) => {
   return configError('validator');
 }
 
-export { validateRegistry, validateLogin, validateNewProduct, validateProduct, validateOrder, validateCategory, };
+const validateCart = (cart) => {
+  if (validator === 'joi') {
+    const { error } = cartSchema(cart);
+    if (error) return error.details[0].message;
+    return ''
+  }
+  return configError('validator');
+}
+
+export { validateRegistry, validateLogin, validateNewProduct, validateProduct, validateOrder, validateCategory, validateCart };
