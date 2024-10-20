@@ -3,6 +3,7 @@ import registerUserSchema from './schemas/registerUserSchema.js';
 import configError from '../utils/configError.js';
 import loginUserSchema from './schemas/loginUserSchema.js';
 import newProductSchema from './schemas/newProductSchema.js';
+import productSchema from './schemas/productSchema.js';
 
 const validator = config.get('VALIDATOR');
 
@@ -33,4 +34,13 @@ const validateNewProduct = (product) => {
   return configError('validator');
 }
 
-export { validateRegistry, validateLogin, validateNewProduct, };
+const validateProduct = (product) => {
+  if (validator === 'joi') {
+    const { error } = productSchema(product);
+    if (error) return error.details[0].message;
+    return ''
+  }
+  return configError('validator');
+}
+
+export { validateRegistry, validateLogin, validateNewProduct, validateProduct, };
