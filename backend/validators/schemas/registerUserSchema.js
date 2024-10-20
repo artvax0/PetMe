@@ -33,5 +33,8 @@ const registerUserSchema = (user) => {
       houseNumber: Joi.number().min(1).default(1).required(),
       zip: Joi.number().min(0).default(0).required()
     }).required()
-  })
+  });
+  return schema.validate(user);
 }
+
+export default registerUserSchema;
