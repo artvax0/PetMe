@@ -76,13 +76,20 @@ const addToCart = async (user_id, { product_id, quantity }) => {
 
       let cart = await Cart.findOne({ user_id });
 
+      const now = new Date();
+      const isDiscountValid = product.discount > 0 && product.discountStartDate <= now && product.discountEndDate >= now;
+
       // check if the product exists
       let productIndex = cart.products.findIndex(produce => produce.product_id == product_id);
 
       // set quantity and price of product if it exists and product quantity is above 0
       if (productIndex >= 0 && quantity) {
         cart.products[productIndex].quantity = quantity;
-        cart.products[productIndex].price = product.price * (1 - product.discount / 100) * quantity;
+        if (isDiscountValid) {
+          cart.products[productIndex].price = product.price * (1 - product.discount / 100) * quantity;
+        } else {
+          cart.products[productIndex].price = product.price * quantity;
+        }
       }
       // remove product from the cart if product quantity is 0
       if (productIndex >= 0 && !quantity) {
