@@ -2,6 +2,7 @@ import { Router } from "express";
 import { getCategories, getCategory, getCategoryByName, newCategory, updateCategory } from "../services/categoriesService.js";
 import { handleError } from "../utils/handleErrors.js";
 import authLoggedUser from "../middlewares/userAuth.js";
+import { validateCategory } from "../validators/validate.js";
 
 const router = Router();
 
@@ -16,6 +17,15 @@ router.post('/', authLoggedUser, async (req, res) => {
         return handleError(res, error);
       }
     }
+
+    const error = validateCategory(req.body);
+    if (error) {
+      let err = Error(error);
+      err.status = 400;
+      err.validator = 'Validation';
+      return handleError(res, err);
+    }
+
     const category = await newCategory(req.body);
     res.send(category);
   } catch (error) {
@@ -64,6 +74,15 @@ router.put('/:id', authLoggedUser, async (req, res) => {
         return handleError(res, error);
       }
     }
+
+    const error = validateCategory(req.body);
+    if (error) {
+      let err = Error(error);
+      err.status = 400;
+      err.validator = 'Validation';
+      return handleError(res, err);
+    }
+
     const category = await updateCategory(id, req.body);
     res.send(category);
   } catch (error) {
