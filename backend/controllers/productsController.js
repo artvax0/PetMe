@@ -3,6 +3,7 @@ import { deleteProduct, getProduct, getProducts, newProduct, updateProduct, upda
 import { getCategoryByName } from "../services/categoriesService.js";
 import { handleError } from "../utils/handleErrors.js";
 import authLoggedUser from "../middlewares/userAuth.js";
+import { validateNewProduct, validateProduct } from "../validators/validate.js";
 
 const router = Router();
 
@@ -17,6 +18,15 @@ router.post('/', authLoggedUser, async (req, res) => {
         return handleError(res, error);
       }
     }
+
+    const error = validateNewProduct(req.body);
+    if (error) {
+      let err = Error(error);
+      err.status = 400;
+      err.validator = 'Validation';
+      return handleError(res, err);
+    }
+
     let category = req.body.category_id;
     category = await getCategoryByName(category);
     req.body = { ...req.body, category_id: category._id };
@@ -58,6 +68,15 @@ router.put('/:id', authLoggedUser, async (req, res) => {
         return handleError(res, error);
       }
     }
+
+    const error = validateProduct(req.body);
+    if (error) {
+      let err = Error(error);
+      err.status = 400;
+      err.validator = 'Validation';
+      return handleError(res, err);
+    }
+
     const { id } = req.params;
     let product = await updateProduct(id, req.body);
     res.send(product);
