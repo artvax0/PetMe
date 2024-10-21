@@ -1,6 +1,7 @@
 import config from "config";
 import 'dotenv/config';
 import mongoose from 'mongoose';
+import initializeDatabase from "./initializationService.js";
 
 const environment = config.get('ENVIRONMENT');
 // const connectionString = process.env.ATLAS_CONT;
@@ -27,6 +28,7 @@ const connectToAtlasDb = async () => {
 const connectToDb = async () => {
   if (environment === "development") {
     await connectToLocalDb();
+    await initializeDatabase();
   } else if (environment === "production") {
     await connectToAtlasDb();
   }
