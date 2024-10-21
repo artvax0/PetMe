@@ -1,6 +1,7 @@
 import Category from "../models/collections/Category.js"
 import config from "config";
 import configError from "../utils/configError.js";
+import { createError } from "../utils/handleErrors.js";
 
 const db = config.get('DB');
 
