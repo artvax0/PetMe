@@ -6,7 +6,7 @@ import fs from 'fs'
 
 const logger = config.get('LOGGER');
 const now = currentTime();
-const dirPath = '../logs'
+const dirPath = './logs'
 
 if (!fs.existsSync(dirPath)) {
   fs.mkdirSync(dirPath);
@@ -18,6 +18,7 @@ const logToFile = (log) => {
   const currentFile = dirPath + `/${year}-${month}-${day}-error-logs.log`;
   if (!fs.existsSync(currentFile)) {
     fs.appendFileSync(currentFile, `${year}-${month}-${day} Error Logs. \n`, { flag: 'a+' });
+    fs.appendFileSync(currentFile, log + '\n');
     console.log(chalk.magenta(`Created ${currentFile} log file.`))
   } else {
     fs.appendFileSync(currentFile, log + '\n');
