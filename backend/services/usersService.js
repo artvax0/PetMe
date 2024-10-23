@@ -87,7 +87,7 @@ const updateUser = async (userId, updatedUser) => {
   if (db == 'mongodb') {
     try {
       let user = await User.findByIdAndUpdate(userId, updatedUser, { new: true });
-      return user;
+      return _.pick(user, ['_id', 'email', 'name', 'image', 'phone', 'address', 'order_ids']);
     } catch (error) {
       return createError('Mongoose', error);
     }
