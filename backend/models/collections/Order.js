@@ -5,7 +5,7 @@ const Order = mongoose.model('Order', new mongoose.Schema({
   user_id: { type: mongoose.Schema.Types.ObjectId, required: true },
   products: [{
     product_id: { type: mongoose.Schema.Types.ObjectId, required: true },
-    quantity: { type: Number, required: true },
+    quantity: { type: Number, min: 1, required: true },
     price: { type: Number, required: true },
   }],
   total: { type: Number },
