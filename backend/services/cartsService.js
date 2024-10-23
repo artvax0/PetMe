@@ -50,7 +50,6 @@ const getCart = async (user_id) => {
         }
         return product;
       }))
-      console.log(updatedProducts);
       cart.products = updatedProducts;
       return cart;
     } catch (error) {
