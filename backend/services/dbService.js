@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import initializeDatabase from "./initializationService.js";
 
 const environment = config.get('ENVIRONMENT');
-// const connectionString = process.env.ATLAS_CONT;
+const connectionString = process.env.ATLAS_CONT;
 const localConnectionStr = process.env.LOCAL_CONT;
 
 const connectToLocalDb = async () => {
