@@ -64,7 +64,13 @@ router.patch('/:id', authLoggedUser, async (req, res) => {
       return handleError(res, err);
     }
 
-    let cart = await addToCart(id, req.body);
+    if (Object.keys(req.body).length > 0) {
+      let cart = await addToCart(id, req.body);
+      res.send(cart);
+    } else {
+
+    }
+
     res.send(cart);
   } catch (error) {
     return handleError(res, error);

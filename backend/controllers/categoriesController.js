@@ -29,7 +29,7 @@ router.post('/', authLoggedUser, async (req, res) => {
     const category = await newCategory(req.body);
     res.send(category);
   } catch (error) {
-    return handleError(res, error);;
+    return handleError(res, error);
   }
 })
 
@@ -40,14 +40,14 @@ router.get('/', async (req, res) => {
       const category = await getCategoryByName(name);
       res.send(category);
     } catch (error) {
-      return handleError(res, error);;
+      return handleError(res, error);
     }
   } else {
     try {
       const categories = await getCategories();
       res.send(categories);
     } catch (error) {
-      return handleError(res, error);;
+      return handleError(res, error);
     }
   }
 })
@@ -58,7 +58,7 @@ router.get('/:id', async (req, res) => {
     const category = await getCategory(id);
     res.send(category);
   } catch (error) {
-    return handleError(res, error);;
+    return handleError(res, error);
   }
 })
 
@@ -86,7 +86,7 @@ router.put('/:id', authLoggedUser, async (req, res) => {
     const category = await updateCategory(id, req.body);
     res.send(category);
   } catch (error) {
-    return handleError(res, error);;
+    return handleError(res, error);
   }
 })
 
@@ -95,7 +95,7 @@ router.delete('/:id', authLoggedUser, async (req, res) => {
   try {
     res.status(405).send('Not Allowed: Deleting categories not permitted');
   } catch (error) {
-    return handleError(res, error);;
+    return handleError(res, error);
   }
 })
 
