@@ -136,7 +136,6 @@ router.patch('/:id', authLoggedUser, async (req, res) => {
         return handleError(res, error);
       }
     }
-    console.log(payload._id)
     const user = await updateUserOrders(id, req.body);
     res.send(user);
   } catch (error) {
