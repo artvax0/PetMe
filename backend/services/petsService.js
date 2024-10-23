@@ -5,10 +5,12 @@ import { createError } from '../utils/handleErrors.js';
 const db = config.get('DB');
 
 // [POST]
-const addPet = async (name) => {
+const addPet = async (petInfo) => {
   if (db === 'mongodb') {
     try {
-      let pet = new Pet(name);
+      let findPet = await Pet.findOne({ name: petInfo.name });
+      if (findPet) return createError('Bad Request', Error('Pet already exists'));
+      let pet = new Pet(petInfo);
       pet = await pet.save();
       return pet;
     } catch (error) {
