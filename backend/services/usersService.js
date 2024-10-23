@@ -99,8 +99,14 @@ const updateUser = async (userId, updatedUser) => {
 const updateUserOrders = async (userId, ordersArray) => {
   if (db == 'mongodb') {
     try {
-      let orders = _.map(ordersArray, '_id');
-      let user = await User.findByIdAndUpdate(userId, { order_ids: orders }, { new: true });
+      let orders;
+      if (typeof ordersArray[0] == 'string') {
+        orders = ordersArray
+      } else {
+        orders = _.map(ordersArray, '_id');
+      }
+
+      let user = await User.findByIdAndUpdate(userId, { $push: { order_ids: { $each: orders } } }, { new: true });
       return _.pick(user, ['_id', 'email', 'name', 'image', 'phone', 'address', 'order_ids']);
     } catch (error) {
       return createError('Mongoose', error);
