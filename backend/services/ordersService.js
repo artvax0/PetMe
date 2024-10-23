@@ -41,7 +41,7 @@ const newOrder = async (user_id, orderDetails) => {
             product.price = productInfo.price * product.quantity
           }
           let stock = productInfo.stock - product.quantity;
-          await updateProductStock(product.product_id, { stock });
+          await updateProductStock(product.product_id, stock);
           order.total += product.price;
         }
       }
