@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { changeOrderStatus, getOrder, getOrders, getOrdersFromUser, newOrder } from "../services/ordersService.js";
-import { createError, handleError } from "../utils/handleErrors.js";
+import { handleError } from "../utils/handleErrors.js";
 import authLoggedUser from "../middlewares/userAuth.js";
 import { validateOrder } from "../validators/validate.js";
 
