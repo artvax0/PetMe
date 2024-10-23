@@ -61,7 +61,8 @@ const updateProduct = async (productId, newProduct) => {
 const updateProductStock = async (productId, stock) => {
   if (db == 'mongodb') {
     try {
-      let product = await Product.findByIdAndUpdate(productId, stock, { new: true });
+      if (stock < 0) return createError('Bad Request', Error('Invalid quantity'));
+      let product = await Product.findByIdAndUpdate(productId, { stock: stock }, { new: true });
       return product;
     } catch (error) {
       return createError('Mongoose', error);

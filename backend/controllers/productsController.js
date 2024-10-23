@@ -97,7 +97,8 @@ router.patch('/:id', authLoggedUser, async (req, res) => {
       }
     }
     const { id } = req.params;
-    let product = await updateProductStock(id, req.body);
+const { stock } = req.body
+    let product = await updateProductStock(id, stock);
     res.send(product);
   } catch (error) {
     return handleError(res, error);
