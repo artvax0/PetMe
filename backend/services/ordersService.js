@@ -80,10 +80,18 @@ const getOrders = async () => {
   return configError('db');
 }
 
-const getOrder = async (orderId) => {
+const getOrder = async (orderId, payload) => {
   if (db == 'mongodb') {
     try {
-      let order = await Order.find({ _id: orderId });
+      let order = await Order.findById(orderId);
+      if (!payload.isAdmin) {
+        if (order.user_id != payload._id) {
+          console.log(order, payload._id)
+          let error = Error('Cannot view an other user order');
+          error.status = 403;
+          return createError('Authorization', error);
+        }
+      }
       return order;
     } catch (error) {
       return createError('Mongoose', error);

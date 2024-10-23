@@ -52,15 +52,8 @@ router.get('/:id', authLoggedUser, async (req, res) => {
   try {
     const { id } = req.params;
     const payload = res.locals.user;
-    if (!payload.isAdmin) {
-      if (payload._id != id) {
-        let error = Error('Cannot view an other user order');
-        error.status = 405;
-        error.validator = 'Authorization';
-        return handleError(res, error);
-      }
-    }
-    let order = await getOrder(id);
+    
+    let order = await getOrder(id, payload);
     res.send(order);
   } catch (error) {
     handleError(res, error);
