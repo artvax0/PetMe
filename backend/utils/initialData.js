@@ -58,7 +58,7 @@ const initialUsers = [
       last: 'Jones',
     },
     email: 'peterjones@test.com',
-    password: generateUserPassword('peterjones!123'),
+    password: generateUserPassword('peterJones!123'),
     image: {
       url: 'http://localhost:8181/images/avatar_uni.png',
       alt: 'Avatar',
