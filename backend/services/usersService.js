@@ -101,7 +101,7 @@ const updateUserOrders = async (userId, ordersArray) => {
     try {
       let orders = _.map(ordersArray, '_id');
       let user = await User.findByIdAndUpdate(userId, { order_ids: orders }, { new: true });
-      return user;
+      return _.pick(user, ['_id', 'email', 'name', 'image', 'phone', 'address', 'order_ids']);
     } catch (error) {
       return createError('Mongoose', error);
     }
