@@ -86,7 +86,6 @@ const getOrder = async (orderId, payload) => {
       let order = await Order.findById(orderId);
       if (!payload.isAdmin) {
         if (order.user_id != payload._id) {
-          console.log(order, payload._id)
           let error = Error('Cannot view an other user order');
           error.status = 403;
           return createError('Authorization', error);
