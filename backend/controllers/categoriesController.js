@@ -33,7 +33,7 @@ router.post('/', authLoggedUser, async (req, res) => {
   }
 })
 
-router.get('/', authLoggedUser, async (req, res) => {
+router.get('/', async (req, res) => {
   if (Object.keys(req.body).length > 0) {
     try {
       const { name } = req.body;
@@ -52,7 +52,7 @@ router.get('/', authLoggedUser, async (req, res) => {
   }
 })
 
-router.get('/:id', authLoggedUser, async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const category = await getCategory(id);
