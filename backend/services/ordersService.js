@@ -13,9 +13,11 @@ const newOrder = async (user_id, orderDetails) => {
   if (db == 'mongodb') {
     try {
       let order = new Order({ user_id, ...orderDetails });
+      // set order total to 0, create it if null
       order.total ??= 0;
 
       const checkStock = async () => {
+        // for every product, check if the product is in stock
         for (const product of order.products) {
           const productInfo = await getProduct(product.product_id);
 
@@ -30,6 +32,7 @@ const newOrder = async (user_id, orderDetails) => {
       await checkStock();
 
       const processProducts = async () => {
+        // for every product, check if it has a discount at the current moment, set price to product accordingly
         for (const product of order.products) {
           const productInfo = await getProduct(product.product_id);
           const now = new Date();
@@ -42,6 +45,7 @@ const newOrder = async (user_id, orderDetails) => {
           }
           let stock = productInfo.stock - product.quantity;
           await updateProductStock(product.product_id, stock);
+          // update order total
           order.total += product.price;
         }
       }
@@ -56,8 +60,10 @@ const newOrder = async (user_id, orderDetails) => {
       }
 
       order = await order.save();
+      // update users' orders array 
       const userOrders = await getOrdersFromUser(order.user_id);
       await updateUserOrders(order.user_id, userOrders);
+      // clean users' current cart
       await cleanCart(order.user_id);
       return order;
     } catch (error) {
