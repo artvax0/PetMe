@@ -9,10 +9,10 @@ import { cleanCart } from "./cartsService.js";
 const db = config.get('DB');
 
 // [POST]
-const newOrder = async (orderDetails) => {
+const newOrder = async (user_id, orderDetails) => {
   if (db == 'mongodb') {
     try {
-      let order = new Order(orderDetails);
+      let order = new Order({ user_id, ...orderDetails });
       order.total ??= 0;
 
       const checkStock = async () => {

@@ -2,7 +2,6 @@ import Joi from "joi";
 
 const orderSchema = (order) => {
   const schema = Joi.object({
-    user_id: Joi.string().hex().length(24).required(),
     products: Joi.array().items(Joi.object().required()),
     address: Joi.object().keys({
       country: Joi.string().min(2).max(256).required(),

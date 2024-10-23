@@ -25,7 +25,7 @@ router.post('/:id', authLoggedUser, async (req, res) => {
       return handleError(res, err);
     }
 
-    let order = await newOrder(req.body);
+    let order = await newOrder(id, req.body);
     res.send(order);
   } catch (error) {
     handleError(res, error);
