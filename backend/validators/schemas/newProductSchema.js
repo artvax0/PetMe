@@ -13,7 +13,8 @@ const newProductSchema = (product) => {
     }).required(),
     price: Joi.number().min(0).required(),
     stock: Joi.number().min(0).required(),
-    category_id: Joi.string().required()
+    category_id: Joi.string().required(),
+    petType_id: Joi.array().items(Joi.string().hex().length(24).required()),
   });
   return schema.validate(product);
 }
