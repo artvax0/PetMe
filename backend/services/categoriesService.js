@@ -9,6 +9,8 @@ const db = config.get('DB');
 const newCategory = async (categoryInfo) => {
   if (db == 'mongodb') {
     try {
+      let findCategory = await Category.findOne({ name: categoryInfo.name });
+      if (findCategory) return createError('Bad Request', Error('Category already exists'));
       let category = new Category(categoryInfo);
       category = await category.save();
       return category;
