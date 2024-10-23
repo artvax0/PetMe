@@ -47,7 +47,7 @@ router.get('/', authLoggedUser, async (req, res) => {
     const payload = res.locals.user;
     if (!payload.isAdmin) {
       let error = Error('Only an admin can get all users');
-      error.status = 405;
+      error.status = 403;
       error.validator = 'Authorization';
       return handleError(res, error);
     }
@@ -63,9 +63,9 @@ router.get('/:id', authLoggedUser, async (req, res) => {
     const { id } = req.params;
     const payload = res.locals.user;
     if (!payload.isAdmin) {
-      if (!payload._id == id) {
+      if (payload._id != id) {
         let error = Error('A user cannot view other users');
-        error.status = 405;
+        error.status = 403;
         error.validator = 'Authorization';
         return handleError(res, error);
       }
@@ -82,9 +82,9 @@ router.get('/:id/orders', authLoggedUser, async (req, res) => {
     const { id } = req.params;
     const payload = res.locals.user;
     if (!payload.isAdmin) {
-      if (!payload._id == id) {
+      if (payload._id != id) {
         let error = Error('A user cannot view other user orders');
-        error.status = 405;
+        error.status = 403;
         error.validator = 'Authorization';
         return handleError(res, error);
       }
@@ -101,9 +101,9 @@ router.put('/:id', authLoggedUser, async (req, res) => {
     const { id } = req.params;
     const payload = res.locals.user;
     if (!payload.isAdmin) {
-      if (!payload._id == id) {
+      if (payload._id != id) {
         let error = Error('A user cannot update other users');
-        error.status = 405;
+        error.status = 403;
         error.validator = 'Authorization';
         return handleError(res, error);
       }
@@ -129,13 +129,14 @@ router.patch('/:id', authLoggedUser, async (req, res) => {
     const { id } = req.params;
     const payload = res.locals.user;
     if (!payload.isAdmin) {
-      if (!payload._id == id) {
+      if (payload._id != id) {
         let error = Error('A user cannot update other user orders');
-        error.status = 405;
+        error.status = 403;
         error.validator = 'Authorization';
         return handleError(res, error);
       }
     }
+    console.log(payload._id)
     const user = await updateUserOrders(id, req.body);
     res.send(user);
   } catch (error) {

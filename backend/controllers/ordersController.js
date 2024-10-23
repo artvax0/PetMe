@@ -12,7 +12,7 @@ router.post('/:id', authLoggedUser, async (req, res) => {
     const payload = res.locals.user;
     if (payload._id != id) {
       let error = Error('Cannot add an order for another user');
-      error.status = 405;
+      error.status = 403;
       error.validator = 'Authorization';
       return handleError(res, error);
     }
@@ -36,10 +36,12 @@ router.get('/', authLoggedUser, async (req, res) => {
   try {
     const payload = res.locals.user;
     if (!payload.isAdmin) {
-      let error = Error('Only admins can view all orders');
-      error.status = 405;
-      error.validator = 'Authorization';
-      return handleError(res, error);
+      if (!payload.isEmployee) {
+        let error = Error('Only employees can view all orders');
+        error.status = 403;
+        error.validator = 'Authorization';
+        return handleError(res, error);
+      }
     }
     let orders = await getOrders();
     res.send(orders);
@@ -52,7 +54,7 @@ router.get('/:id', authLoggedUser, async (req, res) => {
   try {
     const { id } = req.params;
     const payload = res.locals.user;
-    
+
     let order = await getOrder(id, payload);
     res.send(order);
   } catch (error) {
@@ -65,11 +67,13 @@ router.get('/user/:id', authLoggedUser, async (req, res) => {
     const { id } = req.params;
     const payload = res.locals.user;
     if (!payload.isAdmin) {
-      if (payload._id != id) {
-        let error = Error('Cannot view an other user orders');
-        error.status = 405;
-        error.validator = 'Authorization';
-        return handleError(res, error);
+      if (!payload.isEmployee) {
+        if (payload._id != id) {
+          let error = Error('Cannot view an other user orders');
+          error.status = 403;
+          error.validator = 'Authorization';
+          return handleError(res, error);
+        }
       }
     }
     let orders = await getOrdersFromUser(id);
@@ -85,7 +89,7 @@ router.patch('/:id', authLoggedUser, async (req, res) => {
     if (!payload.isAdmin) {
       if (!payload.isEmployee) {
         let error = Error('Only employees can change an order status');
-        error.status = 405;
+        error.status = 403;
         error.validator = 'Authorization';
         return handleError(res, error);
       }

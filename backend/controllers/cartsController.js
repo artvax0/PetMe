@@ -11,7 +11,7 @@ router.post('/:id', authLoggedUser, async (req, res) => {
     const payload = res.locals.user;
     if (!payload.isAdmin) {
       let error = Error('Only system admins can add a cart');
-      error.status = 405;
+      error.status = 403;
       error.validator = 'Authorization';
       return handleError(res, error);
     }
@@ -31,7 +31,7 @@ router.get('/:id', authLoggedUser, async (req, res) => {
     if (!payload.isAdmin) {
       if (payload._id != id) {
         let error = Error('Users can only view their own cart');
-        error.status = 405;
+        error.status = 403;
         error.validator = 'Authorization';
         return handleError(res, error);
       }
@@ -50,7 +50,7 @@ router.patch('/:id', authLoggedUser, async (req, res) => {
     if (!payload.isAdmin) {
       if (payload._id != id) {
         let error = Error('Users can only add products to their own cart');
-        error.status = 405;
+        error.status = 403;
         error.validator = 'Authorization';
         return handleError(res, error);
       }
@@ -78,7 +78,7 @@ router.patch('/:id/empty', authLoggedUser, async (req, res) => {
     if (!payload.isAdmin) {
       if (payload._id != id) {
         let error = Error('Users can only empty their own cart');
-        error.status = 405;
+        error.status = 403;
         error.validator = 'Authorization';
         return handleError(res, error);
       }

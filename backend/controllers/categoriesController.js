@@ -12,7 +12,7 @@ router.post('/', authLoggedUser, async (req, res) => {
     if (!payload.isAdmin) {
       if (!payload.isEmployee) {
         let error = Error('Only employees can add a category');
-        error.status = 405;
+        error.status = 403;
         error.validator = 'Authorization';
         return handleError(res, error);
       }
@@ -69,7 +69,7 @@ router.put('/:id', authLoggedUser, async (req, res) => {
     if (!payload.isAdmin) {
       if (!payload.isEmployee) {
         let error = Error('Only employees can edit a category');
-        error.status = 405;
+        error.status = 403;
         error.validator = 'Authorization';
         return handleError(res, error);
       }

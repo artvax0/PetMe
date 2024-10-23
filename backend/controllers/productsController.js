@@ -13,7 +13,7 @@ router.post('/', authLoggedUser, async (req, res) => {
     if (!payload.isAdmin) {
       if (!payload.isEmployee) {
         let error = Error('Only employees can add products');
-        error.status = 405;
+        error.status = 403;
         error.validator = 'Authorization';
         return handleError(res, error);
       }
@@ -63,7 +63,7 @@ router.put('/:id', authLoggedUser, async (req, res) => {
     if (!payload.isAdmin) {
       if (!payload.isEmployee) {
         let error = Error('Only employees can edit products');
-        error.status = 405;
+        error.status = 403;
         error.validator = 'Authorization';
         return handleError(res, error);
       }
@@ -91,13 +91,13 @@ router.patch('/:id', authLoggedUser, async (req, res) => {
     if (!payload.isAdmin) {
       if (!payload.isEmployee) {
         let error = Error('Only employees can update product stock');
-        error.status = 405;
+        error.status = 403;
         error.validator = 'Authorization';
         return handleError(res, error);
       }
     }
     const { id } = req.params;
-const { stock } = req.body
+    const { stock } = req.body
     let product = await updateProductStock(id, stock);
     res.send(product);
   } catch (error) {
@@ -111,7 +111,7 @@ router.delete('/:id', authLoggedUser, async (req, res) => {
     if (!payload.isAdmin) {
       if (!payload.isEmployee) {
         let error = Error('Only employees can delete products');
-        error.status = 405;
+        error.status = 403;
         error.validator = 'Authorization';
         return handleError(res, error);
       }

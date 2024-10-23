@@ -10,7 +10,7 @@ router.post('/', authLoggedUser, async (req, res) => {
     const payload = res.locals.user;
     if (!payload.isAdmin) {
       let error = Error('Only system admins can add pets');
-      error.status = 405;
+      error.status = 403;
       error.validator = 'Authorization';
       return handleError(res, error);
     }
