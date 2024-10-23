@@ -4,6 +4,7 @@ import configError from "../utils/configError.js";
 import { createError } from "../utils/handleErrors.js";
 import { updateUserOrders } from "./usersService.js";
 import { getProduct, updateProductStock } from "./productsService.js";
+import { cleanCart } from "./cartsService.js";
 
 const db = config.get('DB');
 
@@ -57,6 +58,7 @@ const newOrder = async (orderDetails) => {
       order = await order.save();
       const userOrders = await getOrdersFromUser(order.user_id);
       await updateUserOrders(order.user_id, userOrders);
+      await cleanCart(order.user_id);
       return order;
     } catch (error) {
       return createError('Mongoose', error);

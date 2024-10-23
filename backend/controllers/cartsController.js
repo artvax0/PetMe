@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { handleError } from "../utils/handleErrors.js";
-import { addToCart, createCart, getCart } from "../services/cartsService.js";
+import { addToCart, cleanCart, createCart, getCart } from "../services/cartsService.js";
 import authLoggedUser from "../middlewares/userAuth.js";
 import { validateCart } from "../validators/validate.js";
 
@@ -68,10 +68,9 @@ router.patch('/:id', authLoggedUser, async (req, res) => {
       let cart = await addToCart(id, req.body);
       res.send(cart);
     } else {
-
+      let cart = await cleanCart(id);
+      res.send(cart);
     }
-
-    res.send(cart);
   } catch (error) {
     return handleError(res, error);
   }

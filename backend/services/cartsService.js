@@ -120,4 +120,16 @@ const addToCart = async (user_id, { product_id, quantity }) => {
   return configError('db');
 }
 
-export { createCart, getCart, addToCart };
+const cleanCart = async (user_id) => {
+  if (db === 'mongodb') {
+    try {
+      let cart = await Cart.findOneAndUpdate({ user_id }, { products: [] }, { new: true });
+      return cart;
+    } catch (error) {
+      return createError('Mongoose', error);
+    }
+  }
+  return configError('db');
+}
+
+export { createCart, getCart, addToCart, cleanCart };
