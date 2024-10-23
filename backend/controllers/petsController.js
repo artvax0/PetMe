@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { handleError } from "../utils/handleErrors.js";
-import { addPet, getPet, getPets } from "../services/petsService.js";
+import { addPet, getPet, getPetByName, getPets } from "../services/petsService.js";
 import authLoggedUser from "../middlewares/userAuth.js";
 
 const router = Router();
@@ -22,11 +22,21 @@ router.post('/', authLoggedUser, async (req, res) => {
 })
 
 router.get('/', async (req, res) => {
-  try {
-    const pets = await getPets();
-    res.send(pets);
-  } catch (error) {
-    handleError(res, error);
+  if (Object.keys(req.body).length > 0) {
+    try {
+      const { name } = req.body;
+      const category = await getPetByName(name);
+      res.send(category);
+    } catch (error) {
+      return handleError(res, error);;
+    }
+  } else {
+    try {
+      const pets = await getPets();
+      res.send(pets);
+    } catch (error) {
+      return handleError(res, error);;
+    }
   }
 })
 
