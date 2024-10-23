@@ -2,7 +2,7 @@ import { Router } from "express";
 import { getUser, getUserOrders, getUsers, login, registerUser, updateUser, updateUserOrders } from "../services/usersService.js";
 import { handleError } from "../utils/handleErrors.js";
 import authLoggedUser from "../middlewares/userAuth.js";
-import { validateLogin, validateRegistry } from "../validators/validate.js";
+import { validateLogin, validateRegistry, validateUser } from "../validators/validate.js";
 
 const router = Router();
 
@@ -109,7 +109,7 @@ router.put('/:id', authLoggedUser, async (req, res) => {
       }
     }
 
-    const error = validateRegistry(req.body);
+    const error = validateUser(req.body);
     if (error) {
       let err = Error(error);
       err.status = 400;

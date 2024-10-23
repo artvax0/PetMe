@@ -7,12 +7,22 @@ import productSchema from './schemas/productSchema.js';
 import orderSchema from './schemas/orderSchema.js';
 import categorySchema from './schemas/categorySchema.js';
 import cartSchema from './schemas/cartSchema.js';
+import userSchema from './schemas/userSchema.js';
 
 const validator = config.get('VALIDATOR');
 
 const validateRegistry = (user) => {
   if (validator === 'joi') {
     const { error } = registerUserSchema(user);
+    if (error) return error.details[0].message;
+    return '';
+  }
+  return configError('validator');
+}
+
+const validateUser = (user) => {
+  if (validator === 'joi') {
+    const { error } = userSchema(user);
     if (error) return error.details[0].message;
     return '';
   }
@@ -73,4 +83,4 @@ const validateCart = (cart) => {
   return configError('validator');
 }
 
-export { validateRegistry, validateLogin, validateNewProduct, validateProduct, validateOrder, validateCategory, validateCart };
+export { validateRegistry, validateUser, validateLogin, validateNewProduct, validateProduct, validateOrder, validateCategory, validateCart };
