@@ -64,17 +64,31 @@ router.patch('/:id', authLoggedUser, async (req, res) => {
       return handleError(res, err);
     }
 
-    if (Object.keys(req.body).length > 0) {
-      let cart = await addToCart(id, req.body);
-      res.send(cart);
-    } else {
-      let cart = await cleanCart(id);
-      res.send(cart);
-    }
+    let cart = await addToCart(id, req.body);
+    res.send(cart);
   } catch (error) {
     return handleError(res, error);
   }
 });
+
+router.patch('/:id/empty', authLoggedUser, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const payload = res.locals.user;
+    if (!payload.isAdmin) {
+      if (payload._id != id) {
+        let error = Error('Users can only empty their own cart');
+        error.status = 405;
+        error.validator = 'Authorization';
+        return handleError(res, error);
+      }
+    }
+    let cart = await cleanCart(id);
+    res.send(cart);
+  } catch (error) {
+    return handleError(res, error);
+  }
+})
 
 // for when user attempts to delete a cart
 router.delete('/:id', authLoggedUser, async (req, res) => {
