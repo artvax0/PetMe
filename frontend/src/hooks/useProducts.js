@@ -9,41 +9,34 @@ export default function useProducts() {
   const [error, setError] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
-  const fetchProducts = useCallback(async () => {
-    try {
-      const response = await getProducts();
-      setAllProducts(response.data);
-      return response.data
-    } catch (error) {
-      setError(error.message);
-    }
-  }, []);
-
-  const fetchCategories = useCallback(async () => {
-    try {
-      const response = await getCategories();
-      setCategories(response.data);
-    } catch (error) {
-      setError(error.message);
-    }
-  }, []);
-
   const getAllProducts = useCallback(async () => {
+    setIsLoading(true);
     try {
-      await fetchCategories();
-      const products = await fetchProducts();
+      // fetch all categories and products and update state
+      const categoriesResponse = await getCategories();
+      const productsResponse = await getProducts();
+      setCategories(categoriesResponse.data);
+      setAllProducts(productsResponse.data);
 
-      const groupedProducts = categories.reduce((accumilator, category) => {
-        accumilator[category._id] = allProducts.filter(product => product.category_id == category._id);
-        return accumilator;
-      }, {});
+      // immediately group them up accordingly
+      const groupedProducts = categoriesResponse.data.reduce((acc, category) => {
+        acc[category._id] = [];
+        return acc;
+      }, {})
+      // insert products by categories
+      productsResponse.data.forEach(product => {
+        if (groupedProducts[product.category_id]) {
+          groupedProducts[product.category_id].push(product);
+        }
+      })
 
-      setProductsByCategory(groupedProducts);
+      // update categories state
+      setProductsByCategory(groupedProducts)
     } catch (error) {
       setError(error.message);
     }
     setIsLoading(false);
-  }, []);
+  }, [categories, allProducts]);
 
   return { getAllProducts, allProducts, categories, productsByCategory, error, isLoading };
 }

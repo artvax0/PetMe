@@ -8,18 +8,18 @@ export default function ProductsPage() {
 
   useEffect(() => {
     getAllProducts();
-  }, [getAllProducts]);
+  }, []);
 
   if (isLoading) return <p>Loading...</p> //temporarry loading message until loading spinner is ready
-  if (error) return <p>Error.</p> //temporary error message until error component is ready
+  if (error) return <p>Error: {error}</p> //temporary error message until error component is ready
   if (categories) return (
     <div>
       {categories.map(category => {
-        const products = productsByCategory[category._id];
+        const products = productsByCategory[category._id] || [];
 
         if (products && products.length > 0) return (
           <div key={category._id}>
-            <Typography variant='h2'>{category.name}</Typography>
+            <Typography variant='h5' component='h2'>{category.name}</Typography>
             <Grid2 container spacing={2} mx={3}>
               {products.map((product) => (
                 <Grid2 key={product._id} display='inline-flex' size={{ xs: 12, sm: 6, md: 4, lg: 1.5 }}>
