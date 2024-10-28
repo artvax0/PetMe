@@ -6,6 +6,7 @@ import { AxiosResponse } from "axios";
 export default function useProducts() {
   const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [error, setError] = useState<string>();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const getAllProducts = useCallback(async () => {
     try {
@@ -17,7 +18,8 @@ export default function useProducts() {
       const err = (error as Error).message;
       setError(err);
     }
+    setIsLoading(false);
   }, []);
 
-  return { getAllProducts, allProducts, error };
+  return { getAllProducts, allProducts, error, isLoading };
 }
