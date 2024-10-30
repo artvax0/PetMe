@@ -11,9 +11,16 @@ const themes = {
     palette: {
       mode: 'light',
       primary: {
-        main: '#B2A4FF'
+        main: '#FFF9CA',
+        dark: '#FFF391',
       },
-      background: {
+      secondary: {
+        main: '#FFDEB4'
+      },
+      accent: {
+        main: '#F9EAFF'
+      },
+      background: { // also known as 'highlight'
         default: '#D2CAFF'
       },
     },
@@ -29,11 +36,24 @@ const themes = {
     palette: {
       mode: 'dark',
       primary: {
-        main: '#B2A4FF'
+        main: '#FFF4A1'
       },
-      background: {
+      secondary: {
+        main: '#FFCF93'
+      },
+      accent: {
+        main: '#EDC0FF'
+      },
+      background: { // also known as 'highlight'
         default: '#D2CAFF'
       }
+    },
+    typography: {
+      fontFamily: '"Baloo Da 2"',
+      fontWeightLight: 400,
+      fontWeightRegular: 500,
+      fontWeightMedium: 600,
+      fontWeightBold: 700
     }
   })
 }
