@@ -21,7 +21,7 @@ const themes = {
         main: '#F9EAFF'
       },
       background: { // also known as 'highlight'
-        default: '#D2CAFF'
+        default: '#B2A4FF'
       },
     },
     typography: {
@@ -45,7 +45,7 @@ const themes = {
         main: '#EDC0FF'
       },
       background: { // also known as 'highlight'
-        default: '#D2CAFF'
+        default: '#8873FF'
       }
     },
     typography: {
