@@ -39,7 +39,7 @@ export default function Footer() {
           <FooterLink to={ROUTES.PRODUCTS}>Products</FooterLink>
         </Grid2>
       </Grid2>
-      <Grid2 size={11} display='flex' justifyContent='space-between'>
+      <Grid2 size={11} display='flex' justifyContent='space-between' height='1.6rem'>
         <Typography color={theme.palette.secondary.light}>&copy;Copyright</Typography>
         {/* <Typography color={theme.palette.secondary.light}>Arthur Vaxman</Typography> */}
       </Grid2>
