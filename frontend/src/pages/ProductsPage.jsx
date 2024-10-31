@@ -3,6 +3,7 @@ import CardComponent from "../components/cards/CardComponent";
 import { useEffect } from "react";
 import useProducts from "../hooks/useProducts";
 import Header from "../components/layout/Header";
+import Footer from "../components/layout/Footer";
 
 export default function ProductsPage() {
   const { getAllProducts, allProducts, categories, productsByCategory, error, isLoading } = useProducts();
@@ -15,7 +16,6 @@ export default function ProductsPage() {
   if (error) return <p>Error: {error}</p> //temporary error message until error component is ready
   if (categories) return (
     <div>
-      <Header />
       {categories.map(category => {
         const products = productsByCategory[category._id] || [];
 

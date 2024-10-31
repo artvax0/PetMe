@@ -21,7 +21,8 @@ const themes = {
         main: '#F9EAFF'
       },
       background: { // also known as 'highlight'
-        default: '#B2A4FF'
+        default: '#B2A4FF',
+        footer: '#E09E75'
       },
     },
     typography: {
