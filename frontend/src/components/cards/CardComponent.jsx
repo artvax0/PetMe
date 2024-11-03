@@ -15,9 +15,9 @@ export default function CardComponent({ product }) {
             <CardImage url={product.image.url} alt={product.image.alt} />
           </Box>
 
-          <Box height='50%'>
+          <Box height='50%' display='flex' flexDirection='column' alignItems='center'>
             <CardContent sx={{ p: 1 }}>
-              <Typography gutterBottom variant="body1" fontWeight={500} component='p' sx={{ textAlign: 'center' }}>{product.name}</Typography>
+              <Typography gutterBottom variant="h5" fontWeight={500} component='p' sx={{ textAlign: 'center' }}>{product.name}</Typography>
               <Typography variant='h6' fontWeight='medium' component='p' sx={{ textAlign: 'center' }}>${product.price}</Typography>
             </CardContent>
 
