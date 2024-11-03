@@ -3,6 +3,7 @@ import { ROUTES } from './routesModel'
 import ProductsPage from '../pages/ProductsPage'
 import Page404 from '../pages/Page404'
 import FoodsPage from '../pages/FoodsPage'
+import ProductPage from '../pages/ProductPage'
 
 export default function Router() {
   return (
@@ -12,6 +13,7 @@ export default function Router() {
       <Route path={ROUTES.PRODUCTS} element={<ProductsPage />} /> {/* Temp component */}
       <Route path={ROUTES.FOOD} element={<FoodsPage />} />
       <Route path={ROUTES.LOGIN} element={<ProductsPage />} /> {/* Temp component */}
+      <Route path={ROUTES.PRODUCT + '/:id'} element={<ProductPage />} /> {/* Temp component */}
       <Route path={ROUTES.SIGNUP} element={<ProductsPage />} /> {/* Temp component */}
       <Route path='*' element={<Page404 />} />
     </Routes>
