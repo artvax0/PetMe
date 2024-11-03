@@ -25,11 +25,13 @@ export default function FoodsPage() {
       <>
         <Grid2 container flexDirection='column' width='100%'>
           <Typography variant='h5' component='h2' fontWeight={theme.typography.fontWeightMedium}>Food Products</Typography>
-          {productsByCategory[getCategory('Food')].map(prod => (
-            <Grid2 key={prod._id} display='inline-flex' size={{ xs: 12, sm: 6, md: 4, lg: 1.5 }}>
-              <CardComponent product={prod} />
-            </Grid2>
-          ))}
+          <Grid2 container width='100%' gap={4}>
+            {productsByCategory[getCategory('Food')].map(prod => (
+              <Grid2 key={prod._id} display='inline-flex' size={{ xs: 12, sm: 6, md: 4, lg: 1.5 }}>
+                <CardComponent product={prod} />
+              </Grid2>
+            ))}
+          </Grid2>
         </Grid2>
       </>
     )
