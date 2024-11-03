@@ -11,8 +11,8 @@ const themes = {
     palette: {
       mode: 'light',
       primary: {
-        main: '#FFF9CA',
-        dark: '#FFF391',
+        main: '#F3D9F4',
+        // dark: '#FFF391',
       },
       secondary: {
         main: '#FFDEB4'
@@ -20,10 +20,17 @@ const themes = {
       accent: {
         main: '#F9EAFF'
       },
-      background: { // also known as 'highlight'
-        default: '#B2A4FF',
-        footer: '#E09E75'
+      highlight: {
+        main: '#9382F0'
       },
+      background: {
+        default: '#FCDAFF',
+        light: '#FFEEFE'
+      },
+      success: {
+        main: '#71AE62',
+        dark: '#3B983E'
+      }
     },
     typography: {
       fontFamily: '"Baloo Da 2"',

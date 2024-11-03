@@ -6,7 +6,7 @@ export default function CardComponent({ product }) {
   const { theme } = useTheme();
   return (
     <>
-      <Card sx={{ width: '100%', backgroundColor: theme.palette.accent.main, }}>
+      <Card sx={{ width: '100%', backgroundColor: theme.palette.primary.main, }}>
         <CardActionArea sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <CardImage url={product.image.url} alt={product.image.alt} />
 
@@ -17,8 +17,9 @@ export default function CardComponent({ product }) {
 
           <Button component='div' variant="contained"
             sx={{
-              backgroundColor: theme.palette.primary.main,
-              '&:hover': { backgroundColor: theme.palette.primary.dark },
+              backgroundColor: theme.palette.success.main,
+              boxShadow: `0 4px 0 0 ${theme.palette.success.dark}`,
+              // '&:hover': { backgroundColor: theme.palette.primary.dark },
               mb: 1
             }}
           >

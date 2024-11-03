@@ -24,7 +24,7 @@ export default function Footer() {
   `)
 
   return (
-    <Grid2 component='footer' container sx={{ backgroundColor: theme.palette.background.footer }} justifyContent='center'>
+    <Grid2 component='footer' container sx={{ backgroundColor: theme.palette.highlight.main }} justifyContent='center'>
       <Grid2 container size={11} py={4} display='flex' gap={5}>
         <Grid2 size={2} display='flex' flexDirection='column'>
           <Box component='img' src='/pixelPetMe.svg' alt='PetMe! Logo' />
