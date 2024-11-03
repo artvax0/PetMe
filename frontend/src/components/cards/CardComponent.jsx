@@ -26,10 +26,12 @@ export default function CardComponent({ product }) {
                 backgroundColor: theme.palette.success.main,
                 boxShadow: `0 4px 0 0 ${theme.palette.success.dark}`,
                 // '&:hover': { backgroundColor: theme.palette.primary.dark },
-                mb: 2
+                mb: 2,
+                fontSize: '1rem',
+                color: '#fff'
               }}
             >
-              Purchase
+              View Product
             </Button>
           </Box>
         </CardActionArea>
