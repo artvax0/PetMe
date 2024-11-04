@@ -5,15 +5,21 @@ import useProducts from '../hooks/useProducts';
 import { useTheme } from '../providers/ThemeProvider';
 import Title from '../components/utils/Title';
 import InventoryIcon from '@mui/icons-material/Inventory';
+import usePets from '../hooks/usePets';
 
 export default function ProductPage() {
   const { id } = useParams();
   const { theme } = useTheme();
   const { product, getProductById, isLoading, error } = useProducts();
+  const { getProductPets, pets } = usePets();
 
   useEffect(() => {
     getProductById(id);
   }, [id]);
+
+  useEffect(() => {
+    getProductPets(product.petType_id);
+  }, [product])
 
   if (isLoading) return (<><Title title={'Loading...'} /><p>Loading...</p></>)
   if (error) return (<><Title title={'PetMe - Error'} /><p>Error: {error}</p></>)
@@ -33,9 +39,12 @@ export default function ProductPage() {
             <Typography variant='body1' component='h3' fontWeight={theme.typography.fontWeightRegular} fontSize='1.25rem' flexGrow={1} gutterBottom>{product.description}</Typography>
             <Typography>This product is fit for:</Typography>
             <Box display='inline-flex' gap={2} pb={2}>
-              {product.petType_id.map(pet => (
-                <Box key={pet} width='30px' height='30px' boxShadow='0 5px 5px rgba(0, 0, 0, .25)' borderRadius='50%'>Dog</Box>
-              ))}
+              {pets && pets.map((pet) => (
+                <Box key={pet._id} width='30px' height='30px' boxShadow='0 5px 5px rgba(0, 0, 0, .25)' borderRadius='50%' >
+                  <Box width='100%' component='img' src='' alt={pet.name + ' icon'} />
+                </Box>
+              ))
+              }
             </Box>
             <Divider variant='middle' sx={{ mb: 2 }} />
             <Typography variant='h5' display='inline-flex' alignItems='center' gap={1} gutterBottom><InventoryIcon color='secondary' /> {product.stock}</Typography>
