@@ -15,7 +15,7 @@ const themes = {
         // dark: '#FFF391',
       },
       secondary: {
-        main: '#FFDEB4'
+        main: '#E9B97D'
       },
       accent: {
         main: '#F9EAFF'
