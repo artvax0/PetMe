@@ -1,9 +1,10 @@
 import { useCallback, useState } from "react";
-import { getProducts } from "../services/productsApiService";
+import { getProduct, getProducts } from "../services/productsApiService";
 import { getCategories } from "../services/categoriesApiService";
 
 export default function useProducts() {
   const [allProducts, setAllProducts] = useState([]);
+  const [product, setProduct] = useState([]);
   const [categories, setCategories] = useState([]);
   const [productsByCategory, setProductsByCategory] = useState({});
   const [error, setError] = useState();
@@ -38,5 +39,16 @@ export default function useProducts() {
     setIsLoading(false);
   }, [categories, allProducts]);
 
-  return { getAllProducts, allProducts, categories, productsByCategory, error, isLoading };
+  const getProductById = useCallback(async (id) => {
+    setIsLoading(true)
+    try {
+      const { data } = await getProduct(id);
+      setProduct(data);
+    } catch (error) {
+      setError(error);
+    }
+    setIsLoading(false);
+  }, [])
+
+  return { getAllProducts, getProductById, allProducts, product, categories, productsByCategory, error, isLoading };
 }

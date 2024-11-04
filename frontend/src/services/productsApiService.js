@@ -9,3 +9,11 @@ export const getProducts = async () => {
     throw error;
   }
 }
+
+export const getProduct = async (id) => {
+  try {
+    return await axios.get(apiUrl + id);
+  } catch (error) {
+    throw error;
+  }
+}
