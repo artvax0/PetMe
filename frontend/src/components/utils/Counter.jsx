@@ -25,9 +25,9 @@ export default function Counter() {
 
   return (
     <>
-      <Button variant='contained' onClick={lowerCount}>-</Button>
-      <TextField value={count} defaultValue={1} type='number' onChange={(e) => handleValueChange(e)} slotProps={{ htmlInput: { min: 1, max: 100 } }} />
-      <Button variant='contained' onClick={raiseCount}>+</Button>
+      <Button variant='contained' aria-label='Lower Quantity' onClick={lowerCount} sx={{ p: 0, minWidth: '30px', aspectRatio: '1/1' }}>-</Button>
+      <TextField value={count} aria-label='Quantity' defaultValue={1} type='number' onChange={(e) => handleValueChange(e)} slotProps={{ htmlInput: { min: 1, max: 100, style: { padding: 0, minWidth: '30px', minHeight: '30px', aspectRatio: '1/1' } }, }} sx={{ p: 0 }} />
+      <Button variant='contained' aria-label='Raise Quantity' onClick={raiseCount} sx={{ p: 0, minWidth: '30px', aspectRatio: '1/1' }}>+</Button>
     </>
   )
 }
