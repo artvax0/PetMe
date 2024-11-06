@@ -6,6 +6,7 @@ import { useTheme } from '../providers/ThemeProvider';
 import Title from '../components/utils/Title';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import usePets from '../hooks/usePets';
+import Counter from '../components/utils/Counter';
 
 export default function ProductPage() {
   const { id } = useParams();
@@ -60,8 +61,7 @@ export default function ProductPage() {
                     <Typography variant='h4' component='h3' lineHeight={1} aria-label='Price'>${product.price}</Typography>
                   </>
               }
-
-              {/* Amount of Products Counter here - Two Buttons and an Input that's number between 1 to 100 */}
+              <Counter />
               <Button variant='contained' color={theme.palette.secondary.main} sx={{ backgroundColor: theme.palette.secondary.main, borderRadius: '100px', px: 4, py: 1, fontSize: '1.25rem', fontWeight: theme.typography.fontWeightBold }}>
                 Add To Cart
               </Button>

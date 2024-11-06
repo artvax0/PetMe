@@ -5,3 +5,17 @@ body {
   padding: 0;
   box-sizing: border-box;
 }
+
+input[type=number] {
+  appearance: textfield;
+  white-space: normal;
+  text-align: justify;
+  text-align-last: center;
+  -moz-text-align-last: center;
+
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-butto {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}

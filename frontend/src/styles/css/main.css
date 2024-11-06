@@ -3,4 +3,18 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+input[type=number] {
+  -webkit-appearance: textfield;
+     -moz-appearance: textfield;
+          appearance: textfield;
+  white-space: normal;
+  text-align: justify;
+  text-align-last: center;
+  -moz-text-align-last: center;
+}
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-butto {
+  -webkit-appearance: none;
+  margin: 0;
 }/*# sourceMappingURL=main.css.map */
