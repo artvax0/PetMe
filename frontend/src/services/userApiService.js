@@ -9,3 +9,11 @@ export const signup = async (userInfo) => {
     throw error;
   }
 }
+
+export const login = async (userInfo) => {
+  try {
+    return await axios.post(apiUrl + '/login', userInfo);
+  } catch (error) {
+    throw error;
+  }
+}

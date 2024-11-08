@@ -2,6 +2,7 @@ import ThemeContextProvider from "./providers/ThemeProvider"
 import { BrowserRouter } from "react-router-dom"
 import Router from "./routes/Router"
 import Layout from "./components/layout/Layout"
+import UserContextProvider from "./providers/UserProvider"
 
 
 
@@ -11,9 +12,11 @@ function App() {
     <>
       <BrowserRouter>
         <ThemeContextProvider>
-          <Layout>
-            <Router />
-          </Layout>
+          <UserContextProvider>
+            <Layout>
+              <Router />
+            </Layout>
+          </UserContextProvider>
         </ThemeContextProvider>
       </BrowserRouter>
     </>

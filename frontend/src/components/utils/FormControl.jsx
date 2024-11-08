@@ -2,7 +2,7 @@ import { Grid2, TextField } from '@mui/material'
 import React from 'react'
 import capitalizeLetters from '../../utils/capitalizeLetters'
 
-export default function FormControl({ label, required = true, error, formData, name, onChange, size }) {
+export default function FormControl({ label, required = true, error, formData, name, onChange, size, type = 'text' }) {
   return (
     <Grid2 container size={{ xs: 12, ...size }}>
       <TextField
@@ -17,6 +17,7 @@ export default function FormControl({ label, required = true, error, formData, n
         id={name}
         onChange={onChange}
         color='highlight'
+        type={type}
       />
     </Grid2>
   )

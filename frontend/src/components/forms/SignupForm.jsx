@@ -42,6 +42,7 @@ export default function SignupForm({ onSubmit, validateForm, styles = {}, errors
           error={errors.password}
           onChange={onInputChange}
           formData={formData}
+          type='password'
         />
         <FormControl
           name='url'
@@ -110,7 +111,7 @@ export default function SignupForm({ onSubmit, validateForm, styles = {}, errors
           formData={formData}
         />
         <Grid2 size={12}>
-          <Button variant='contained' onClick={onSubmit} disabled={!validateForm} size='large' color='success' fullWidth sx={{ color: '#fff', fontWeight: theme.typography.fontWeightBold, fontSize: '1.2rem', py: 0.75 }}>Submit</Button>
+          <Button variant='contained' onClick={onSubmit} disabled={!validateForm} size='large' color='success' fullWidth sx={{ color: '#fff', fontWeight: theme.typography.fontWeightBold, fontSize: '1.2rem', py: 0.75 }}>Become a member</Button>
         </Grid2>
       </Grid2>
     </Box>
