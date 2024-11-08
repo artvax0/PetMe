@@ -5,15 +5,18 @@ import useForm from '../hooks/useForm'
 import signupSchema from '../models/signupSchema';
 import { initialSignupForm } from '../helpers/initial_forms/initialSignupForm';
 import { Grid2, Typography } from '@mui/material';
+import useUsers from '../hooks/useUsers';
 
 export default function SignupPage() {
-  const handleSignup = console.log('hello')
-  const { formData, errors, handleChange, validateForm, onSubmit } = useForm(initialSignupForm, signupSchema, handleSignup);
+  const { userSignup } = useUsers();
+  const { formData, errors, handleChange, validateForm, onSubmit } = useForm(initialSignupForm, signupSchema, userSignup);
   return (
     <>
       <Title title={'Signup'} />
       <Grid2 container flexDirection='column' size={12}>
-        <Typography variant='h3' color='highlight' textAlign='center' sx={{ maxWidth: { xs: '100%', sm: '50%' } }}>Sign Up</Typography>
+        <Typography variant='h3' component='h1' color='highlight' textAlign='center' sx={{ maxWidth: { xs: '100%', sm: '50%' } }}>Become a PetMe Member!</Typography>
+        <Typography variant='body1' component='p' sx={{ maxWidth: { xs: '100%', sm: '50%' } }}>Address details are only used for order deliveries</Typography>
+        <Typography variant='body2' component='p' color='error' sx={{ maxWidth: { xs: '100%', sm: '50%' } }}>* Mandatory field</Typography>
         <SignupForm
           onSubmit={onSubmit}
           validateForm={validateForm}
