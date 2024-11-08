@@ -5,6 +5,7 @@ import Page404 from '../pages/Page404'
 import FoodsPage from '../pages/FoodsPage'
 import ProductPage from '../pages/ProductPage'
 import SignupPage from '../pages/SignupPage'
+import LoginPage from '../pages/LoginPage'
 
 export default function Router() {
   return (
@@ -13,8 +14,8 @@ export default function Router() {
       <Route path={ROUTES.ABOUT} element={<ProductsPage />} /> {/* Temp component */}
       <Route path={ROUTES.PRODUCTS} element={<ProductsPage />} /> {/* Temp component */}
       <Route path={ROUTES.FOOD} element={<FoodsPage />} />
-      <Route path={ROUTES.LOGIN} element={<ProductsPage />} /> {/* Temp component */}
-      <Route path={ROUTES.PRODUCT + '/:id'} element={<ProductPage />} /> {/* Temp component */}
+      <Route path={ROUTES.LOGIN} element={<LoginPage />} />
+      <Route path={ROUTES.PRODUCT + '/:id'} element={<ProductPage />} />
       <Route path={ROUTES.SIGNUP} element={<SignupPage />} />
       <Route path='*' element={<Page404 />} />
     </Routes>
