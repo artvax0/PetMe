@@ -39,7 +39,6 @@ export default function useCarts() {
     setIsLoading(true);
     try {
       await addCart(userId, productInfo);
-      await getUserCart(userId);
     } catch (error) {
       console.warn(error)
       setError(error);

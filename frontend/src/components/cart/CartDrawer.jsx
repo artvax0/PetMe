@@ -21,13 +21,19 @@ export default function CartDrawer({ isOpen, setIsOpen }) {
     }
 
     document.addEventListener('keydown', handleEsc);
-    if (user) getUserCart(user._id);
+
+    const getCart = async () => {
+      await getUserCart(user._id);
+    }
+
+    if (user) getCart();
 
     return () => document.removeEventListener('keydown', handleEsc);
   }, [user, isOpen]);
 
   useEffect(() => {
-    if (user && cart.products.length) {
+    if (user && cart.products) {
+      console.warn(cart);
       const handleProductDetails = async () => {
         const productDetails = await Promise.all(
           cart.products.map(async (product) => {
@@ -45,10 +51,11 @@ export default function CartDrawer({ isOpen, setIsOpen }) {
       }
       handleProductDetails();
     }
-  }, [isOpen, user, cart]);
+  }, [cart.products]);
 
   const removeProduct = async (product_id) => {
     await updateQuantity(user._id, { product_id: product_id, quantity: 0 });
+    await getUserCart(user._id);
   }
 
   // disable child activating parent onclick event
@@ -69,21 +76,24 @@ export default function CartDrawer({ isOpen, setIsOpen }) {
                   {cart.products.length > 0 ?
                     <Box display='flex' flexDirection='column'>
                       <Box flexGrow={1}>
-                        <Box component='ul' p={0} sx={{ listStyleType: 'none' }}>
+                        <Box component='ul' display='flex' flexDirection='column' gap={1} p={0} sx={{ listStyleType: 'none' }}>
                           {cart.products.map((product) => {
                             const productData = products[product.product_id];
                             return (
-                              <Box component='li' key={product.product_id} display='flex' px={1} gap={1} alignItems='center'>
-                                <Box component='img' src={productData.image.url} alt={productData.image.alt} maxWidth='75px' maxHeight='75px' />
-                                <Box flexGrow={1}>
-                                  <Typography>{productData.name}</Typography>
-                                  <Typography>Total: <strong>${product.price}</strong></Typography>
-                                  <Box display='flex' justifyContent='space-between' alignItems='center'>
-                                    <Typography color='textDisabled'>Quantity: <strong>{product.quantity}</strong></Typography>
-                                    <IconButton onClick={() => removeProduct(product.product_id)} sx={{ p: 0 }}><DeleteForeverIcon color='error' /></IconButton>
+                              <>
+                                <Box component='li' key={product.product_id} display='flex' px={1} gap={1} alignItems='center'>
+                                  <Box component='img' src={productData?.image?.url || ''} alt={productData?.image?.alt || ''} maxWidth='75px' maxHeight='75px' />
+                                  <Box flexGrow={1}>
+                                    <Typography>{productData?.name || ''}</Typography>
+                                    <Typography>Total: <strong>${product.price}</strong></Typography>
+                                    <Box display='flex' justifyContent='space-between' alignItems='center'>
+                                      <Typography color='textDisabled'>Quantity: <strong>{product.quantity}</strong></Typography>
+                                      <IconButton onClick={() => removeProduct(product.product_id)} sx={{ p: 0 }}><DeleteForeverIcon color='error' /></IconButton>
+                                    </Box>
                                   </Box>
                                 </Box>
-                              </Box>
+                                <Divider variant='middle' />
+                              </>
                             )
                           })}
                         </Box>
@@ -100,6 +110,5 @@ export default function CartDrawer({ isOpen, setIsOpen }) {
       </Slide>
     </Box >
   )
-
   return null;
 }
