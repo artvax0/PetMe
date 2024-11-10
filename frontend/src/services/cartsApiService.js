@@ -9,3 +9,11 @@ export const getCart = async (userId) => {
     throw error;
   }
 }
+
+export const addCart = async (userId, productInfo) => {
+  try {
+    return await axios.patch(apiUrl + userId, productInfo);
+  } catch (error) {
+    throw error;
+  }
+}
