@@ -1,8 +1,7 @@
 import { Button, TextField } from '@mui/material';
 import { useState } from 'react'
 
-export default function Counter() {
-  const [count, setCount] = useState(1);
+export default function Counter({ count, setCount }) {
 
   const raiseCount = () => {
     setCount(prev => Math.min(++prev, 100));

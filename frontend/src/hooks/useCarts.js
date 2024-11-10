@@ -1,6 +1,6 @@
 import { useState } from "react";
 import useAxios from "./useAxios";
-import { getCart } from "../services/cartsApiService";
+import { addCart, getCart } from "../services/cartsApiService";
 
 export default function useCarts() {
   const [cart, setCart] = useState({});
@@ -19,5 +19,20 @@ export default function useCarts() {
     setIsLoading(false);
   }
 
-  return { cart, isLoading, error, getUserCart };
+  const addProductToCart = async (e, userId, productInfo) => {
+    setIsLoading(true);
+    e.target.disabled = true;
+    e.target.label = 'Adding to cart...';
+    try {
+      await addCart(userId, productInfo);
+      console.log('Added product: ', productInfo.product_id, ' to cart')
+      // set snack to successful
+    } catch (error) {
+      setError(error)
+    }
+    setIsLoading(false);
+    e.target.label = 'Add to cart';
+    e.target.disabled = false;
+  }
+  return { cart, isLoading, error, getUserCart, addProductToCart };
 }

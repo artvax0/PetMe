@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import React, { useCallback, useEffect, useState } from 'react'
+import { Navigate, useParams } from 'react-router-dom'
 import { Box, Button, Divider, Grid2, Typography } from '@mui/material';
 import useProducts from '../hooks/useProducts';
 import { useTheme } from '../providers/ThemeProvider';
@@ -7,12 +7,18 @@ import Title from '../components/utils/Title';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import usePets from '../hooks/usePets';
 import Counter from '../components/utils/Counter';
+import { ROUTES } from '../routes/routesModel';
+import { useAuth } from '../providers/UserProvider';
+import useCarts from '../hooks/useCarts';
 
 export default function ProductPage() {
   const { id } = useParams();
+  const { user } = useAuth();
   const { theme } = useTheme();
   const { product, getProductById, isLoading, error } = useProducts();
   const { getProductPets, pets } = usePets();
+  const { addProductToCart } = useCarts();
+  const [count, setCount] = useState(1);
 
   useEffect(() => {
     getProductById(id);
@@ -21,6 +27,11 @@ export default function ProductPage() {
   useEffect(() => {
     getProductPets(product.petType_id);
   }, [product])
+
+  const addToCart = useCallback((e, productId, quantity) => {
+    if (user) return addProductToCart(e, user._id, { product_id: productId, quantity });
+    <Navigate to={ROUTES.LOGIN} replace />
+  }, [])
 
   if (isLoading) return (<><Title title={'Loading...'} /><p>Loading...</p></>)
   if (error) return (<><Title title={'PetMe - Error'} /><p>Error: {error}</p></>)
@@ -61,9 +72,9 @@ export default function ProductPage() {
                     <Typography variant='h4' component='h3' lineHeight={1} aria-label='Price'>${product.price}</Typography>
                   </>
               }
-              <Counter />
-              <Button variant='contained' color={theme.palette.secondary.main} sx={{ backgroundColor: theme.palette.secondary.main, borderRadius: '100px', px: 4, py: 1, fontSize: '1.25rem', fontWeight: theme.typography.fontWeightBold }}>
-                Add To Cart
+              <Counter count={count} setCount={setCount} />
+              <Button variant='contained' color={theme.palette.secondary.main} sx={{ backgroundColor: theme.palette.secondary.main, borderRadius: '100px', px: 4, py: 1, fontSize: '1.25rem', fontWeight: theme.typography.fontWeightBold }} onClick={(e) => addToCart(e, id, count)}>
+                Add to cart
               </Button>
               <Button variant='contained' sx={{ borderRadius: '100px', px: 4, py: 1, fontSize: '1.25rem', fontWeight: theme.typography.fontWeightBold }}>Purchase Now</Button>
             </Box>
