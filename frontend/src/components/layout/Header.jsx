@@ -1,12 +1,15 @@
-import { AppBar, Avatar, Box, Grid2, styled, Toolbar } from '@mui/material'
+import { AppBar, Avatar, Box, Grid2, IconButton, styled, Toolbar } from '@mui/material'
 import React from 'react'
 import { useTheme } from '../../providers/ThemeProvider';
 import Banner from './Banner';
 import { ROUTES } from '../../routes/routesModel';
 import { Link } from 'react-router-dom'
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { useAuth } from '../../providers/UserProvider';
 
 export default function Header() {
   const { theme } = useTheme();
+  const { user } = useAuth();
 
   const NavLink = styled(Link)(({ theme }) => `
     text-decoration: none;
@@ -31,7 +34,19 @@ export default function Header() {
               <NavLink to={ROUTES.ROOT}>Home</NavLink>
               <NavLink to={ROUTES.PRODUCTS}>Our Products</NavLink>
             </Box>
-            <Avatar />
+            {
+              user ?
+                (<>
+                  <IconButton><ShoppingCartIcon sx={{ color: `${theme.palette.success.light}` }} /></IconButton>
+                  <Avatar />
+                </>)
+                : (<>
+                  <Box display='inline-flex' gap={5}>
+                    <NavLink to={ROUTES.SIGNUP}>Signup</NavLink>
+                    <NavLink to={ROUTES.LOGIN}>Login</NavLink>
+                  </Box>
+                </>)
+            }
           </Toolbar>
         </ AppBar>
       </Grid2>
