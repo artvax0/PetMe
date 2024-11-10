@@ -1,15 +1,18 @@
-import { AppBar, Avatar, Box, Grid2, IconButton, styled, Toolbar } from '@mui/material'
-import React from 'react'
+import { AppBar, Avatar, Box, Button, Drawer, Grid2, IconButton, styled, Toolbar } from '@mui/material'
+import { useEffect, useState } from 'react'
 import { useTheme } from '../../providers/ThemeProvider';
 import Banner from './Banner';
 import { ROUTES } from '../../routes/routesModel';
 import { Link } from 'react-router-dom'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useAuth } from '../../providers/UserProvider';
+import CartDrawer from '../cart/CartDrawer';
+import useCarts from '../../hooks/useCarts';
 
 export default function Header() {
   const { theme } = useTheme();
   const { user } = useAuth();
+  const [isOpen, setIsOpen] = useState(false);
 
   const NavLink = styled(Link)(({ theme }) => `
     text-decoration: none;
@@ -37,7 +40,7 @@ export default function Header() {
             {
               user ?
                 (<>
-                  <IconButton><ShoppingCartIcon sx={{ color: `${theme.palette.success.light}` }} /></IconButton>
+                  <IconButton onClick={() => setIsOpen(prev => !prev)}><ShoppingCartIcon sx={{ color: `${theme.palette.success.light}` }} /></IconButton>
                   <Avatar />
                 </>)
                 : (<>
@@ -47,6 +50,7 @@ export default function Header() {
                   </Box>
                 </>)
             }
+            <CartDrawer isOpen={isOpen} setIsOpen={setIsOpen} />
           </Toolbar>
         </ AppBar>
       </Grid2>
