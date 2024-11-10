@@ -44,6 +44,8 @@ export default function useProducts() {
     try {
       const { data } = await getProduct(id);
       setProduct(data);
+      setIsLoading(false);
+      return data;
     } catch (error) {
       setError(error);
     }
