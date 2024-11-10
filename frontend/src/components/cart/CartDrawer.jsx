@@ -1,15 +1,16 @@
-import { Box, Divider, Paper, Slide, Typography } from '@mui/material'
-import { useEffect } from 'react'
+import { Box, Button, Divider, Paper, Slide, Typography } from '@mui/material'
+import { useEffect, useState } from 'react'
 import useCarts from '../../hooks/useCarts';
 import { useAuth } from '../../providers/UserProvider';
+import useProducts from '../../hooks/useProducts';
 
 export default function CartDrawer({ isOpen, setIsOpen }) {
   /*                                                                *
   Custom Drawer, since MUI Drawer seems to be broken in this version
   *                                                                 */
-
   const { user } = useAuth();
   const { cart, isLoading, error, getUserCart } = useCarts();
+  const { getProductById } = useProducts();
 
   // close drawer with Esc key
   useEffect(() => {
@@ -21,7 +22,7 @@ export default function CartDrawer({ isOpen, setIsOpen }) {
     if (user) getUserCart(user._id);
 
     return () => document.removeEventListener('keydown', handleEsc);
-  }, []);
+  }, [user, isOpen]);
 
   // disable child activating parent onclick event
   const stopClick = e => e.stopPropagation();
@@ -39,13 +40,15 @@ export default function CartDrawer({ isOpen, setIsOpen }) {
               isLoading == false && cart ?
                 <>
                   {cart.products.length > 0 ?
-                    <Box component='ul'>
-                      {cart.products.map(product => (
-                        <Box component='li' key={product._id}>{product.Name}</Box>
-                      ))}
+                    <Box display='flex' flexDirection='column'>
+                      <Box flexGrow={1}>
+                        <Box component='ul' display='flex' sx={{ listStyleType: 'none' }}>
+                          Test
+                        </Box>
+                      </Box>
+                      <Button color='success' fullWidth sx={{ alignSelf: 'flex-end' }}>Go to Checkout</Button>
                     </Box>
-                    : <Typography textAlign='center' py={1} color='textDisabled'>You have no products :)</Typography>
-
+                    : <Typography textAlign='center' py={1} px={1.5} color='textDisabled'>You have no products in your cart :(</Typography>
                   }
                 </>
                 : null
@@ -53,7 +56,7 @@ export default function CartDrawer({ isOpen, setIsOpen }) {
           </Box>
         </Paper>
       </Slide>
-    </Box>
+    </Box >
   )
 
   return null;
