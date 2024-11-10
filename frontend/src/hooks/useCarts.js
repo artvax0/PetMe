@@ -34,5 +34,17 @@ export default function useCarts() {
     e.target.label = 'Add to cart';
     e.target.disabled = false;
   }
-  return { cart, isLoading, error, getUserCart, addProductToCart };
+
+  const updateQuantity = async (userId, productInfo) => {
+    setIsLoading(true);
+    try {
+      await addCart(userId, productInfo);
+      await getUserCart(userId);
+    } catch (error) {
+      console.warn(error)
+      setError(error);
+    }
+    setIsLoading(false);
+  }
+  return { cart, isLoading, error, getUserCart, addProductToCart, updateQuantity };
 }
