@@ -6,10 +6,16 @@ import signupSchema from '../models/signupSchema';
 import { initialSignupForm } from '../helpers/initial_forms/initialSignupForm';
 import { Grid2, Typography } from '@mui/material';
 import useUsers from '../hooks/useUsers';
+import { useAuth } from '../providers/UserProvider';
+import { Navigate } from 'react-router-dom';
+import { ROUTES } from '../routes/routesModel';
 
 export default function SignupPage() {
+  const { user } = useAuth();
   const { userSignup } = useUsers();
   const { formData, errors, handleChange, validateForm, onSubmit } = useForm(initialSignupForm, signupSchema, userSignup);
+  if (user) return <Navigate to={ROUTES.ROOT} replace />
+
   return (
     <>
       <Title title={'Signup'} />

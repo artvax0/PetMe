@@ -6,10 +6,16 @@ import useForm from '../hooks/useForm';
 import { initialLoginForm } from '../helpers/initial_forms/initialLoginForm';
 import loginSchema from '../models/loginSchema';
 import useUsers from '../hooks/useUsers';
+import { useAuth } from '../providers/UserProvider';
+import { Navigate } from 'react-router-dom';
+import { ROUTES } from '../routes/routesModel';
 
 export default function LoginPage() {
+  const { user } = useAuth();
   const { userLogin } = useUsers();
   const { formData, errors, handleChange, validateForm, onSubmit } = useForm(initialLoginForm, loginSchema, userLogin);
+  if (user) return <Navigate to={ROUTES.ROOT} replace />;
+
   return (
     <>
       <Title title={'Login'} />
