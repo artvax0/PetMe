@@ -1,18 +1,13 @@
-import { Box, Button, Divider, IconButton, Paper, Slide, Typography } from '@mui/material'
-import { useEffect, useState } from 'react'
-import useCarts from '../../hooks/useCarts';
+import { Box, Divider, Paper, Slide, Typography } from '@mui/material'
+import { useEffect } from 'react'
 import { useAuth } from '../../providers/UserProvider';
-import useProducts from '../../hooks/useProducts';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import Cart from './Cart';
 
 export default function CartDrawer({ isOpen, setIsOpen }) {
   /*                                                                *
   Custom Drawer, since MUI Drawer seems to be broken in this version
   *                                                                 */
   const { user } = useAuth();
-  const { cart, isLoading, error, getUserCart, updateQuantity } = useCarts();
-  const { getProductById } = useProducts();
-  const [products, setProducts] = useState({});
 
   // close drawer with Esc key
   useEffect(() => {
@@ -22,40 +17,8 @@ export default function CartDrawer({ isOpen, setIsOpen }) {
 
     document.addEventListener('keydown', handleEsc);
 
-    const getCart = async () => {
-      await getUserCart(user._id);
-    }
-
-    if (user) getCart();
-
     return () => document.removeEventListener('keydown', handleEsc);
   }, [user, isOpen]);
-
-  useEffect(() => {
-    if (user && cart.products) {
-      const handleProductDetails = async () => {
-        const productDetails = await Promise.all(
-          cart.products.map(async (product) => {
-            const data = await getProductById(product.product_id);
-            return { ...data, _id: product.product_id };
-          })
-        );
-        // take product (each object in the productDetails array {...data, _id: ...})
-        const productsMapping = productDetails.reduce((acc, product) => {
-          // initialValue - {} below, accumilator[key] will be equals to the product itself.
-          acc[product._id] = product;
-          return acc;
-        }, {});
-        setProducts(productsMapping);
-      }
-      handleProductDetails();
-    }
-  }, [cart.products]);
-
-  const removeProduct = async (product_id) => {
-    await updateQuantity(user._id, { product_id: product_id, quantity: 0 });
-    await getUserCart(user._id);
-  }
 
   // disable child activating parent onclick event
   const stopClick = e => e.stopPropagation();
@@ -67,44 +30,7 @@ export default function CartDrawer({ isOpen, setIsOpen }) {
           <Box width='250px' role='presentation'>
             <Typography px={1} variant='h5' component='p'>My Cart</Typography>
             <Divider />
-            {isLoading ? <p>Loading...</p> : null}
-            {isLoading == false && error ? <p>Error: {error}</p> : null}
-            {
-              isLoading == false && cart ?
-                <>
-                  {cart.products.length > 0 ?
-                    <Box display='flex' flexDirection='column'>
-                      <Box flexGrow={1}>
-                        <Box component='ul' display='flex' flexDirection='column' gap={1} p={0} sx={{ listStyleType: 'none' }}>
-                          {cart.products.map((product) => {
-                            const productData = products[product.product_id];
-                            return (
-                              <>
-                                <Box component='li' key={product.product_id} display='flex' px={1} gap={1} alignItems='center'>
-                                  <Box component='img' src={productData?.image?.url || ''} alt={productData?.image?.alt || ''} maxWidth='75px' maxHeight='75px' />
-                                  <Box flexGrow={1}>
-                                    <Typography>{productData?.name || ''}</Typography>
-                                    <Typography>Total: <strong>${product.price}</strong></Typography>
-                                    <Box display='flex' justifyContent='space-between' alignItems='center'>
-                                      <Typography color='textDisabled'>Quantity: <strong>{product.quantity}</strong></Typography>
-                                      <IconButton onClick={() => removeProduct(product.product_id)} sx={{ p: 0 }}><DeleteForeverIcon color='error' /></IconButton>
-                                    </Box>
-                                  </Box>
-                                </Box>
-                                <Divider variant='middle' />
-                              </>
-                            )
-                          })}
-                        </Box>
-                        <Typography textAlign='center'>Total: <strong>${cart.products.reduce((acc, product) => acc += product.price, 0)}</strong></Typography>
-                      </Box>
-                      <Button color='success' fullWidth sx={{ alignSelf: 'flex-end' }}>Go to Checkout</Button>
-                    </Box>
-                    : <Typography textAlign='center' py={1} px={1.5} color='textDisabled'>You have no products in your cart :(</Typography>
-                  }
-                </>
-                : null
-            }
+            <Cart user={user} setIsOpen={setIsOpen} />
           </Box>
         </Paper>
       </Slide>
