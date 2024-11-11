@@ -25,7 +25,6 @@ export default function useCarts() {
     e.target.label = 'Adding to cart...';
     try {
       await addCart(userId, productInfo);
-      console.log('Added product: ', productInfo.product_id, ' to cart')
       // set snack to successful
     } catch (error) {
       setError(error)
@@ -40,7 +39,6 @@ export default function useCarts() {
     try {
       await addCart(userId, productInfo);
     } catch (error) {
-      console.warn(error)
       setError(error);
     }
     setIsLoading(false);

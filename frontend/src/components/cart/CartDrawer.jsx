@@ -13,7 +13,6 @@ export default function CartDrawer({ isOpen, setIsOpen }) {
   const { cart, isLoading, error, getUserCart, updateQuantity } = useCarts();
   const { getProductById } = useProducts();
   const [products, setProducts] = useState({});
-  const [total, setTotal] = useState(0);
 
   // close drawer with Esc key
   useEffect(() => {
@@ -34,7 +33,6 @@ export default function CartDrawer({ isOpen, setIsOpen }) {
 
   useEffect(() => {
     if (user && cart.products) {
-      console.warn(cart);
       const handleProductDetails = async () => {
         const productDetails = await Promise.all(
           cart.products.map(async (product) => {
