@@ -13,6 +13,7 @@ export default function CartDrawer({ isOpen, setIsOpen }) {
   const { cart, isLoading, error, getUserCart, updateQuantity } = useCarts();
   const { getProductById } = useProducts();
   const [products, setProducts] = useState({});
+  const [total, setTotal] = useState(0);
 
   // close drawer with Esc key
   useEffect(() => {
@@ -97,6 +98,7 @@ export default function CartDrawer({ isOpen, setIsOpen }) {
                             )
                           })}
                         </Box>
+                        <Typography textAlign='center'>Total: <strong>${cart.products.reduce((acc, product) => acc += product.price, 0)}</strong></Typography>
                       </Box>
                       <Button color='success' fullWidth sx={{ alignSelf: 'flex-end' }}>Go to Checkout</Button>
                     </Box>
