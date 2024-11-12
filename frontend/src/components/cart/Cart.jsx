@@ -16,8 +16,8 @@ export default function Cart({ user, setIsOpen }) {
     const getCart = async () => {
       await getUserCart(user._id);
     }
-
     if (user) getCart();
+
   }, [user]);
 
   useEffect(() => {
@@ -50,7 +50,7 @@ export default function Cart({ user, setIsOpen }) {
   if (error) return (<p>Error: {error}</p>)
   if (cart) return (
     <>
-      {cart.products.length > 0 ?
+      {cart?.products?.length > 0 ?
         <Box display='flex' flexDirection='column'>
           <Box flexGrow={1}>
             <Box component='ul' display='flex' flexDirection='column' gap={1} p={0} sx={{ listStyleType: 'none' }}>
@@ -65,9 +65,7 @@ export default function Cart({ user, setIsOpen }) {
                         <Typography>Total: <strong>${product.price}</strong></Typography>
                         <Box display='flex' justifyContent='space-between' alignItems='center'>
                           <Typography color='textDisabled'>Quantity: <strong>{product.quantity}</strong></Typography>
-                          {
-                            <IconButton onClick={() => removeProduct(product.product_id)} sx={{ p: 0 }}><DeleteForeverIcon color='error' /></IconButton>
-                          }
+                          <IconButton onClick={() => removeProduct(product.product_id)} sx={{ p: 0 }}><DeleteForeverIcon color='error' /></IconButton>
                         </Box>
                       </Box>
                     </Box>

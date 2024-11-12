@@ -17,3 +17,11 @@ export const login = async (userInfo) => {
     throw error;
   }
 }
+
+export const getUserData = async (userId) => {
+  try {
+    return await axios.get(apiUrl + userId);
+  } catch (error) {
+    throw error;
+  }
+}
