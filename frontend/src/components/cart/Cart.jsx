@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import useCarts from '../../hooks/useCarts';
 import useProducts from '../../hooks/useProducts';
 import { Box, Button, Divider, IconButton, Typography } from '@mui/material';
@@ -57,8 +57,8 @@ export default function Cart({ user, setIsOpen }) {
               {cart.products.map((product) => {
                 const productData = products[product.product_id];
                 return (
-                  <>
-                    <Box component='li' key={product.product_id} display='flex' px={1} gap={1} alignItems='center'>
+                  <React.Fragment key={product.product_id}>
+                    <Box component='li' display='flex' px={1} gap={1} alignItems='center'>
                       <Box component='img' src={productData?.image?.url || ''} alt={productData?.image?.alt || ''} maxWidth='75px' maxHeight='75px' />
                       <Box flexGrow={1}>
                         <Typography>{productData?.name || ''}</Typography>
@@ -70,7 +70,7 @@ export default function Cart({ user, setIsOpen }) {
                       </Box>
                     </Box>
                     <Divider variant='middle' />
-                  </>
+                  </React.Fragment>
                 )
               })}
             </Box>
