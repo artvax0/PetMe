@@ -4,11 +4,11 @@ import LoginForm from '../components/forms/LoginForm'
 import { Grid2, Typography } from '@mui/material'
 import useForm from '../hooks/useForm';
 import { initialLoginForm } from '../helpers/initial_forms/initialLoginForm';
-import loginSchema from '../models/loginSchema';
 import useUsers from '../hooks/useUsers';
 import { useAuth } from '../providers/UserProvider';
 import { Navigate } from 'react-router-dom';
 import { ROUTES } from '../routes/routesModel';
+import loginSchema from '../models/loginSchema';
 
 export default function LoginPage() {
   const { user } = useAuth();
