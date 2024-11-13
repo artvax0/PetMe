@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import useProducts from "../hooks/useProducts";
 import { useAuth } from "../providers/UserProvider"
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { ROUTES } from "../routes/routesModel";
 import { Box, Divider, Grid2, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
 import Title from "../components/utils/Title";
@@ -11,6 +11,7 @@ import TransactionForm from "../components/forms/TransactionForm";
 import useForm from "../hooks/useForm";
 import { initialCreditForm } from "../helpers/initial_forms/initialCreditForm";
 import creditCardSchema from "../models/creditCardSchema";
+import useOrders from "../hooks/useOrders";
 
 export default function OrderPage() {
   const { user } = useAuth();
@@ -21,10 +22,18 @@ export default function OrderPage() {
   const [productsList, setProductsList] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const { getUserInfo, userData } = useUsers();
-  const submitOrder = () => {
-    console.log('submitted form!')
+  const { newUserOrder } = useOrders();
+  const navigate = useNavigate();
+
+  const onSubmit = async (e) => {
+    e.target.disabled = true;
+    e.target.classList.toggle('Mui-disabled');
+    const data = await newUserOrder(user._id, { products, address: { country: userData.address.country, state: userData.address.state, city: userData.address.city, street: userData.address.street, houseNumber: userData.address.houseNumber, zip: userData.address.zip } });
+    e.target.disabled = false;
+    e.target.classList.toggle('Mui-disabled');
+    if (data) return navigate(ROUTES.ROOT)
   }
-  const { formData, errors, handleChange, validateForm, onSubmit } = useForm(initialCreditForm, creditCardSchema, submitOrder);
+  const { formData, errors, handleChange, validateForm } = useForm(initialCreditForm, creditCardSchema);
 
   useEffect(() => {
     if (user && products) {
@@ -85,8 +94,7 @@ export default function OrderPage() {
         </TableContainer>
         <Typography textAlign='right' fontSize='1.2rem'>Total: <strong>${products.reduce((acc, product) => acc += product.price, 0)}</strong></Typography>
       </Box>
-      <Divider variant='middle' gutterBottom />
-      {/* address form, secondary and unchangeable unless changed in user settings */}
+      <Divider variant='middle' sx={{ my: 1 }} />
       <Box component='section' display='flex' flexDirection='column'>
         <Typography variant='h5' component='h2'>Address Info</Typography>
         <Paper sx={{ p: 1, display: 'flex', flexDirection: 'column', gap: 1 }}>
@@ -113,12 +121,11 @@ export default function OrderPage() {
           </Grid2>
         </Paper>
       </Box>
-      <Divider variant='middle' gutterBottom />
-      {/* transaction form, demo- not really doing any transactions */}
+      <Divider variant='middle' sx={{ my: 1 }} />
       <Box component='section' display='flex' flexDirection='column'>
         <Grid2 container flexDirection='column' size={12} gap={1}>
           <Typography variant='h5' component='h2'>Payment</Typography>
-          <Typography color='warning'>* Please <strong>do not</strong> fill in real information in this form! This form is a simulation, a demo, a placeholder. <br />&nbsp;&nbsp;Any information filled in this form is <strong>not sent</strong> to the server and database, and remains just as a simulation. <br />&nbsp;&nbsp;This note acts as a final warning, and will not be held responsible for any actions.</Typography>
+          <Typography color='warning'>* Please <strong>do not</strong> fill in real information in this form! This form is a simulation, a demo, a placeholder. <br />&nbsp;&nbsp;Any information filled in this form is <strong>not sent</strong> to the server and database, and remains just as a simulation. <br />&nbsp;&nbsp;This note acts as a final warning, and will not be held responsible for any actions and/or any transactions/withdrawal.</Typography>
           <TransactionForm
             onSubmit={onSubmit}
             validateForm={validateForm}

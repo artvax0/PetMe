@@ -7,7 +7,6 @@ export default function TransactionForm({ onSubmit, validateForm, styles = {}, e
   return (
     <Paper
       component="form"
-      onSubmit={onSubmit}
       sx={{
         ...styles,
         width: '100%',
@@ -56,8 +55,8 @@ export default function TransactionForm({ onSubmit, validateForm, styles = {}, e
         <Grid2 size={12}>
           <Button
             variant="contained"
-            type="submit"
             disabled={!validateForm()}
+            onClick={onSubmit}
             size="large"
             color="success"
             fullWidth
