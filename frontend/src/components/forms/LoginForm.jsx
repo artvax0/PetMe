@@ -23,7 +23,7 @@ export default function LoginForm({ onSubmit, validateForm, styles = {}, errors 
           type='password'
         />
         <Grid2 size={12}>
-          <Button variant='contained' onClick={onSubmit} disabled={!validateForm} size='large' color='success' fullWidth sx={{ color: '#fff', fontWeight: theme.typography.fontWeightBold, fontSize: '1.2rem', py: 0.75 }}>Login</Button>
+          <Button variant='contained' onClick={onSubmit} disabled={!validateForm()} size='large' color='success' fullWidth sx={{ color: '#fff', fontWeight: theme.typography.fontWeightBold, fontSize: '1.2rem', py: 0.75 }}>Login</Button>
         </Grid2>
       </Grid2>
     </Box>
