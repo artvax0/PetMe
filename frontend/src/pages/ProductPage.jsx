@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Navigate, useParams } from 'react-router-dom'
+import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import { Box, Button, Divider, Grid2, Typography } from '@mui/material';
 import useProducts from '../hooks/useProducts';
 import { useTheme } from '../providers/ThemeProvider';
@@ -19,6 +19,7 @@ export default function ProductPage() {
   const { getProductPets, pets } = usePets();
   const { addProductToCart } = useCarts();
   const [count, setCount] = useState(1);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getProductById(id);
@@ -76,7 +77,7 @@ export default function ProductPage() {
               <Button variant='contained' color={theme.palette.secondary.main} sx={{ backgroundColor: theme.palette.secondary.main, borderRadius: '100px', px: 4, py: 1, fontSize: '1.25rem', fontWeight: theme.typography.fontWeightBold }} onClick={(e) => addToCart(e, id, count)}>
                 Add to cart
               </Button>
-              <Button variant='contained' sx={{ borderRadius: '100px', px: 4, py: 1, fontSize: '1.25rem', fontWeight: theme.typography.fontWeightBold }}>Purchase Now</Button>
+              <Button variant='contained' sx={{ borderRadius: '100px', px: 4, py: 1, fontSize: '1.25rem', fontWeight: theme.typography.fontWeightBold }} onClick={() => navigate(ROUTES.ORDER, { state: { products: [{ product_id: id, isStocked: product.isStocked, price: product.price, quantity: count }] } })}>Purchase Now</Button>
             </Box>
           </Grid2>
         </Grid2 >
