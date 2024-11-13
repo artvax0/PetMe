@@ -3,10 +3,14 @@ import useProducts from "../hooks/useProducts";
 import { useAuth } from "../providers/UserProvider"
 import { Navigate, useLocation } from "react-router-dom";
 import { ROUTES } from "../routes/routesModel";
-import { Box, Grid2, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
+import { Box, Divider, Grid2, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
 import Title from "../components/utils/Title";
 import { useTheme } from "../providers/ThemeProvider";
 import useUsers from "../hooks/useUsers";
+import TransactionForm from "../components/forms/TransactionForm";
+import useForm from "../hooks/useForm";
+import { initialCreditForm } from "../helpers/initial_forms/initialCreditForm";
+import creditCardSchema from "../models/creditCardSchema";
 
 export default function OrderPage() {
   const { user } = useAuth();
@@ -17,7 +21,10 @@ export default function OrderPage() {
   const [productsList, setProductsList] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const { getUserInfo, userData } = useUsers();
-
+  const submitOrder = () => {
+    console.log('submitted form!')
+  }
+  const { formData, errors, handleChange, validateForm, onSubmit } = useForm(initialCreditForm, creditCardSchema, submitOrder);
 
   useEffect(() => {
     if (user && products) {
@@ -44,7 +51,7 @@ export default function OrderPage() {
   if (!products) return (<Navigate to={ROUTES.ROOT} replace />);
   if (isLoading) return (<p>Loading...</p>);
   if (user && products && productsList && userData) return (
-    <Box display='flex' flexDirection='column' flexGrow={1}>
+    <Box display='flex' flexDirection='column' flexGrow={1} gap={1}>
       <Title title={'Place Order'} />
       <Box component='section' display='flex' flexDirection='column'>
         <Typography variant='h4' component='h1'>Place Order</Typography>
@@ -78,6 +85,7 @@ export default function OrderPage() {
         </TableContainer>
         <Typography textAlign='right' fontSize='1.2rem'>Total: <strong>${products.reduce((acc, product) => acc += product.price, 0)}</strong></Typography>
       </Box>
+      <Divider variant='middle' gutterBottom />
       {/* address form, secondary and unchangeable unless changed in user settings */}
       <Box component='section' display='flex' flexDirection='column'>
         <Typography variant='h5' component='h2'>Address Info</Typography>
@@ -85,29 +93,41 @@ export default function OrderPage() {
           <Typography color='highlight'>* Address can only be changed in user preferences.</Typography>
           <Grid2 container spacing={2}>
             <Grid2 size={{ xs: 12, sm: 8, md: 4 }}>
-              <TextField label='Country' color='highlight' size='small' slotProps={{ htmlInput: { readOnly: true, sx: { color: `${theme.palette.text.secondary}` } } }} fullWidth defaultValue={userData.address.country} />
+              <TextField label='Country' color='highlight' size='small' slotProps={{ htmlInput: { readOnly: true, sx: { color: `${theme.palette.text.disabled}` } }, inputLabel: { sx: { color: `${theme.palette.text.disabled}` } } }} fullWidth defaultValue={userData.address.country} />
             </Grid2>
             <Grid2 size={{ xs: 12, sm: 8, md: 4 }}>
-              <TextField label='State' color='highlight' size='small' slotProps={{ htmlInput: { readOnly: true, sx: { color: `${theme.palette.text.secondary}` } } }} fullWidth defaultValue={userData.address.state} />
+              <TextField label='State' color='highlight' size='small' slotProps={{ htmlInput: { readOnly: true, sx: { color: `${theme.palette.text.disabled}` } }, inputLabel: { sx: { color: `${theme.palette.text.disabled}` } } }} fullWidth defaultValue={userData.address.state} />
             </Grid2>
             <Grid2 size={{ xs: 12, sm: 8, md: 4 }}>
-              <TextField label='City' color='highlight' size='small' slotProps={{ htmlInput: { readOnly: true, sx: { color: `${theme.palette.text.secondary}` } } }} fullWidth defaultValue={userData.address.city} />
+              <TextField label='City' color='highlight' size='small' slotProps={{ htmlInput: { readOnly: true, sx: { color: `${theme.palette.text.disabled}` } }, inputLabel: { sx: { color: `${theme.palette.text.disabled}` } } }} fullWidth defaultValue={userData.address.city} />
             </Grid2>
             <Grid2 size={{ xs: 12, sm: 8, md: 4 }}>
-              <TextField label='Street' color='highlight' size='small' slotProps={{ htmlInput: { readOnly: true, sx: { color: `${theme.palette.text.secondary}` } } }} fullWidth defaultValue={userData.address.street} />
+              <TextField label='Street' color='highlight' size='small' slotProps={{ htmlInput: { readOnly: true, sx: { color: `${theme.palette.text.disabled}` } }, inputLabel: { sx: { color: `${theme.palette.text.disabled}` } } }} fullWidth defaultValue={userData.address.street} />
             </Grid2>
             <Grid2 size={{ xs: 12, sm: 8, md: 4 }}>
-              <TextField label='House Number' color='highlight' size='small' slotProps={{ htmlInput: { readOnly: true, sx: { color: `${theme.palette.text.secondary}` } } }} fullWidth defaultValue={userData.address.houseNumber} />
+              <TextField label='House Number' color='highlight' size='small' slotProps={{ htmlInput: { readOnly: true, sx: { color: `${theme.palette.text.disabled}` } }, inputLabel: { sx: { color: `${theme.palette.text.disabled}` } } }} fullWidth defaultValue={userData.address.houseNumber} />
             </Grid2>
             <Grid2 size={{ xs: 12, sm: 8, md: 4 }}>
-              <TextField label='Zip' color='highlight' size='small' slotProps={{ htmlInput: { readOnly: true, sx: { color: `${theme.palette.text.secondary}` } } }} fullWidth defaultValue={userData.address.zip} />
+              <TextField label='Zip' color='highlight' size='small' slotProps={{ htmlInput: { readOnly: true, sx: { color: `${theme.palette.text.disabled}` } }, inputLabel: { sx: { color: `${theme.palette.text.disabled}` } } }} fullWidth defaultValue={userData.address.zip} />
             </Grid2>
           </Grid2>
         </Paper>
       </Box>
+      <Divider variant='middle' gutterBottom />
       {/* transaction form, demo- not really doing any transactions */}
-
-      {/* confirm order button */}
+      <Box component='section' display='flex' flexDirection='column'>
+        <Grid2 container flexDirection='column' size={12} gap={1}>
+          <Typography variant='h5' component='h2'>Payment</Typography>
+          <Typography color='warning'>* Please <strong>do not</strong> fill in real information in this form! This form is a simulation, a demo, a placeholder. <br />&nbsp;&nbsp;Any information filled in this form is <strong>not sent</strong> to the server and database, and remains just as a simulation. <br />&nbsp;&nbsp;This note acts as a final warning, and will not be held responsible for any actions.</Typography>
+          <TransactionForm
+            onSubmit={onSubmit}
+            validateForm={validateForm}
+            errors={errors}
+            formData={formData}
+            onInputChange={handleChange}
+          />
+        </Grid2>
+      </Box>
     </Box >
   )
 }
