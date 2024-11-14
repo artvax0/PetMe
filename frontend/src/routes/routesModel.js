@@ -6,5 +6,6 @@ export const ROUTES = {
   SIGNUP: '/signup',
   FOOD: '/food',
   PRODUCT: '/product',
-  ORDER: '/order'
+  ORDER: '/order',
+  USER_SETTINGS: '/account-settings'
 }
