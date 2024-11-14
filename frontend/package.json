@@ -14,7 +14,7 @@
     "@emotion/styled": "^11.13.0",
     "@fontsource/roboto": "^5.1.0",
     "@mui/icons-material": "^6.1.1",
-    "@mui/material": "^6.1.1",
+    "@mui/material": "^6.1.7",
     "axios": "^1.7.7",
     "joi": "^17.13.3",
     "jwt-decode": "^4.0.0",
