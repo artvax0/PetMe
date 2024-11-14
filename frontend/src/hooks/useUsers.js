@@ -1,10 +1,11 @@
-import { getUserData, login, signup } from "../services/userApiService"
+import { getUserData, login, signup, updateUser } from "../services/userApiService"
 import normalizeUser from "../helpers/normalization/normalizeUser";
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from "../routes/routesModel";
 import { useCallback, useState } from "react";
 import { getUser, saveToken } from "../services/storageService";
 import { useAuth } from "../providers/UserProvider";
+import useAxios from "./useAxios";
 
 export default function useUsers() {
   const [isLoading, setIsLoading] = useState(true);
@@ -12,6 +13,7 @@ export default function useUsers() {
   const [userData, setUserData] = useState();
   const navigate = useNavigate();
   const { setUser, setUserToken } = useAuth();
+  useAxios();
 
   const userSignup = useCallback(async (userInfo, e) => {
     setIsLoading(true);
@@ -55,5 +57,16 @@ export default function useUsers() {
     setIsLoading(false);
   })
 
-  return { userSignup, userLogin, getUserInfo, isLoading, error, userData };
+  const updateUserInfo = useCallback(async (userId, userInfo) => {
+    setIsLoading(true);
+    try {
+      const { data } = await updateUser(userId, userInfo);
+      setUserData(data);
+    } catch (error) {
+      setError(error);
+    }
+    setIsLoading(false);
+  })
+
+  return { userSignup, userLogin, getUserInfo, updateUserInfo, isLoading, error, userData };
 }

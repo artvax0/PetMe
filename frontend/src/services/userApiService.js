@@ -25,3 +25,11 @@ export const getUserData = async (userId) => {
     throw error;
   }
 }
+
+export const updateUser = async (userId, userInfo) => {
+  try {
+    return await axios.put(apiUrl + userId, userInfo);
+  } catch (error) {
+    throw error;
+  }
+}

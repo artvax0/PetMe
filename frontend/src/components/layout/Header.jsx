@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useTheme } from '../../providers/ThemeProvider';
 import Banner from './Banner';
 import { ROUTES } from '../../routes/routesModel';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useAuth } from '../../providers/UserProvider';
 import CartDrawer from '../cart/CartDrawer';
@@ -18,6 +18,7 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [menuAnchor, setMenuAnchor] = useState(null);
   const isMenuOpen = Boolean(menuAnchor);
+  const navigate = useNavigate();
   const handleMenu = (e) => {
     setMenuAnchor(e.currentTarget);
   }
@@ -106,7 +107,7 @@ export default function Header() {
               anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
               <MenuItem><HistoryIcon sx={{ mr: 1 }} />Orders History</MenuItem>
-              <MenuItem><SettingsIcon sx={{ mr: 1 }} />Account Preferences</MenuItem>
+              <MenuItem onClick={() => navigate(ROUTES.USER_SETTINGS)}><SettingsIcon sx={{ mr: 1 }} />Account Preferences</MenuItem>
               <MenuItem onClick={handleLogout}><LogoutIcon sx={{ mr: 1 }} />Logout</MenuItem>
             </Menu>
           </Toolbar>
