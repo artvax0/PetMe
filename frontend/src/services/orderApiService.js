@@ -9,3 +9,11 @@ export const newOrder = async (userId, orderInfo) => {
     throw error;
   }
 }
+
+export const getUserOrders = async (userId) => {
+  try {
+    return await axios.get(apiUrl + '/user/' + userId);
+  } catch (error) {
+    throw error;
+  }
+}
