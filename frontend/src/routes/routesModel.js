@@ -7,5 +7,6 @@ export const ROUTES = {
   FOOD: '/food',
   PRODUCT: '/product',
   ORDER: '/order',
-  USER_SETTINGS: '/account-settings'
+  USER_SETTINGS: '/account-settings',
+  ORDERS: '/orders'
 }

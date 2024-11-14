@@ -8,6 +8,7 @@ import SignupPage from '../pages/SignupPage'
 import LoginPage from '../pages/LoginPage'
 import OrderPage from '../pages/OrderPage'
 import AccountSettingsPage from '../pages/AccountSettingsPage'
+import OrdersPage from '../pages/OrdersPage'
 
 export default function Router() {
   return (
@@ -21,6 +22,7 @@ export default function Router() {
       <Route path={ROUTES.SIGNUP} element={<SignupPage />} />
       <Route path={ROUTES.ORDER} element={<OrderPage />} />
       <Route path={ROUTES.USER_SETTINGS} element={<AccountSettingsPage />} />
+      <Route path={ROUTES.ORDERS} element={<OrdersPage />} />
       <Route path='*' element={<Page404 />} />
     </Routes>
   )
