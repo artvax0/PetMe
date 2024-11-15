@@ -40,7 +40,7 @@ export default function OrdersPage() {
               <CardActionArea onClick={() => navigate(ROUTES.ORDER + `/${order._id}`)}>
                 <Box display='flex' justifyContent='space-between'>
                   <Typography variant='h5' component='h2'>Order Number: {order._id}</Typography>
-                  <Box lineHeight={2} borderRadius={2} px={2} color='#fff' fontFamily={theme.typography.fontFamily} fontWeight={theme.typography.fontWeightMedium} sx={{ backgroundColor: `${statusColors(order.status)}` }}>{order.status}</Box>
+                  <Box fontSize='1rem' lineHeight={2} borderRadius={2} px={2} color='#fff' fontFamily={theme.typography.fontFamily} fontWeight={theme.typography.fontWeightMedium} sx={{ backgroundColor: `${statusColors(order.status)}` }}>{order.status}</Box>
                 </Box>
                 <Divider />
                 <Typography variant='h6' component='h3'>Order Details</Typography>
