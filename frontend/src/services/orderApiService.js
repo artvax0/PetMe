@@ -17,3 +17,11 @@ export const getUserOrders = async (userId) => {
     throw error;
   }
 }
+
+export const getOrder = async (orderId) => {
+  try {
+    return await axios.get(apiUrl + orderId);
+  } catch (error) {
+    throw error;
+  }
+}

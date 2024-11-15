@@ -1,6 +1,6 @@
 import { useState } from "react";
 import useAxios from "./useAxios";
-import { getUserOrders, newOrder } from "../services/orderApiService";
+import { getOrder, getUserOrders, newOrder } from "../services/orderApiService";
 
 export default function useOrders() {
   useAxios();
@@ -33,5 +33,16 @@ export default function useOrders() {
     setIsLoading(false);
   }
 
-  return { orders, order, isLoading, error, newUserOrder, listUserOrders };
+  const findOrder = async (orderId) => {
+    setIsLoading(true);
+    try {
+      const { data } = await getOrder(orderId);
+      setOrder(data);
+    } catch (error) {
+      setError(error);
+    }
+    setIsLoading(false);
+  }
+
+  return { orders, order, isLoading, error, newUserOrder, listUserOrders, findOrder };
 }
