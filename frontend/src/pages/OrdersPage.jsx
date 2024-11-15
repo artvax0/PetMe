@@ -54,7 +54,7 @@ export default function OrdersPage() {
                           <Typography variant='body1'>{productData?.name}</Typography>
                           <Box>
                             <Typography>Quantity: {product.quantity}</Typography>
-                            <Typography>Price: {product.price}</Typography>
+                            <Typography>Price: ${product.price}</Typography>
                           </Box>
                         </Box>
                       </Grid2>
@@ -62,7 +62,7 @@ export default function OrdersPage() {
                     </React.Fragment>
                   )
                 })}
-                <Typography fontWeight={theme.typography.fontWeightBold}>Total: {order.total}</Typography>
+                <Typography fontWeight={theme.typography.fontWeightBold}>Total: ${order.total}</Typography>
                 <Typography variant='h6' component='h3'>Delivery Details</Typography>
                 <Typography variant='body1'>{`${order.address.street} ${order.address.houseNumber}, ${order.address.city}, ${order.address.state ? `${order.address.state},` : ''} ${order.address.country} | ${order.address.zip}`}</Typography>
               </CardActionArea>
