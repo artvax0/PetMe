@@ -1,9 +1,70 @@
-import React from 'react'
-import { useParams } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Navigate, useNavigate, useParams } from 'react-router-dom'
+import { useAuth } from '../providers/UserProvider';
+import useOrders from '../hooks/useOrders';
+import { ROUTES } from '../routes/routesModel';
+import Title from '../components/utils/Title';
+import { Box, Divider, Grid2, Typography } from '@mui/material';
+import { useTheme } from '../providers/ThemeProvider';
+import statusColors from '../utils/statusColors';
+import useProducts from '../hooks/useProducts';
 
 export default function OrderDetailsPage() {
   const { id } = useParams();
+  const { user } = useAuth()
+  const { isLoading, error, order, findOrder } = useOrders();
+  const { allProducts, getAllProducts } = useProducts();
+  const { theme } = useTheme();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const getOrder = async () => {
+      await findOrder(id);
+      await getAllProducts();
+    }
+    getOrder();
+  }, [user])
+
+  if (isLoading) return (<p>Loading...</p>);
+  if (error) return (<p>Error: {error}</p>);
+  if (!user || user._id != order.user_id) return (<Navigate to={ROUTES.LOGIN} replace />);
   return (
-    <div>OrderDetailsPage + {id}</div>
+    <>
+      <Title title={'Order Details'} />
+      <Box display='flex' flexDirection='column' width='100%'>
+        <Typography variant='h4' component='h1'>Order Details</Typography>
+        <Grid2 container>
+          <Box display='flex' width='100%' justifyContent='space-between'>
+            <Typography variant='h5' component='h2'>Order Number: {id}</Typography>
+            <Box fontSize='1rem' lineHeight={2} borderRadius={2} px={2} color='#fff' fontFamily={theme.typography.fontFamily} fontWeight={theme.typography.fontWeightMedium} sx={{ backgroundColor: `${statusColors(order.status)}` }}>{order.status}</Box>
+          </Box>
+          <Grid2 container spacing={2} flexDirection='column' size={12}>
+            {order.products.map((product) => {
+              const productData = allProducts.filter((pr) => product.product_id == pr._id)[0];
+              return (
+                <React.Fragment key={product.product_id}>
+                  <Grid2 container gap={1} sx={{ '&:hover': { backgroundColor: 'rgba(0, 0, 0, .10)' }, cursor: 'pointer' }} onClick={() => navigate(ROUTES.PRODUCT + `/${product.product_id}`)}>
+                    <Box component='img' src={productData?.image?.url} alt={productData?.image?.alt} maxWidth='75px' maxHeight='75px' />
+                    <Box>
+                      <Typography variant='body1'>{productData?.name}</Typography>
+                      <Box>
+                        <Typography>Quantity: {product.quantity}</Typography>
+                        <Typography>Price: ${product.price}</Typography>
+                      </Box>
+                    </Box>
+                  </Grid2>
+                  <Divider variant='middle' />
+                </React.Fragment>
+              )
+            })}
+            <Typography variant='h6' component='h3' fontWeight={theme.typography.fontWeightBold}>Total: ${order.total}</Typography>
+            <Box>
+              <Typography variant='h6' component='h3'>Delivery Details</Typography>
+              <Typography variant='body1'>{`${order.address.street} ${order.address.houseNumber}, ${order.address.city}, ${order.address.state ? `${order.address.state},` : ''} ${order.address.country} | ${order.address.zip}`}</Typography>
+            </Box>
+          </Grid2>
+        </Grid2>
+      </Box>
+    </>
   )
 }
