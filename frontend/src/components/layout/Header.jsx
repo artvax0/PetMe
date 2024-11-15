@@ -106,7 +106,7 @@ export default function Header() {
               transformOrigin={{ horizontal: 'right', vertical: 'top' }}
               anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-              <MenuItem><HistoryIcon sx={{ mr: 1 }} />Orders History</MenuItem>
+              <MenuItem onClick={() => navigate(ROUTES.ORDERS)}><HistoryIcon sx={{ mr: 1 }} />Orders History</MenuItem>
               <MenuItem onClick={() => navigate(ROUTES.USER_SETTINGS)}><SettingsIcon sx={{ mr: 1 }} />Account Preferences</MenuItem>
               <MenuItem onClick={handleLogout}><LogoutIcon sx={{ mr: 1 }} />Logout</MenuItem>
             </Menu>
