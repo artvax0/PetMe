@@ -80,7 +80,7 @@ export default function OrderPage() {
               {products.map((product) => {
                 const productData = productsList[product.product_id];
                 return (
-                  <TableRow key={product.product_id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                  <TableRow onClick={() => navigate(ROUTES.PRODUCT + `/${product.product_id}`)} key={product.product_id} sx={{ '&:last-child td, &:last-child th': { border: 0 }, '&:hover': { backgroundColor: 'rgba(0, 0, 0, .10)' }, cursor: 'pointer' }}>
                     <TableCell component='th' scope='row' align='center'><Box component='img' src={productData?.image?.url || ''} alt={productData?.image?.alt || ''} maxWidth='50px' maxHeight='50px' /></TableCell>
                     <TableCell align='center'>{productData?.name || ''}</TableCell>
                     <TableCell align='center'>{product.quantity}</TableCell>
