@@ -8,5 +8,6 @@ export const ROUTES = {
   PRODUCT: '/product',
   ORDER: '/order',
   USER_SETTINGS: '/account-settings',
-  ORDERS: '/orders'
+  ORDERS: '/orders',
+  ADD_PRODUCT: '/add-product',
 }

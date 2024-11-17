@@ -10,6 +10,7 @@ import OrderPage from '../pages/OrderPage'
 import AccountSettingsPage from '../pages/AccountSettingsPage'
 import OrdersPage from '../pages/OrdersPage'
 import OrderDetailsPage from '../pages/OrderDetailsPage'
+import AddProductPage from '../pages/AddProductPage'
 
 export default function Router() {
   return (
@@ -25,6 +26,7 @@ export default function Router() {
       <Route path={ROUTES.ORDER + '/:id'} element={<OrderDetailsPage />} />
       <Route path={ROUTES.USER_SETTINGS} element={<AccountSettingsPage />} />
       <Route path={ROUTES.ORDERS} element={<OrdersPage />} />
+      <Route path={ROUTES.ADD_PRODUCT} element={<AddProductPage />} />
       <Route path='*' element={<Page404 />} />
     </Routes>
   )
