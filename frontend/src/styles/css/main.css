@@ -17,4 +17,12 @@ input[type=number] {
 input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-butto {
   -webkit-appearance: none;
   margin: 0;
+}
+
+.filepond--wrapper {
+  width: 100%;
+}
+
+.filepond--root, .filepond--drop-label {
+  height: auto;
 }/*# sourceMappingURL=main.css.map */
