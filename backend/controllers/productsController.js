@@ -1,9 +1,10 @@
 import { Router } from "express";
 import { deleteProduct, getProduct, getProducts, newProduct, updateProduct, updateProductStock } from "../services/productsService.js";
-import { getCategoryByName } from "../services/categoriesService.js";
+import { getCategory, getCategoryByName } from "../services/categoriesService.js";
 import { handleError } from "../utils/handleErrors.js";
 import authLoggedUser from "../middlewares/userAuth.js";
 import { validateNewProduct, validateProduct } from "../validators/validate.js";
+import Category from "../models/collections/Category.js";
 
 const router = Router();
 
@@ -28,8 +29,13 @@ router.post('/', authLoggedUser, async (req, res) => {
     }
 
     let category = req.body.category_id;
-    category = await getCategoryByName(category);
-    req.body = { ...req.body, category_id: category._id };
+    try {
+      await Category.findById(category);
+    } catch {
+      category = await getCategoryByName(category);
+      req.body = { ...req.body, category_id: category._id };
+    }
+
     const product = await newProduct(req.body);
     res.send(product);
   } catch (error) {
