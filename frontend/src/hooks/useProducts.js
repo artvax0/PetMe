@@ -1,6 +1,8 @@
 import { useCallback, useState } from "react";
-import { getProduct, getProducts } from "../services/productsApiService";
+import { getProduct, getProducts, newProduct } from "../services/productsApiService";
 import { getCategories } from "../services/categoriesApiService";
+import useAxios from "./useAxios";
+import normalizeNewProduct from "../helpers/normalization/normalizeNewProduct";
 
 export default function useProducts() {
   const [allProducts, setAllProducts] = useState([]);
@@ -9,6 +11,7 @@ export default function useProducts() {
   const [productsByCategory, setProductsByCategory] = useState({});
   const [error, setError] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  useAxios();
 
   const getAllProducts = useCallback(async () => {
     setIsLoading(true);
@@ -50,7 +53,20 @@ export default function useProducts() {
       setError(error);
     }
     setIsLoading(false);
-  }, [])
+  }, []);
 
-  return { getAllProducts, getProductById, allProducts, product, categories, productsByCategory, error, isLoading };
+  const addNewProduct = useCallback(async (product, e) => {
+    setIsLoading(true);
+    try {
+      const normalizedProduct = normalizeNewProduct(product);
+      await newProduct(normalizedProduct);
+    } catch (error) {
+      setError(error);
+    }
+    e.target.disabled = false;
+    e.target.classList.toggle('Mui-disabled');
+    setIsLoading(false);
+  })
+
+  return { getAllProducts, getProductById, allProducts, addNewProduct, product, categories, productsByCategory, error, isLoading };
 }
