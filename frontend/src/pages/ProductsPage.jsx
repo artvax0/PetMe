@@ -4,18 +4,21 @@ import { useEffect } from "react";
 import useProducts from "../hooks/useProducts";
 import { useTheme } from "../providers/ThemeProvider";
 import Title from "../components/utils/Title";
+import usePets from "../hooks/usePets";
 
 export default function ProductsPage() {
   const { theme } = useTheme();
   const { getAllProducts, categories, productsByCategory, error, isLoading } = useProducts();
+  const { getAllPets, pets } = usePets();
 
   useEffect(() => {
     getAllProducts();
+    getAllPets();
   }, []);
 
   if (isLoading) return <p>Loading...</p> //temporarry loading message until loading spinner is ready
   if (error) return <p>Error: {error}</p> //temporary error message until error component is ready
-  if (categories) return (
+  if (categories && pets) return (
     <>
       <Title title={'Products'} />
       <Box width='100%' display='flex' flexDirection='column' gap={2}>
@@ -28,7 +31,7 @@ export default function ProductsPage() {
               <Grid2 container spacing={2} mx={3}>
                 {products.map((product) => (
                   <Grid2 key={product._id} display='inline-flex' size={{ xs: 12, sm: 6, md: 4, lg: 1.5 }}>
-                    <CardComponent product={product} />
+                    <CardComponent product={product} pets={pets} />
                   </Grid2>
                 ))}
               </Grid2>

@@ -4,7 +4,7 @@ import { useTheme } from "../../providers/ThemeProvider"
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../routes/routesModel";
 
-export default function CardComponent({ product }) {
+export default function CardComponent({ product, pets }) {
   const { theme } = useTheme();
   const navigate = useNavigate();
   return (
@@ -12,7 +12,7 @@ export default function CardComponent({ product }) {
       <Card elevation={5} sx={{ width: '100%', backgroundColor: theme.palette.primary.main, borderRadius: '12px' }}>
         <CardActionArea onClick={() => navigate(ROUTES.PRODUCT + `/${product._id}`)} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <Box height='50%' width='100%'>
-            <CardImage url={product.image.url} alt={product.image.alt} />
+            <CardImage url={product.image.url} alt={product.image.alt} pets={pets} petTypes={product.petType_id} />
           </Box>
 
           <Box height='50%' display='flex' flexDirection='column' alignItems='center'>

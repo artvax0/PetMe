@@ -53,8 +53,8 @@ export default function ProductPage() {
             <Typography>This product is fit for:</Typography>
             <Box display='inline-flex' gap={2} pb={2}>
               {pets && pets.map((pet) => (
-                <Box key={pet._id} width='30px' height='30px' boxShadow='0 5px 5px rgba(0, 0, 0, .25)' borderRadius='50%' >
-                  <Box width='100%' component='img' src='' alt={pet.name + ' icon'} />
+                <Box key={pet._id} width='30px' height='30px' boxShadow='0 5px 5px rgba(0, 0, 0, .25)' borderRadius='50%' display='flex' justifyContent='center' alignItems='center'>
+                  <Box width='80%' component='img' src={`/${pet.name}.svg`} alt={pet.name + ' icon'} />
                 </Box>
               ))
               }
