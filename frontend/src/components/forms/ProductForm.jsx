@@ -86,8 +86,18 @@ export default function ProductForm({ styles, onSubmit, validateForm, errors, fo
           <Typography>Image File *</Typography>
           <FilePond disabled={disabled} onupdatefiles={(fileItems) => handleFileUpload(fileItems)} allowFileTypeValidation acceptedFileTypes={['image/*']} />
           <Typography variant='body2' color='error'>* Image file is mandatory.</Typography>
+          {
+            formData.url ?
+              <>
+                <Typography>Image Preview</Typography>
+                <Box display='flex' justifyContent='center'>
+                  <Box component='img' src={formData.url} alt={formData.alt} maxWidth='225px' maxHeight='225px' />
+                </Box>
+              </> :
+              null
+          }
         </Box>
-        {/* Input Form: 'file' */}
+
         <FormControl
           name='price'
           label='price ($)'
@@ -103,7 +113,6 @@ export default function ProductForm({ styles, onSubmit, validateForm, errors, fo
           onChange={onInputChange}
           formData={formData}
         />
-        {/* following two inputs should be a multiple select options, options will come from the server as an array */}
 
         <FormControl
           name='category_id'
