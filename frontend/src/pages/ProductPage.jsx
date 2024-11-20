@@ -54,7 +54,7 @@ export default function ProductPage() {
               {
                 user.isEmployee &&
                 <Box>
-                  <Button variant='contained' color='warning' sx={{ p: 1, width: '30px', minWidth: '30px', maxHeight: '30px' }}><EditIcon /></Button>
+                  <Button variant='contained' color='warning' sx={{ p: 1, width: '30px', minWidth: '30px', maxHeight: '30px' }} onClick={() => navigate(ROUTES.EDIT_RODUCT + `/${id}`)}><EditIcon /></Button>
                 </Box>
               }
             </Box>
