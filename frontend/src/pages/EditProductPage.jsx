@@ -14,8 +14,8 @@ import initialProductForm from '../helpers/initial_forms/initialProductForm';
 export default function EditProductPage() {
   const { id } = useParams();
   const { user } = useAuth();
-  const { getProductById, product, isLoading, error } = useProducts();
-  const { formData, setFormData, errors, handleChange, validateForm, onSubmit } = useForm(initialProductForm, productSchema, () => console.log('form submitted:', formData));
+  const { getProductById, updateProduct, product, isLoading, error } = useProducts();
+  const { formData, setFormData, errors, handleChange, validateForm, onSubmit } = useForm(initialProductForm, productSchema, () => { updateProduct(id, formData) });
 
   useEffect(() => {
     const getProduct = async () => {
