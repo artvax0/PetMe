@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Navigate, useNavigate, useParams } from 'react-router-dom'
-import { Box, Button, Divider, Grid2, Typography } from '@mui/material';
+import { Box, Button, Divider, Grid2, IconButton, Typography } from '@mui/material';
 import useProducts from '../hooks/useProducts';
 import { useTheme } from '../providers/ThemeProvider';
 import Title from '../components/utils/Title';
@@ -10,6 +10,7 @@ import Counter from '../components/utils/Counter';
 import { ROUTES } from '../routes/routesModel';
 import { useAuth } from '../providers/UserProvider';
 import useCarts from '../hooks/useCarts';
+import EditIcon from '@mui/icons-material/Edit';
 
 export default function ProductPage() {
   const { id } = useParams();
@@ -46,9 +47,17 @@ export default function ProductPage() {
             <Box width='100%' component='img' src={product.image.url} alt={product.image.alt} />
           </Grid2>
           <Grid2 display='flex' flexDirection='column' flexGrow={1} py={1} maxWidth='64%'>
-            <Typography variant='h4' component='h2' fontWeight={theme.typography.fontWeightBold} fontSize='3rem' color={theme.palette.secondary.main} gutterBottom>
-              {product.name}
-            </Typography>
+            <Box display='flex' justifyContent='space-between'>
+              <Typography variant='h4' component='h2' fontWeight={theme.typography.fontWeightBold} fontSize='3rem' color={theme.palette.secondary.main} gutterBottom>
+                {product.name}
+              </Typography>
+              {
+                user.isEmployee &&
+                <Box>
+                  <Button variant='contained' color='warning' sx={{ p: 1, width: '30px', minWidth: '30px', maxHeight: '30px' }}><EditIcon /></Button>
+                </Box>
+              }
+            </Box>
             <Typography variant='body1' component='h3' fontWeight={theme.typography.fontWeightRegular} fontSize='1.25rem' flexGrow={1} gutterBottom>{product.description}</Typography>
             <Typography>This product is fit for:</Typography>
             <Box display='inline-flex' gap={2} pb={2}>
