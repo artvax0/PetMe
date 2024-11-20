@@ -29,9 +29,7 @@ export default function ProductForm({ styles, onSubmit, validateForm, errors, fo
 
   useEffect(() => {
     formDataRef.current = formData;
-    console.log(formData);
     formDataRef.current.name ? setDisabled(false) : setDisabled(true);
-    console.log(disabled);
   }, [formData])
 
   const handleFileUpload = async (fileItems) => {
@@ -41,17 +39,13 @@ export default function ProductForm({ styles, onSubmit, validateForm, errors, fo
       const file = fileItems[0].file;
 
       const fileName = `${productName}.${file.type.split('/')[1] || 'png'}`;
-      console.warn('File appending: ', file, 'with name: ', fileName);
 
       // rename file, and append file type extension
       form.append('photo', file, fileName);
-      console.log('formData: ', form);
       try {
         const data = await setupFileUpload(form);
-        console.log('Upload response:', data);
         if (data) {
           await setFormData((prev) => ({ ...prev, url: `http://localhost:8181/${data}`, alt: `${formDataRef.current.name}` }))
-          console.log(formData);
         } else {
           console.error('File upload failed: No filePath returned from server');
         }

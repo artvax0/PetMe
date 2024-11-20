@@ -20,18 +20,14 @@ export default function EditProductPage() {
   useEffect(() => {
     const getProduct = async () => {
       const productInfo = await getProductById(id);
-      console.log('Product:', productInfo)
       setFormData(mapProductToModel(productInfo));
     }
     getProduct();
   }, [id, setFormData]);
 
-
-
   if (isLoading) return (<p>Loading...</p>);
   if (error) return (<p>Error: {error}</p>);
   if (!user || !user.isEmployee) return (<Navigate to={ROUTES.LOGIN} />)
-  console.log(formData)
   return (
     <Box width='100%'>
       <Title title={`Editing ${product.name}`} />
