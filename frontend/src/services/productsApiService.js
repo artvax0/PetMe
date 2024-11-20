@@ -21,8 +21,15 @@ export const getProduct = async (id) => {
 
 export const newProduct = async (product) => {
   try {
-    console.log(JSON.stringify(product));
     return await axios.post(apiUrl, product);
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const editProduct = async (productId, product) => {
+  try {
+    return await axios.put(apiUrl + productId, product);
   } catch (error) {
     throw error;
   }
