@@ -14,22 +14,20 @@ export default function useForm(form, schema, handleSubmit) {
   }, [schema]);
 
   const handleChange = useCallback((e) => {
-    let value = e.target.value;
-    let name = e.target.name;
+    const { name, value } = e.target;
 
     const errorMessage = validateProperty(name, value);
 
-    if (errorMessage) {
-      // if an error message (and if already exists) it will add it to the other errors in the object
-      setErrors((prev) => ({ ...prev, [name]: errorMessage }));
-    } else {
-      // if error message no longer persists, delete said error message from the object
-      setErrors((prev) => {
-        let errorObj = { ...prev };
-        delete errorObj[name];
-        return errorObj;
-      });
-    }
+    setErrors((prev) => {
+      const updatedErrors = JSON.parse(JSON.stringify(prev));
+
+      if (errorMessage) {
+        updatedErrors[name] = errorMessage;
+      } else {
+        delete updatedErrors[name];
+      }
+      return updatedErrors
+    })
     setFormData((prev) => ({ ...prev, [name]: value }));
   }, [validateProperty]);
 
@@ -37,7 +35,6 @@ export default function useForm(form, schema, handleSubmit) {
     // this function will make the submit button active/inactive accordingly
     const joiSchema = Joi.object(schema);
     const { error } = joiSchema.validate(formData);
-
     if (error) return false;
     return true;
   }, [schema, formData])
