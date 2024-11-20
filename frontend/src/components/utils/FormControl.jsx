@@ -1,8 +1,15 @@
 import { FormControl as MUIFormControl, Grid2, TextField, InputLabel, Select, MenuItem, OutlinedInput, Chip, Box, FormHelperText } from '@mui/material'
-import React from 'react'
 import capitalizeLetters from '../../utils/capitalizeLetters'
+import { useTheme } from '../../providers/ThemeProvider'
 
 export default function FormControl({ label, required = true, error, formData, name, onChange, size, type = 'text', options = [], slotProps = {}, multiple = false }) {
+  const { theme } = useTheme();
+  const getStyles = (id, selectedOptions) => {
+    return {
+      fontWeight: selectedOptions.includes(id) ? theme.typography.fontWeightMedium : theme.typography.fontWeightRegular,
+      backgroundColor: selectedOptions.includes(id) ? theme.palette.accent.main : 'inherit',
+    }
+  }
   return (
     <Grid2 container size={{ xs: 12, ...size }}>
       {type == 'select' ? (
@@ -17,24 +24,28 @@ export default function FormControl({ label, required = true, error, formData, n
             onChange={onChange}
             name={name}
             color='highlight'
-            input={<OutlinedInput id='select-multiple-chip' label='Chip' />}
+            input={<OutlinedInput id='select-multiple-chip' label={label} />}
             renderValue={(selected) => {
               if (multiple) {
-                selected.map(id => {
-                  const option = options.find(option => option._id == id);
-                  return (
-                    <Box key={id} display='inline-flex' flexWrap='wrap' mx={0.25}>
-                      <Chip label={option.name} />
-                    </Box>
-                  )
-                })
+                return (
+                  <Box display='flex' flexWrap='wrap' gap={0.5}>
+                    {selected.map(id => {
+                      const option = options.find(option => option._id == id);
+                      return option ? <Chip key={id} label={option.name} /> : null;
+                    })}
+                  </Box>
+                )
               } else {
                 const option = options.find(option => option._id == selected);
                 return option ? option.name : '';
               }
             }}>
             {options.map((option) => (
-              <MenuItem key={option._id} value={option._id}>
+              <MenuItem
+                key={option._id}
+                value={option._id}
+                style={getStyles(option._id, multiple ? formData[name] || [] : [formData[name]])}
+              >
                 {option.name}
               </MenuItem>
             ))}
