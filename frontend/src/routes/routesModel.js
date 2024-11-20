@@ -10,4 +10,5 @@ export const ROUTES = {
   USER_SETTINGS: '/account-settings',
   ORDERS: '/orders',
   ADD_PRODUCT: '/add-product',
+  EDIT_RODUCT: '/edit-product',
 }
