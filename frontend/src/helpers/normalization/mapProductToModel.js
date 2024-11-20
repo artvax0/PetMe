@@ -2,7 +2,7 @@ import localTime from "../../utils/localTime";
 
 const mapProductToModel = (product) => ({
   name: product.name,
-  description: product.name,
+  description: product.description,
   url: product.image.url,
   alt: product.image.alt,
   price: product.price,
