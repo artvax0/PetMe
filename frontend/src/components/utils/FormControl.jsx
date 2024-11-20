@@ -44,6 +44,7 @@ export default function FormControl({ label, required = true, error, formData, n
               <MenuItem
                 key={option._id}
                 value={option._id}
+                // highlight selected option
                 style={getStyles(option._id, multiple ? formData[name] || [] : [formData[name]])}
               >
                 {option.name}
