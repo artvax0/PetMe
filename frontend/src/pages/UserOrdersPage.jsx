@@ -9,7 +9,7 @@ import useProducts from '../hooks/useProducts';
 import { useTheme } from '../providers/ThemeProvider';
 import statusColors from '../utils/statusColors';
 
-export default function OrdersPage() {
+export default function UserOrdersPage() {
   const { user } = useAuth();
   const { orders, listUserOrders, isLoading, error } = useOrders();
   const { allProducts, getAllProducts } = useProducts();

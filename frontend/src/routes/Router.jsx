@@ -8,7 +8,7 @@ import SignupPage from '../pages/SignupPage'
 import LoginPage from '../pages/LoginPage'
 import OrderPage from '../pages/OrderPage'
 import AccountSettingsPage from '../pages/AccountSettingsPage'
-import OrdersPage from '../pages/OrdersPage'
+import UrserOrdersPage from '../pages/UserOrdersPage'
 import OrderDetailsPage from '../pages/OrderDetailsPage'
 import AddProductPage from '../pages/AddProductPage'
 import EditProductPage from '../pages/EditProductPage'
@@ -26,7 +26,7 @@ export default function Router() {
       <Route path={ROUTES.ORDER} element={<OrderPage />} />
       <Route path={ROUTES.ORDER + '/:id'} element={<OrderDetailsPage />} />
       <Route path={ROUTES.USER_SETTINGS} element={<AccountSettingsPage />} />
-      <Route path={ROUTES.ORDERS} element={<OrdersPage />} />
+      <Route path={ROUTES.USER_ORDERS} element={<UserOrdersPage />} />
       <Route path={ROUTES.ADD_PRODUCT} element={<AddProductPage />} />
       <Route path={ROUTES.EDIT_RODUCT + '/:id'} element={<EditProductPage />} />
       <Route path='*' element={<Page404 />} />
