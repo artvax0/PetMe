@@ -1,6 +1,6 @@
 import { forwardRef, useCallback, useEffect, useState } from 'react'
 import { Navigate, useNavigate, useParams } from 'react-router-dom'
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, Grid2, IconButton, Slide, Typography } from '@mui/material';
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, Grid2, Slide, Typography } from '@mui/material';
 import useProducts from '../hooks/useProducts';
 import { useTheme } from '../providers/ThemeProvider';
 import Title from '../components/utils/Title';
@@ -12,6 +12,7 @@ import { useAuth } from '../providers/UserProvider';
 import useCarts from '../hooks/useCarts';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import InputNumber from '../components/utils/InputNumber';
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -21,12 +22,14 @@ export default function ProductPage() {
   const { id } = useParams();
   const { user } = useAuth();
   const { theme } = useTheme();
-  const { product, getProductById, removeProduct, isLoading, error } = useProducts();
+  const { product, getProductById, editStock, removeProduct, isLoading, error } = useProducts();
   const { getProductPets, pets } = usePets();
   const { addProductToCart } = useCarts();
   const [count, setCount] = useState(1);
   const navigate = useNavigate();
-  const [open, setOpen] = useState(false);
+  const [openDel, setOpenDel] = useState(false);
+  const [openSt, setOpenSt] = useState(false);
+  const [stock, setStock] = useState(1)
 
   useEffect(() => {
     getProductById(id);
@@ -41,9 +44,12 @@ export default function ProductPage() {
     <Navigate to={ROUTES.LOGIN} replace />
   }, [])
 
-  const handleOpen = useCallback(() => setOpen(true), [user]);
-  const handleClose = useCallback(() => setOpen(false), [user]);
-  const handleDel = useCallback(async () => { handleClose(); await removeProduct(id); navigate(ROUTES.PRODUCTS) }, [])
+  const handleOpenDel = useCallback(() => setOpenDel(true), [user]);
+  const handleCloseDel = useCallback(() => setOpenDel(false), [user]);
+  const handleOpenSt = useCallback(() => setOpenSt(true), [user]);
+  const handleCloseSt = useCallback(() => setOpenSt(false), [user]);
+  const handleDel = useCallback(async () => { handleCloseDel(); await removeProduct(id); navigate(ROUTES.PRODUCTS) }, []);
+  const handleStock = useCallback(async (stock) => { await editStock(id, stock); location.reload() }, []);
 
   if (isLoading) return (<><Title title={'Loading...'} /><p>Loading...</p></>)
   if (error) return (<><Title title={'PetMe - Error'} /><p>Error: {error}</p></>)
@@ -64,8 +70,9 @@ export default function ProductPage() {
               {
                 user.isEmployee &&
                 <Box display='inline-flex' gap={1}>
+                  <Button variant='contained' color='success' sx={{ p: 1, width: '30px', minWidth: '30px', maxHeight: '30px' }} onClick={handleOpenSt}><InventoryIcon sx={{ color: '#fff' }} /></Button>
                   <Button variant='contained' color='warning' sx={{ p: 1, width: '30px', minWidth: '30px', maxHeight: '30px' }} onClick={() => navigate(ROUTES.EDIT_RODUCT + `/${id}`)}><EditIcon /></Button>
-                  <Button variant='contained' color='error' sx={{ p: 1, width: '30px', minWidth: '30px', maxHeight: '30px' }} onClick={handleOpen}><DeleteIcon /></Button>
+                  <Button variant='contained' color='error' sx={{ p: 1, width: '30px', minWidth: '30px', maxHeight: '30px' }} onClick={handleOpenDel}><DeleteIcon /></Button>
                 </Box>
               }
             </Box>
@@ -102,10 +109,10 @@ export default function ProductPage() {
           </Grid2>
         </Grid2 >
         <Dialog
-          open={open}
+          open={openDel}
           TransitionComponent={Transition}
           keepMounted
-          onClose={handleClose}
+          onClose={handleCloseDel}
           aria-describedby='alert-dialog-slide-description'
         >
           <DialogTitle>{'Delete Product?'}</DialogTitle>
@@ -116,8 +123,27 @@ export default function ProductPage() {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose} color='secondary'>Cancel</Button>
+            <Button onClick={handleCloseDel} color='secondary'>Cancel</Button>
             <Button onClick={handleDel} color='error'>Delete Product</Button>
+          </DialogActions>
+        </Dialog>
+        <Dialog
+          open={openSt}
+          TransitionComponent={Transition}
+          keepMounted
+          onClose={handleCloseSt}
+          aria-describedby='alert-dialog-slide-description'
+        >
+          <DialogTitle>{'Update Stock'}</DialogTitle>
+          <DialogContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <DialogContentText id='alert-dialog-slide-description'>
+              <Typography>Update product {product.name} stock?</Typography>
+            </DialogContentText>
+            <InputNumber stock={stock} setStock={setStock} />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseSt} color='secondary'>Cancel</Button>
+            <Button onClick={() => handleStock({ "stock": stock })} color='success'>Update Stock</Button>
           </DialogActions>
         </Dialog>
       </ >
