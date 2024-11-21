@@ -34,3 +34,11 @@ export const editProduct = async (productId, product) => {
     throw error;
   }
 }
+
+export const deleteProduct = async (productId) => {
+  try {
+    return await axios.delete(apiUrl + productId);
+  } catch (error) {
+    throw error;
+  }
+}
