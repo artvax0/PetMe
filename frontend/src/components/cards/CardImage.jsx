@@ -12,7 +12,7 @@ export default function CardImage({ url, alt, pets, petTypes }) {
         {petTypes.map((petType) => {
           const petInfo = pets.filter(pet => pet._id == petType)[0];
           return (
-            <Box key={petInfo._id} sx={{ width: '30px', height: '30px', backgroundColor: '#fff', boxShadow: '0 0 10px 2px rgba(0, 0, 0, .25)', borderRadius: '50%' }} display='flex' justifyContent='center' alignItems='center'>
+            <Box key={`${petInfo._id}-${alt}`} sx={{ width: '30px', height: '30px', backgroundColor: '#fff', boxShadow: '0 0 10px 2px rgba(0, 0, 0, .25)', borderRadius: '50%' }} display='flex' justifyContent='center' alignItems='center'>
               <Box component='img' width='80%' src={`/${petInfo?.name}.svg`} alt={`${petInfo?.name} Icon`} />
             </Box>
           )
