@@ -30,8 +30,8 @@ export default function EditProductPage() {
   if (!user || !user.isEmployee) return (<Navigate to={ROUTES.LOGIN} />)
   return (
     <Box width='100%'>
-      <Title title={`Editing ${product.name}`} />
-      <Typography variant='h4' component='h1'>Edit Product - {product.name}</Typography>
+      <Title title={`Editing ${formData.name}`} />
+      <Typography variant='h4' component='h1'>Edit Product - {formData.name}</Typography>
       <EditProductForm
         onSubmit={onSubmit}
         validateForm={validateForm}
