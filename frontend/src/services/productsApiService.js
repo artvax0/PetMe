@@ -35,6 +35,14 @@ export const editProduct = async (productId, product) => {
   }
 }
 
+export const updateStock = async (productId, stock) => {
+  try {
+    return await axios.patch(apiUrl + productId, stock);
+  } catch (error) {
+    throw error;
+  }
+}
+
 export const deleteProduct = async (productId) => {
   try {
     return await axios.delete(apiUrl + productId);

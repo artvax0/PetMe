@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { deleteProduct, editProduct, getProduct, getProducts, newProduct } from "../services/productsApiService";
+import { deleteProduct, editProduct, getProduct, getProducts, newProduct, updateStock } from "../services/productsApiService";
 import { getCategories } from "../services/categoriesApiService";
 import useAxios from "./useAxios";
 import normalizeNewProduct from "../helpers/normalization/normalizeNewProduct";
@@ -80,6 +80,16 @@ export default function useProducts() {
     setIsLoading(false);
   })
 
+  const editStock = useCallback(async (productId, stock) => {
+    setIsLoading(true);
+    try {
+      await updateStock(productId, stock);
+    } catch (error) {
+      setError(error);
+    }
+    setIsLoading(false);
+  })
+
   const removeProduct = useCallback(async (productId) => {
     setIsLoading(true);
     try {
@@ -92,5 +102,5 @@ export default function useProducts() {
     setIsLoading(false);
   })
 
-  return { getAllProducts, getProductById, allProducts, addNewProduct, updateProduct, removeProduct, product, categories, productsByCategory, error, isLoading };
+  return { getAllProducts, getProductById, allProducts, addNewProduct, updateProduct, editStock, removeProduct, product, categories, productsByCategory, error, isLoading };
 }
