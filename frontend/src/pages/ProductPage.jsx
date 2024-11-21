@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import { forwardRef, useCallback, useEffect, useState } from 'react'
 import { Navigate, useNavigate, useParams } from 'react-router-dom'
-import { Box, Button, Divider, Grid2, IconButton, Typography } from '@mui/material';
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, Grid2, IconButton, Slide, Typography } from '@mui/material';
 import useProducts from '../hooks/useProducts';
 import { useTheme } from '../providers/ThemeProvider';
 import Title from '../components/utils/Title';
@@ -11,16 +11,22 @@ import { ROUTES } from '../routes/routesModel';
 import { useAuth } from '../providers/UserProvider';
 import useCarts from '../hooks/useCarts';
 import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+
+const Transition = forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 export default function ProductPage() {
   const { id } = useParams();
   const { user } = useAuth();
   const { theme } = useTheme();
-  const { product, getProductById, isLoading, error } = useProducts();
+  const { product, getProductById, removeProduct, isLoading, error } = useProducts();
   const { getProductPets, pets } = usePets();
   const { addProductToCart } = useCarts();
   const [count, setCount] = useState(1);
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     getProductById(id);
@@ -34,6 +40,10 @@ export default function ProductPage() {
     if (user) return addProductToCart(e, user._id, { product_id: productId, quantity });
     <Navigate to={ROUTES.LOGIN} replace />
   }, [])
+
+  const handleOpen = useCallback(() => setOpen(true), [user]);
+  const handleClose = useCallback(() => setOpen(false), [user]);
+  const handleDel = useCallback(async () => { handleClose(); await removeProduct(id); navigate(ROUTES.PRODUCTS) }, [])
 
   if (isLoading) return (<><Title title={'Loading...'} /><p>Loading...</p></>)
   if (error) return (<><Title title={'PetMe - Error'} /><p>Error: {error}</p></>)
@@ -53,8 +63,9 @@ export default function ProductPage() {
               </Typography>
               {
                 user.isEmployee &&
-                <Box>
+                <Box display='inline-flex' gap={1}>
                   <Button variant='contained' color='warning' sx={{ p: 1, width: '30px', minWidth: '30px', maxHeight: '30px' }} onClick={() => navigate(ROUTES.EDIT_RODUCT + `/${id}`)}><EditIcon /></Button>
+                  <Button variant='contained' color='error' sx={{ p: 1, width: '30px', minWidth: '30px', maxHeight: '30px' }} onClick={handleOpen}><DeleteIcon /></Button>
                 </Box>
               }
             </Box>
@@ -90,6 +101,25 @@ export default function ProductPage() {
             </Box>
           </Grid2>
         </Grid2 >
+        <Dialog
+          open={open}
+          TransitionComponent={Transition}
+          keepMounted
+          onClose={handleClose}
+          aria-describedby='alert-dialog-slide-description'
+        >
+          <DialogTitle>{'Delete Product?'}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-slide-description">
+              <Typography>Are you sure you want to delete this product? This action cannot be undone, and all information associated with this product will be permanently removed. <br /><br /></Typography>
+              <Typography>This is highlighy discouraged, setting the product's stock to zero is encouraged as an alternative solution.</Typography>
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color='secondary'>Cancel</Button>
+            <Button onClick={handleDel} color='error'>Delete Product</Button>
+          </DialogActions>
+        </Dialog>
       </ >
     )
 }
