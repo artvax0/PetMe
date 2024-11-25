@@ -7,11 +7,18 @@ import { initialNewProductForm } from '../helpers/initial_forms/initialNewProduc
 import newProductSchema from '../models/newProductSchema'
 import useProducts from '../hooks/useProducts'
 import Title from '../components/utils/Title'
+import { useAuth } from '../providers/UserProvider'
+import { Navigate } from 'react-router-dom'
+import { ROUTES } from '../routes/routesModel'
 
 
 export default function AddProductPage() {
+  const { user } = useAuth();
   const { addNewProduct } = useProducts();
   const { formData, setFormData, errors, handleChange, validateForm, onSubmit } = useForm(initialNewProductForm, newProductSchema, addNewProduct);
+
+  if (!user || !user.isEmployee) return (<Navigate to={ROUTES.LOGIN} />)
+
   return (
     <Box width='100%'>
       <Title title={'Add Product'} />
