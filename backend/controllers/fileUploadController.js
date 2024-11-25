@@ -12,7 +12,7 @@ router.post('/', upload.single('photo'), async (req, res) => {
       error.validator = 'Upload';
       return handleError(res, error);
     }
-    const filePath = `/images/${req.file.filename}`;
+    const filePath = `images/${req.file.filename}`;
     res.send(filePath);
   } catch (error) {
     return handleError(res, error);
