@@ -24,7 +24,7 @@ export default function Layout({ children }) {
         </Grid2>
         {user && user.isEmployee &&
           <SpeedDial ariaLabel='User Actions' sx={{ position: 'fixed', bottom: 10, right: 10, '>button': { backgroundColor: `${theme.palette.secondary.main}` } }} icon={<ReceiptIcon />}>
-            <SpeedDialAction icon={<ShoppingBagIcon />} tooltipTitle='View Orders' sx={{ backgroundColor: `${theme.palette.secondary.main}` }} />
+            <SpeedDialAction onClick={() => navigate(ROUTES.ORDERS)} icon={<ShoppingBagIcon />} tooltipTitle='View Orders' sx={{ backgroundColor: `${theme.palette.secondary.main}` }} />
             <SpeedDialAction onClick={() => navigate(ROUTES.ADD_PRODUCT)} icon={<AddShoppingCartIcon />} tooltipTitle='Create Product' sx={{ backgroundColor: `${theme.palette.secondary.main}` }} />
           </SpeedDial>
         }
