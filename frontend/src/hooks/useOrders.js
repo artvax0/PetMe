@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import useAxios from "./useAxios";
-import { getOrder, getOrders, getUserOrders, newOrder } from "../services/orderApiService";
+import { getOrder, getOrders, getUserOrders, newOrder, setStatus } from "../services/orderApiService";
 import { useSearchParams } from "react-router-dom";
 
 export default function useOrders() {
@@ -83,5 +83,15 @@ export default function useOrders() {
     setIsLoading(false);
   }
 
-  return { filteredOrders, orders, order, isLoading, error, newUserOrder, listUserOrders, findOrder, listOrders };
+  const changeStatus = async (orderId, orderStatus) => {
+    setIsLoading(true);
+    try {
+      await setStatus(orderId, orderStatus);
+    } catch (error) {
+
+    }
+    setIsLoading(false);
+  }
+
+  return { filteredOrders, orders, order, isLoading, error, newUserOrder, listUserOrders, findOrder, listOrders, changeStatus };
 }

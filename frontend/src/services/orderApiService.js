@@ -33,3 +33,11 @@ export const getOrders = async () => {
     throw error;
   }
 }
+
+export const setStatus = async (orderId, status) => {
+  try {
+    return await axios.patch(apiUrl + orderId, status);
+  } catch (error) {
+    throw error;
+  }
+}
