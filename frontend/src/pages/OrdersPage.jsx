@@ -1,13 +1,18 @@
-import { Box, Button, FormControl, Grid2, InputLabel, MenuItem, Paper, Select, TextField, Typography } from '@mui/material'
+import { Box, Button, Card, CardActionArea, Divider, FormControl, Grid2, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material'
 import { useAuth } from '../providers/UserProvider'
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Title from '../components/utils/Title';
 import useOrders from '../hooks/useOrders';
 import { useSearchParams } from "react-router-dom";
+import useProducts from '../hooks/useProducts';
+import { useTheme } from '../providers/ThemeProvider';
+import statusColors from '../utils/statusColors';
 
 export default function OrdersPage() {
   const { user } = useAuth();
-  const { filteredOrders, listOrders, orders, isLoading, error } = useOrders();
+  const { theme } = useTheme();
+  const { filteredOrders, listOrders, isLoading, error } = useOrders();
+  const { getAllProducts, allProducts } = useProducts();
   const [filter, setFilter] = useState('orderID');
   const [searchInput, setSearchInput] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
@@ -15,6 +20,7 @@ export default function OrdersPage() {
   useEffect(() => {
     const getOrders = async () => {
       await listOrders();
+      await getAllProducts();
     }
     getOrders();
   }, []);
@@ -85,7 +91,37 @@ export default function OrdersPage() {
           </Grid2>
         </Grid2 >
         <Box display='flex' flexDirection='column' gap={1} width='100%'>
-          {filteredOrders.map(order => (<Paper key={order._id}><Typography>{order._id}</Typography></Paper>))}
+          {filteredOrders.map(order => (
+            <Card key={order._id} sx={{ p: 1, display: 'flex', flexDirection: 'column', gap: 1 }}>
+              <Box display='flex' justifyContent='space-between'>
+                <Typography variant='h5' component='h2'>Order Number: {order._id}</Typography>
+                <Box fontSize='1rem' lineHeight={2} borderRadius={2} px={2} color='#fff' fontFamily={theme.typography.fontFamily} fontWeight={theme.typography.fontWeightMedium} sx={{ backgroundColor: `${statusColors(order.status)}` }}>{order.status}</Box>
+              </Box>
+              <Divider />
+              <Typography variant='h6' component='h3'>Order Details</Typography>
+              {order.products.map((product) => {
+                const productData = allProducts.filter((val) => val._id == product.product_id)[0];
+                return (
+                  <React.Fragment key={product.product_id}>
+                    <Grid2 container gap={1}>
+                      <Box component='img' src={productData?.image?.url} alt={productData?.image?.alt} maxWidth='75px' maxHeight='75px' />
+                      <Box>
+                        <Typography variant='body1'>{productData?.name}</Typography>
+                        <Box>
+                          <Typography>Quantity: {product.quantity}</Typography>
+                          <Typography>Price: ${product.price}</Typography>
+                        </Box>
+                      </Box>
+                    </Grid2>
+                    <Divider variant='middle' />
+                  </React.Fragment>
+                )
+              })}
+              <Typography fontWeight={theme.typography.fontWeightBold}>Total: ${order.total}</Typography>
+              <Typography variant='h6' component='h3'>Delivery Details</Typography>
+              <Typography variant='body1'>{`${order.address.street} ${order.address.houseNumber}, ${order.address.city}, ${order.address.state ? `${order.address.state},` : ''} ${order.address.country} | ${order.address.zip}`}</Typography>
+            </Card>
+          ))}
         </Box>
       </Box>
     </>
