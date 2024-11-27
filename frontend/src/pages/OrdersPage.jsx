@@ -1,21 +1,33 @@
-import { Box, Button, Card, CardActionArea, Divider, FormControl, Grid2, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material'
+import { Box, Button, Card, CardActionArea, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, FormControl, Grid2, InputLabel, MenuItem, Select, Slide, TextField, Typography } from '@mui/material'
 import { useAuth } from '../providers/UserProvider'
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { forwardRef, useCallback, useEffect, useState } from 'react';
 import Title from '../components/utils/Title';
 import useOrders from '../hooks/useOrders';
-import { useSearchParams } from "react-router-dom";
+import { Navigate, useSearchParams } from "react-router-dom";
 import useProducts from '../hooks/useProducts';
 import { useTheme } from '../providers/ThemeProvider';
 import statusColors from '../utils/statusColors';
+import { ROUTES } from '../routes/routesModel';
+import EditIcon from '@mui/icons-material/Edit';
+
+const Transition = forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 export default function OrdersPage() {
   const { user } = useAuth();
   const { theme } = useTheme();
-  const { filteredOrders, listOrders, isLoading, error } = useOrders();
+  const { filteredOrders, listOrders, changeStatus, isLoading, error } = useOrders();
   const { getAllProducts, allProducts } = useProducts();
   const [filter, setFilter] = useState('orderID');
   const [searchInput, setSearchInput] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
+  const [open, setOpen] = useState(false);
+  const [status, setStatus] = useState()
+  const [id, setId] = useState()
+  const handleOpen = useCallback((orderId) => { setId(orderId); setOpen(true) }, [user]);
+  const handleClose = useCallback(() => { setId(); setOpen(false) }, [user]);
+  const handleStatus = useCallback(async (id, status) => { await changeStatus(id, status); handleClose(); location.reload() }, []);
 
   useEffect(() => {
     const getOrders = async () => {
@@ -31,6 +43,10 @@ export default function OrdersPage() {
     return setSearchInput('');
   }, []);
 
+  const handleStatusChange = useCallback((e) => {
+    setStatus(e.target.value);
+  }, []);
+
   const handleInput = useCallback((e) => {
     setSearchInput(e.target.value);
   }, []);
@@ -40,11 +56,12 @@ export default function OrdersPage() {
     setSearchParams({ q: `${filter}/${searchInput}` });
   }, [filter, searchInput])
 
+  if (!user || !user.isEmployee) return (<Navigate to={ROUTES.LOGIN} />)
+
   if (isLoading) return (<p>Loading...</p>);
   if (error) return (<p>Error: {error}</p>);
   return (
     <>
-      {console.log(searchInput, searchParams.get('q'), filteredOrders)}
       <Title title='Search Orders' />
       <Box width='100%' display='flex' flexDirection='column' gap={1}>
         <Typography variant='h4' component='h1'>Search Orders</Typography>
@@ -95,7 +112,12 @@ export default function OrdersPage() {
             <Card key={order._id} sx={{ p: 1, display: 'flex', flexDirection: 'column', gap: 1 }}>
               <Box display='flex' justifyContent='space-between'>
                 <Typography variant='h5' component='h2'>Order Number: {order._id}</Typography>
-                <Box fontSize='1rem' lineHeight={2} borderRadius={2} px={2} color='#fff' fontFamily={theme.typography.fontFamily} fontWeight={theme.typography.fontWeightMedium} sx={{ backgroundColor: `${statusColors(order.status)}` }}>{order.status}</Box>
+                <Box display='inline-flex' gap={1}>
+                  <Box fontSize='1rem' lineHeight={2} borderRadius={2} px={2} color='#fff' fontFamily={theme.typography.fontFamily} fontWeight={theme.typography.fontWeightMedium} sx={{ backgroundColor: `${statusColors(order.status)}` }}>
+                    {order.status}
+                  </Box>
+                  <Button variant='contained' color='info' sx={{ p: 1, width: '30px', minWidth: '30px', maxHeight: '30px' }} onClick={() => handleOpen(order._id)}><EditIcon /></Button>
+                </Box>
               </Box>
               <Divider />
               <Typography variant='h6' component='h3'>Order Details</Typography>
@@ -124,6 +146,38 @@ export default function OrdersPage() {
           ))}
         </Box>
       </Box>
+      <Dialog
+        open={open}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleClose}
+        aria-describedby='alert-dialog-slide-description'
+      >
+        <DialogTitle>{'Update Order Status'}</DialogTitle>
+        <DialogContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <DialogContentText id='alert-dialog-slide-description'>
+            <Typography>Update order status?</Typography>
+          </DialogContentText>
+          <FormControl fullWidth color='highlight' size='small'>
+            <InputLabel id="demo-simple-select-label">Select Status</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              label="Select Status"
+              onChange={(e) => handleStatusChange(e)}
+            >
+              <MenuItem value='Processing'>Processing</MenuItem>
+              <MenuItem value='En Route'>En Route</MenuItem>
+              <MenuItem value='Complete'>Complete</MenuItem>
+              <MenuItem value='Cancelled'>Cancelled</MenuItem>
+            </Select>
+          </FormControl>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color='secondary'>Cancel</Button>
+          <Button disabled={status ? false : true} onClick={() => handleStatus(id, { "status": status })} color='success'>Update Status</Button>
+        </DialogActions>
+      </Dialog>
     </>
   )
 }
