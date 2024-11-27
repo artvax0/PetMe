@@ -25,3 +25,11 @@ export const getOrder = async (orderId) => {
     throw error;
   }
 }
+
+export const getOrders = async () => {
+  try {
+    return await axios.get(apiUrl);
+  } catch (error) {
+    throw error;
+  }
+}
