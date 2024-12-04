@@ -6,6 +6,7 @@ import Title from '../components/utils/Title';
 import { Box, Button, Checkbox, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Paper, Slide, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import useUsers from '../hooks/useUsers';
 import EditIcon from '@mui/icons-material/Edit';
+import BadgeIcon from '@mui/icons-material/Badge';
 import mapUserToModel from '../helpers/normalization/mapUsertoModel';
 import useForm from '../hooks/useForm';
 import { initialProfileForm } from '../helpers/initial_forms/initialProfileForm';
@@ -19,9 +20,10 @@ const Transition = forwardRef(function Transition(props, ref) {
 
 export default function Dashboard() {
   const { user } = useAuth();
-  const { users, getAllUsers, isLoading, error, updateUserInfo } = useUsers();
+  const { users, getAllUsers, isLoading, error, updateUserInfo, updateUserEmployment } = useUsers();
   const [selectedUser, setSelectedUser] = useState();
-  const [open, setOpen] = useState(false);
+  const [isUpdateOpen, setIsUpdateOpen] = useState(false);
+  const [isEmploymentOpen, setIsEmploymentOpen] = useState(false);
   const updateUser = (formData, e) => {
     const normalizedData = normalizeProfile(formData);
     updateUserInfo(selectedUser, normalizedData);
@@ -31,26 +33,44 @@ export default function Dashboard() {
   const { formData, setFormData, errors, setErrors, handleChange, validateForm, onSubmit } = useForm(initialProfileForm, profileSchema, updateUser)
 
   useEffect(() => {
-    const getUsers = async () => {
-      await getAllUsers();
+    if (isLoading == true) {
+      const getUsers = async () => {
+        await getAllUsers();
+      }
+      getUsers();
     }
-    getUsers();
-  }, [user])
+  }, [user, isLoading]);
 
-  const clearErrors = useCallback(() => setErrors({}), [])
+  const clearErrors = useCallback(() => setErrors({}), []);
 
   const openUserSettings = (user) => {
     const mappedUser = mapUserToModel(user);
     setFormData(mappedUser);
     setSelectedUser(user._id);
-    setOpen(true);
+    setIsUpdateOpen(true);
   }
 
   const closeUserSettings = () => {
     setFormData(initialProfileForm);
     clearErrors();
     setSelectedUser();
-    setOpen(false);
+    setIsUpdateOpen(false);
+  }
+
+  const handleOpen = (userId) => {
+    setSelectedUser(userId);
+    setIsEmploymentOpen(true);
+  }
+
+  const handleEmployment = () => {
+    updateUserEmployment(selectedUser);
+    setSelectedUser();
+    setIsEmploymentOpen(false);
+  }
+
+  const handleClose = () => {
+    setSelectedUser();
+    setIsEmploymentOpen(false);
   }
 
   if (!user.isAdmin) return (<Navigate to={ROUTES.LOGIN} />)
@@ -88,6 +108,7 @@ export default function Dashboard() {
                   <TableCell align='center'>
                     <Box display='inline-flex' justifyContent='center' gap={1}>
                       <Button disabled={user.isAdmin} onClick={() => openUserSettings(user)} variant='contained' color='info' sx={{ p: 1, width: '30px', minWidth: '30px', maxHeight: '30px' }}><EditIcon /></Button>
+                      <Button disabled={user.isAdmin} onClick={() => handleOpen(user._id)} variant='contained' color='success' sx={{ p: 1, width: '30px', minWidth: '30px', maxHeight: '30px' }}><BadgeIcon /></Button>
                     </Box>
                   </TableCell>
                 </TableRow>
@@ -97,7 +118,7 @@ export default function Dashboard() {
         </TableContainer>
       </Box >
       <Dialog
-        open={open}
+        open={isUpdateOpen}
         TransitionComponent={Transition}
         keepMounted
         onClose={closeUserSettings}
@@ -117,6 +138,24 @@ export default function Dashboard() {
         </DialogContent>
         <DialogActions>
           <Button onClick={closeUserSettings} color='error'>Cancel</Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog
+        open={isEmploymentOpen}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleClose}
+        aria-describedby='alert-dialog-slide-description'
+      >
+        <DialogTitle>{`Update User ${formData.first} ${formData.middle} ${formData.last}`}</DialogTitle>
+        <DialogContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <DialogContentText component='div' id='alert-dialog-slide-description' sx={{ pt: 1 }}>
+            <Typography>Update user's employment status?</Typography>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={closeUserSettings} color='error'>Cancel</Button>
+          <Button onClick={handleEmployment} color='success'>Update Employment Status</Button>
         </DialogActions>
       </Dialog>
     </>
