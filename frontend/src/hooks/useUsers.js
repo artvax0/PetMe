@@ -1,4 +1,4 @@
-import { getUserData, getUsers, login, signup, updateUser } from "../services/userApiService"
+import { employUser, getUserData, getUsers, login, signup, updateUser } from "../services/userApiService"
 import normalizeUser from "../helpers/normalization/normalizeUser";
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from "../routes/routesModel";
@@ -80,5 +80,15 @@ export default function useUsers() {
     setIsLoading(false);
   })
 
-  return { userSignup, userLogin, getUserInfo, updateUserInfo, isLoading, error, userData, users, getAllUsers };
+  const updateUserEmployment = useCallback(async (userId) => {
+    setIsLoading(true);
+    try {
+      await employUser(userId);
+    } catch (error) {
+      setError(error);
+    }
+    setIsLoading(false);
+  })
+
+  return { userSignup, userLogin, getUserInfo, updateUserInfo, isLoading, error, userData, users, getAllUsers, updateUserEmployment };
 }
