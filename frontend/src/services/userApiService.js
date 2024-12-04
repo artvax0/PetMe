@@ -33,3 +33,11 @@ export const updateUser = async (userId, userInfo) => {
     throw error;
   }
 }
+
+export const getUsers = async () => {
+  try {
+    return await axios.get(apiUrl);
+  } catch (error) {
+    throw (error);
+  }
+}
