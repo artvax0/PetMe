@@ -115,4 +115,17 @@ const updateUserOrders = async (userId, ordersArray) => {
   return configError('db');
 }
 
-export { registerUser, login, getUsers, getUser, getUserOrders, updateUser, updateUserOrders, };
+const updateUserEmployee = async (userId) => {
+  if (db == 'mongodb') {
+    try {
+      let user = await User.findById(userId);
+      user.isEmployee = !user.isEmployee;
+      user = await user.save();
+      return _.pick(user, ['_id', 'email', 'name', 'image', 'phone', 'address', 'order_ids']);
+    } catch (error) {
+      return createError('Mongoose', error);
+    }
+  }
+}
+
+export { registerUser, login, getUsers, getUser, getUserOrders, updateUser, updateUserOrders, updateUserEmployee };

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getUser, getUserOrders, getUsers, login, registerUser, updateUser, updateUserOrders } from "../services/usersService.js";
+import { getUser, getUserOrders, getUsers, login, registerUser, updateUser, updateUserEmployee, updateUserOrders } from "../services/usersService.js";
 import { handleError } from "../utils/handleErrors.js";
 import authLoggedUser from "../middlewares/userAuth.js";
 import { validateLogin, validateRegistry, validateUser } from "../validators/validate.js";
@@ -53,6 +53,23 @@ router.get('/', authLoggedUser, async (req, res) => {
     }
     const users = await getUsers();
     res.send(users);
+  } catch (error) {
+    return handleError(res, error);;
+  }
+})
+
+router.patch('/employee/:id', authLoggedUser, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const payload = res.locals.user;
+    if (!payload.isAdmin) {
+      let error = Error('Only an admin can access this endpoint');
+      error.status = 403;
+      error.validator = 'Authorization';
+      return handleError(res, error);
+    }
+    const user = await updateUserEmployee(id);
+    res.send(user);
   } catch (error) {
     return handleError(res, error);;
   }
