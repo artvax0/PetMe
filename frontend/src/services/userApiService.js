@@ -38,6 +38,14 @@ export const getUsers = async () => {
   try {
     return await axios.get(apiUrl);
   } catch (error) {
-    throw (error);
+    throw error;
+  }
+}
+
+export const employUser = async (userId) => {
+  try {
+    return await axios.patch(apiUrl + `employee/${userId}`);
+  } catch (error) {
+    throw error;
   }
 }
