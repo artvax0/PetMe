@@ -103,7 +103,7 @@ export default function ProfileForm({ onSubmit, validateForm, styles = {}, error
           formData={formData}
         />
         <Grid2 size={12}>
-          <Button variant='contained' onClick={onSubmit} disabled={!validateForm} size='large' color='success' fullWidth sx={{ color: '#fff', fontWeight: theme.typography.fontWeightBold, fontSize: '1.2rem', py: 0.75 }}>Update Profile</Button>
+          <Button variant='contained' onClick={onSubmit} disabled={!validateForm()} size='large' color='success' fullWidth sx={{ color: '#fff', fontWeight: theme.typography.fontWeightBold, fontSize: '1.2rem', py: 0.75 }}>Update Profile</Button>
         </Grid2>
       </Grid2>
     </Box>
