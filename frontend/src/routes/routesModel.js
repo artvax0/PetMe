@@ -12,4 +12,5 @@ export const ROUTES = {
   ORDERS: '/orders',
   ADD_PRODUCT: '/add-product',
   EDIT_RODUCT: '/edit-product',
+  DASHBOARD: '/dashboard'
 }

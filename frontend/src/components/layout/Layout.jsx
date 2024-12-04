@@ -6,6 +6,7 @@ import Footer from './Footer';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import { useAuth } from '../../providers/UserProvider';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../routes/routesModel';
@@ -26,6 +27,12 @@ export default function Layout({ children }) {
           <SpeedDial ariaLabel='User Actions' sx={{ position: 'fixed', bottom: 10, right: 10, '>button': { backgroundColor: `${theme.palette.secondary.main}` } }} icon={<ReceiptIcon />}>
             <SpeedDialAction onClick={() => navigate(ROUTES.ORDERS)} icon={<ShoppingBagIcon />} tooltipTitle='View Orders' sx={{ backgroundColor: `${theme.palette.secondary.main}` }} />
             <SpeedDialAction onClick={() => navigate(ROUTES.ADD_PRODUCT)} icon={<AddShoppingCartIcon />} tooltipTitle='Create Product' sx={{ backgroundColor: `${theme.palette.secondary.main}` }} />
+
+            {
+              user.isAdmin ?
+                <SpeedDialAction onClick={() => navigate(ROUTES.DASHBOARD)} icon={<SupervisorAccountIcon />} tooltipTitle='Manage Accounts' sx={{ backgroundColor: 'secondary.main' }} />
+                : null
+            }
           </SpeedDial>
         }
       </Box>

@@ -13,6 +13,7 @@ import OrdersPage from '../pages/OrdersPage'
 import OrderDetailsPage from '../pages/OrderDetailsPage'
 import AddProductPage from '../pages/AddProductPage'
 import EditProductPage from '../pages/EditProductPage'
+import Dashboard from '../pages/Dashboard'
 
 export default function Router() {
   return (
@@ -31,6 +32,7 @@ export default function Router() {
       <Route path={ROUTES.USER_ORDERS} element={<UserOrdersPage />} />
       <Route path={ROUTES.ADD_PRODUCT} element={<AddProductPage />} />
       <Route path={ROUTES.EDIT_RODUCT + '/:id'} element={<EditProductPage />} />
+      <Route path={ROUTES.DASHBOARD} element={<Dashboard />} />
       <Route path='*' element={<Page404 />} />
     </Routes>
   )
