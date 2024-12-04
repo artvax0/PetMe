@@ -18,16 +18,6 @@ export default function useForm(form, schema, handleSubmit) {
 
     const errorMessage = validateProperty(name, value);
 
-    // setErrors((prev) => {
-    //   const updatedErrors = JSON.parse(JSON.stringify(prev));
-
-    //   if (errorMessage) {
-    //     updatedErrors[name] = errorMessage;
-    //   } else {
-    //     delete updatedErrors[name];
-    //   }
-    //   return updatedErrors
-    // })
     if (errorMessage) {
       // if an error message (and if already exists) it will add it to the other errors in the object
       setErrors((prev) => ({ ...prev, [name]: errorMessage }));
@@ -57,5 +47,5 @@ export default function useForm(form, schema, handleSubmit) {
     handleSubmit(formData, e);
   }, [formData]);
 
-  return { formData, errors, setFormData, handleChange, validateForm, onSubmit }
+  return { formData, errors, setErrors, setFormData, handleChange, validateForm, onSubmit }
 }
