@@ -3,6 +3,7 @@ import { BrowserRouter } from "react-router-dom"
 import Router from "./routes/Router"
 import Layout from "./components/layout/Layout"
 import UserContextProvider from "./providers/UserProvider"
+import SnackbarProvider from "./providers/SnackbarProvider"
 
 
 
@@ -12,11 +13,13 @@ function App() {
     <>
       <BrowserRouter>
         <ThemeContextProvider>
-          <UserContextProvider>
-            <Layout>
-              <Router />
-            </Layout>
-          </UserContextProvider>
+          <SnackbarProvider>
+            <UserContextProvider>
+              <Layout>
+                <Router />
+              </Layout>
+            </UserContextProvider>
+          </SnackbarProvider>
         </ThemeContextProvider>
       </BrowserRouter>
     </>

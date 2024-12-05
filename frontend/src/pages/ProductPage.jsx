@@ -29,7 +29,7 @@ export default function ProductPage() {
   const navigate = useNavigate();
   const [openDel, setOpenDel] = useState(false);
   const [openSt, setOpenSt] = useState(false);
-  const [stock, setStock] = useState(1)
+  const [stock, setStock] = useState(1);
 
   useEffect(() => {
     getProductById(id);
@@ -51,9 +51,13 @@ export default function ProductPage() {
   const handleDel = useCallback(async () => { handleCloseDel(); await removeProduct(id); navigate(ROUTES.PRODUCTS) }, []);
   const handleStock = useCallback(async (stock) => { await editStock(id, stock); location.reload() }, []);
 
+  let isDiscountValid = false;
+  let now = new Date().toISOString();
+
+  if (product.discount > 0 && product.discountStartDate <= now && product.discountEndDate >= now) { isDiscountValid = true };
+
   if (isLoading) return (<><Title title={'Loading...'} /><p>Loading...</p></>)
   if (error) return (<><Title title={'PetMe - Error'} /><p>Error: {error}</p></>)
-
   if (product)
     return (
       <>
@@ -90,7 +94,7 @@ export default function ProductPage() {
             <Typography variant='h5' display='inline-flex' alignItems='center' gap={1} gutterBottom><InventoryIcon color='secondary' /> {product.stock}</Typography>
             <Box display='flex' gap={2} pb={1} alignItems='center'>
               {
-                product.discount ?
+                isDiscountValid ?
                   <>
                     <Typography variant='h5' component='p' lineHeight={1} fontWeight={theme.typography.fontWeightLight} color='lightgray' sx={{ textDecoration: 'line-through' }}>${product.price}</Typography>
                     <Typography variant='h4' component='h3' lineHeight={1} aria-label='Price' color='error' fontWeight={theme.typography.fontWeightBold}>{product.discount}% Discount - ${product.price * (1 - product.discount / 100)}</Typography>
