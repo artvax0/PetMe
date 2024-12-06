@@ -35,8 +35,8 @@ export default function CardComponent({ product, pets }) {
                 boxShadow: `0 4px 0 0 ${theme.palette.success.dark}`,
                 // '&:hover': { backgroundColor: theme.palette.primary.dark },
                 mb: 2,
-                fontSize: '1rem',
-                color: '#fff'
+                fontSize: { xs: '0.75rem', sm: '1rem' },
+                color: '#fff',
               }}
             >
               View Product

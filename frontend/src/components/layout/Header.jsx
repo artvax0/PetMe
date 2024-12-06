@@ -43,13 +43,14 @@ export default function Header() {
       <Grid2 size={11}>
         <AppBar component='section' position='sticky' sx={{ backgroundColor: theme.palette.highlight.main, borderRadius: '0 0 20px 20px' }} elevation={3}>
           <Banner />
-          <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', gap: 5 }}>
+          <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', gap: { xs: 1, sm: 5 } }}>
             {/* PetMe! Logo */}
             <Link to={ROUTES.ROOT}>
-              <Box component='img' sx={{ height: 50 }} src='/pixelPetMe.svg' alt='PetMe! Logo' />
+              <Box component='img' sx={{ height: { xs: 0, sm: 50 } }} src='/pixelPetMe.svg' alt='PetMe! Logo' />
+              <Box component='img' sx={{ height: { xs: 50, sm: 0 } }} src='/pixel.svg' alt='PetMe! Logo' />
             </Link>
             {/* NavBar */}
-            <Box component='nav' display='flex' flexGrow={1} gap={5}>
+            <Box component='nav' display='flex' flexGrow={1} gap={{ xs: 2, sm: 5 }} alignItems='center'>
               <NavLink to={ROUTES.ROOT}>Home</NavLink>
               <NavLink to={ROUTES.PRODUCTS}>Our Products</NavLink>
             </Box>
@@ -113,6 +114,6 @@ export default function Header() {
           </Toolbar>
         </ AppBar>
       </Grid2>
-    </Grid2>
+    </Grid2 >
   )
 }

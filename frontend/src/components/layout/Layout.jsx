@@ -19,12 +19,12 @@ export default function Layout({ children }) {
   return (
     <Box minHeight='100vh' display='flex' flexDirection='column' gap={0}>
       <Header />
-      <Box component='main' sx={{ backgroundColor: theme.palette.background.default }} py={3} px={9} display='flex' flexGrow={1} justifyContent='center'>
+      <Box component='main' sx={{ backgroundColor: theme.palette.background.default }} py={3} px={{ xs: 3, sm: 9 }} display='flex' flexGrow={1} justifyContent='center'>
         <Grid2 container flexGrow={1} sx={{ backgroundColor: theme.palette.background.light, borderRadius: '30px', p: '8px 30px 30px 30px' }}>
           {children}
         </Grid2>
-        {user && user.isEmployee &&
-          <SpeedDial ariaLabel='User Actions' sx={{ position: 'fixed', bottom: 10, right: 10, '>button': { backgroundColor: `${theme.palette.secondary.main}` } }} icon={<ReceiptIcon />}>
+        {user && (user.isEmployee || user.isAdmin) &&
+          <SpeedDial ariaLabel='User Actions' sx={{ position: 'fixed', bottom: { xs: 25, sm: 10 }, right: 10, '>button': { backgroundColor: `${theme.palette.secondary.main}` } }} icon={<ReceiptIcon />}>
             <SpeedDialAction onClick={() => navigate(ROUTES.ORDERS)} icon={<ShoppingBagIcon />} tooltipTitle='View Orders' sx={{ backgroundColor: `${theme.palette.secondary.main}` }} />
             <SpeedDialAction onClick={() => navigate(ROUTES.ADD_PRODUCT)} icon={<AddShoppingCartIcon />} tooltipTitle='Create Product' sx={{ backgroundColor: `${theme.palette.secondary.main}` }} />
 
@@ -37,6 +37,6 @@ export default function Layout({ children }) {
         }
       </Box>
       <Footer />
-    </Box>
+    </Box >
   )
 }

@@ -30,7 +30,7 @@ export default function ProductsPage() {
               <Typography variant='h5' component='h2' fontWeight={theme.typography.fontWeightMedium}>{category.name}</Typography>
               <Grid2 container spacing={2} mx={3}>
                 {products.map((product) => (
-                  <Grid2 key={product._id} display='inline-flex' size={{ xs: 12, sm: 6, md: 4, lg: 1.5 }}>
+                  <Grid2 key={product._id} display='inline-flex' size={{ xs: 12, sm: 4, lg: 5 }}>
                     <CardComponent product={product} pets={pets} />
                   </Grid2>
                 ))}
