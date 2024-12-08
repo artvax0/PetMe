@@ -50,7 +50,7 @@ export default function Header() {
               <Box component='img' sx={{ height: { xs: 50, sm: 0 } }} src='/pixel.svg' alt='PetMe! Logo' />
             </Link>
             {/* NavBar */}
-            <Box component='nav' display='flex' flexGrow={1} gap={{ xs: 2, sm: 5 }} alignItems='center'>
+            <Box component='nav' display='flex' flexGrow={1} gap={{ xs: 2, sm: 5 }} textAlign='center' alignItems='center'>
               <NavLink to={ROUTES.ROOT}>Home</NavLink>
               <NavLink to={ROUTES.PRODUCTS}>Our Products</NavLink>
             </Box>
