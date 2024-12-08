@@ -32,11 +32,11 @@ export default function OrderDetailsPage() {
     <>
       <Title title={'Order Details'} />
       <Box display='flex' flexDirection='column' width='100%'>
-        <Typography variant='h4' component='h1'>Order Details</Typography>
+        <Typography variant='h4' fontSize={{ xs: '1.7rem', sm: '2.125rem' }} component='h1'>Order Details</Typography>
         <Grid2 container>
-          <Box display='flex' width='100%' justifyContent='space-between'>
-            <Typography variant='h5' component='h2'>Order Number: {id}</Typography>
-            <Box fontSize='1rem' lineHeight={2} borderRadius={2} px={2} color='#fff' fontFamily={theme.typography.fontFamily} fontWeight={theme.typography.fontWeightMedium} sx={{ backgroundColor: `${statusColors(order.status)}` }}>{order.status}</Box>
+          <Box display='flex' width='100%' flexDirection={{ xs: 'column-reverse', sm: 'row' }} justifyContent='space-between'>
+            <Typography variant='h5' component='h2' textAlign={{ xs: 'center', sm: 'initial' }} fontSize={{ xs: '1.2rem', sm: '1.5rem' }}>Order Number: {id}</Typography>
+            <Box fontSize='1rem' lineHeight={2} borderRadius={2} px={2} color='#fff' fontFamily={theme.typography.fontFamily} fontWeight={theme.typography.fontWeightMedium} sx={{ backgroundColor: `${statusColors(order.status)}` }} textAlign={{ xs: 'center', sm: 'initial' }} >{order.status}</Box>
           </Box>
           <Grid2 container spacing={2} flexDirection='column' size={12}>
             {order.products.map((product) => {
