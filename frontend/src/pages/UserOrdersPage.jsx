@@ -31,16 +31,16 @@ export default function UserOrdersPage() {
     <>
       <Title title={'My Orders'} />
       <Grid2 container flexDirection='column' size={12}>
-        <Typography variant='h4' component='h1'>My Orders</Typography>
+        <Typography variant='h4' fontSize={{ xs: '1.7rem', sm: '2.125rem' }} component='h1'>My Orders</Typography>
         <Grid2 container flexDirection='column' gap={2}>
           {isLoading ? <p>Loading...</p> : null}
           {error ? <p>Error: {error}</p> : null}
           {orders.map((order) => (
             <Card key={order._id} sx={{ p: 1, display: 'flex', flexDirection: 'column', gap: 1 }}>
               <CardActionArea onClick={() => navigate(ROUTES.ORDER + `/${order._id}`)}>
-                <Box display='flex' justifyContent='space-between'>
-                  <Typography variant='h5' component='h2'>Order Number: {order._id}</Typography>
-                  <Box fontSize='1rem' lineHeight={2} borderRadius={2} px={2} color='#fff' fontFamily={theme.typography.fontFamily} fontWeight={theme.typography.fontWeightMedium} sx={{ backgroundColor: `${statusColors(order.status)}` }}>{order.status}</Box>
+                <Box display='flex' flexDirection={{ xs: 'column-reverse', sm: 'row' }} justifyContent='space-between'>
+                  <Typography variant='h5' component='h2' textAlign={{ xs: 'center', sm: 'initial' }} fontSize={{ xs: '1.2rem', sm: '1.5rem' }}>Order Number: {order._id}</Typography>
+                  <Box fontSize='1rem' lineHeight={2} borderRadius={2} px={2} color='#fff' textAlign={{ xs: 'center', sm: 'initial' }} fontFamily={theme.typography.fontFamily} fontWeight={theme.typography.fontWeightMedium} sx={{ backgroundColor: `${statusColors(order.status)}` }}>{order.status}</Box>
                 </Box>
                 <Divider />
                 <Typography variant='h6' component='h3'>Order Details</Typography>
@@ -62,7 +62,7 @@ export default function UserOrdersPage() {
                     </React.Fragment>
                   )
                 })}
-                <Typography fontWeight={theme.typography.fontWeightBold}>Total: ${order.total}</Typography>
+                <Typography fontWeight={theme.typography.fontWeightBold} gutterBottom>Total: ${order.total}</Typography>
                 <Typography variant='h6' component='h3'>Delivery Details</Typography>
                 <Typography variant='body1'>{`${order.address.street} ${order.address.houseNumber}, ${order.address.city}, ${order.address.state ? `${order.address.state},` : ''} ${order.address.country} | ${order.address.zip}`}</Typography>
               </CardActionArea>
