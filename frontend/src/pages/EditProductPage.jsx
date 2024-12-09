@@ -31,7 +31,7 @@ export default function EditProductPage() {
   return (
     <Box width='100%'>
       <Title title={`Editing ${formData.name}`} />
-      <Typography variant='h4' component='h1'>Edit Product - {formData.name}</Typography>
+      <Typography variant='h4' fontSize={{ xs: '1.2rem', sm: '1.5rem' }} component='h1' gutterBottom>Edit Product - {formData.name}</Typography>
       <EditProductForm
         onSubmit={onSubmit}
         validateForm={validateForm}
