@@ -64,9 +64,9 @@ export default function OrdersPage() {
     <>
       <Title title='Search Orders' />
       <Box width='100%' display='flex' flexDirection='column' gap={1}>
-        <Typography variant='h4' component='h1'>Search Orders</Typography>
+        <Typography variant='h4' component='h1' fontSize={{ xs: '1.7rem', sm: '2.125rem' }}>Search Orders</Typography>
         <Grid2 container size={12} spacing={2} display='flex'>
-          <Grid2 size={1.2}>
+          <Grid2 size={{ xs: 12, md: 1.2 }}>
             <FormControl fullWidth color='highlight' size='small'>
               <InputLabel id="demo-simple-select-label">Filter By</InputLabel>
               <Select
@@ -82,7 +82,7 @@ export default function OrdersPage() {
               </Select>
             </FormControl>
           </Grid2>
-          <Grid2 size={9.8}>
+          <Grid2 size={{ xs: 8, md: 9.8 }}>
             {
               filter == 'orderStatus' ?
                 <FormControl fullWidth color='highlight' size='small'>
@@ -103,16 +103,16 @@ export default function OrdersPage() {
                 <TextField onChange={(e) => handleInput(e)} fullWidth variant='filled' placeholder='Search...' slotProps={{ htmlInput: { sx: { p: 1 } } }} />
             }
           </Grid2>
-          <Grid2 size={1}>
+          <Grid2 size={{ xs: 4, md: 1 }}>
             <Button variant='contained' color='success' fullWidth onClick={handleSearch} >Search</Button>
           </Grid2>
         </Grid2 >
         <Box display='flex' flexDirection='column' gap={1} width='100%'>
           {filteredOrders.map(order => (
             <Card key={order._id} sx={{ p: 1, display: 'flex', flexDirection: 'column', gap: 1 }}>
-              <Box display='flex' justifyContent='space-between'>
-                <Typography variant='h5' component='h2'>Order Number: {order._id}</Typography>
-                <Box display='inline-flex' gap={1}>
+              <Box display='flex' flexDirection={{ xs: 'column-reverse', md: 'row' }} justifyContent='space-between'>
+                <Typography variant='h5' component='h2' fontSize={{ xs: '1.2rem', md: '1.5rem' }}>Order Number: {order._id}</Typography>
+                <Box display='inline-flex' justifyContent='center' gap={1}>
                   <Box fontSize='1rem' lineHeight={2} borderRadius={2} px={2} color='#fff' fontFamily={theme.typography.fontFamily} fontWeight={theme.typography.fontWeightMedium} sx={{ backgroundColor: `${statusColors(order.status)}` }}>
                     {order.status}
                   </Box>
