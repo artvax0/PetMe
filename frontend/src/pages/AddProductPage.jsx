@@ -8,14 +8,21 @@ import newProductSchema from '../models/newProductSchema'
 import useProducts from '../hooks/useProducts'
 import Title from '../components/utils/Title'
 import { useAuth } from '../providers/UserProvider'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 import { ROUTES } from '../routes/routesModel'
 
 
 export default function AddProductPage() {
   const { user } = useAuth();
   const { addNewProduct } = useProducts();
-  const { formData, setFormData, errors, handleChange, validateForm, onSubmit } = useForm(initialNewProductForm, newProductSchema, addNewProduct);
+  const navigate = useNavigate();
+  const addProduct = async (formData, e) => {
+    const prod = await addNewProduct(formData);
+    if (prod) return navigate(ROUTES.PRODUCTS);
+    e.target.disabled = false;
+    e.target.classList.toggle('Mui-disabled');
+  }
+  const { formData, setFormData, errors, handleChange, validateForm, onSubmit } = useForm(initialNewProductForm, newProductSchema, addProduct);
 
   if (!user || !user.isEmployee) return (<Navigate to={ROUTES.LOGIN} />)
 

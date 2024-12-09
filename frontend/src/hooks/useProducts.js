@@ -56,20 +56,20 @@ export default function useProducts() {
     setIsLoading(false);
   }, []);
 
-  const addNewProduct = useCallback(async (product, e) => {
+  const addNewProduct = useCallback(async (product) => {
     setIsLoading(true);
     try {
       const normalizedProduct = normalizeNewProduct(product);
-      await newProduct(normalizedProduct);
+      const { data } = await newProduct(normalizedProduct);
+      setIsLoading(false);
+      return data;
     } catch (error) {
       setError(error);
     }
-    e.target.disabled = false;
-    e.target.classList.toggle('Mui-disabled');
     setIsLoading(false);
   })
 
-  const updateProduct = useCallback(async (productId, product, e) => {
+  const updateProduct = useCallback(async (productId, product) => {
     setIsLoading(true);
     try {
       const normalizedProduct = normalizeProduct(product);
