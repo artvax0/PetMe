@@ -9,9 +9,8 @@ export default function TransactionForm({ onSubmit, validateForm, styles = {}, e
       component="form"
       sx={{
         ...styles,
-        width: '100%',
-        maxWidth: 600,
-        mx: 'auto',
+        maxWidth: '100%',
+        mx: { xs: 0, sm: 'auto' },
         p: 2,
       }}
     >
@@ -73,6 +72,6 @@ export default function TransactionForm({ onSubmit, validateForm, styles = {}, e
           </Button>
         </Grid2>
       </Grid2>
-    </Paper>
+    </Paper >
   )
 }

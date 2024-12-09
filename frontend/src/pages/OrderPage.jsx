@@ -60,20 +60,20 @@ export default function OrderPage() {
   if (!products) return (<Navigate to={ROUTES.ROOT} replace />);
   if (isLoading) return (<p>Loading...</p>);
   if (user && products && productsList && userData) return (
-    <Box display='flex' flexDirection='column' flexGrow={1} gap={1}>
+    <Box display='flex' flexDirection='column' flexGrow={1} maxWidth='100%' gap={1}>
       <Title title={'Place Order'} />
       <Box component='section' display='flex' flexDirection='column'>
-        <Typography variant='h4' component='h1'>Place Order</Typography>
+        <Typography variant='h4' component='h1' fontSize={{ xs: '1.7rem', sm: '2.125rem' }}>Place Order</Typography>
         <Typography variant='h5' component='h2'>Cart</Typography>
         <TableContainer component={Paper}>
           <Table size='small' aria-label='Cart'>
             <TableHead>
               <TableRow>
-                <TableCell align='center' sx={{ fontSize: '1.1rem' }}>Product Preview</TableCell>
-                <TableCell align='center' sx={{ fontSize: '1.1rem' }}>Product</TableCell>
-                <TableCell align='center' sx={{ fontSize: '1.1rem' }}>Quantity</TableCell>
-                <TableCell align='center' sx={{ fontSize: '1.1rem' }}>Unit Price</TableCell>
-                <TableCell align='center' sx={{ fontSize: '1.1rem' }}>Total Price</TableCell>
+                <TableCell align='center' sx={{ fontSize: { xs: '0.8rem', sm: '1.1rem' } }}>Product Preview</TableCell>
+                <TableCell align='center' sx={{ fontSize: { xs: '0.8rem', sm: '1.1rem' } }}>Product</TableCell>
+                <TableCell align='center' sx={{ fontSize: { xs: '0.8rem', sm: '1.1rem' } }}>Quantity</TableCell>
+                <TableCell align='center' sx={{ fontSize: { xs: '0.8rem', sm: '1.1rem' } }}>Unit Price</TableCell>
+                <TableCell align='center' sx={{ fontSize: { xs: '0.8rem', sm: '1.1rem' } }}>Total Price</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -98,7 +98,7 @@ export default function OrderPage() {
       <Box component='section' display='flex' flexDirection='column'>
         <Typography variant='h5' component='h2'>Address Info</Typography>
         <Paper sx={{ p: 1, display: 'flex', flexDirection: 'column', gap: 1 }}>
-          <Typography color='highlight'>* Address can only be changed in user preferences.</Typography>
+          <Typography color='highlight' fontSize={{ xs: '0.8rem', sm: '1rem' }}>* Address can only be changed in user preferences.</Typography>
           <Grid2 container spacing={2}>
             <Grid2 size={{ xs: 12, sm: 8, md: 4 }}>
               <TextField label='Country' color='highlight' size='small' slotProps={{ htmlInput: { readOnly: true, sx: { color: `${theme.palette.text.disabled}` } }, inputLabel: { sx: { color: `${theme.palette.text.disabled}` } } }} fullWidth defaultValue={userData.address.country} />
@@ -125,7 +125,7 @@ export default function OrderPage() {
       <Box component='section' display='flex' flexDirection='column'>
         <Grid2 container flexDirection='column' size={12} gap={1}>
           <Typography variant='h5' component='h2'>Payment</Typography>
-          <Typography color='warning'>* Please <strong>do not</strong> fill in real information in this form! This form is a simulation, a demo, a placeholder. <br />&nbsp;&nbsp;Any information filled in this form is <strong>not sent</strong> to the server and database, and remains just as a simulation. <br />&nbsp;&nbsp;This note acts as a final warning, and will not be held responsible for any actions and/or any transactions/withdrawal.</Typography>
+          <Typography color='warning' fontSize={{ xs: '0.75rem', sm: '1rem' }}>* Please <strong>do not</strong> fill in real information in this form! This form is a simulation, a demo, a placeholder. <br />&nbsp;&nbsp;Any information filled in this form is <strong>not sent</strong> to the server and database, and remains just as a simulation. <br />&nbsp;&nbsp;This note acts as a final warning, and will not be held responsible for any actions and/or any transactions/withdrawal.</Typography>
           <TransactionForm
             onSubmit={onSubmit}
             validateForm={validateForm}
