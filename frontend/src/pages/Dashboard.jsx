@@ -13,6 +13,7 @@ import { initialProfileForm } from '../helpers/initial_forms/initialProfileForm'
 import profileSchema from '../models/profileSchema';
 import ProfileForm from '../components/forms/ProfileForm';
 import normalizeProfile from '../helpers/normalization/normalizeProfile';
+import { useTheme } from '../providers/ThemeProvider';
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -20,6 +21,7 @@ const Transition = forwardRef(function Transition(props, ref) {
 
 export default function Dashboard() {
   const { user } = useAuth();
+  const { mode } = useTheme();
   const { users, getAllUsers, isLoading, error, updateUserInfo, updateUserEmployment } = useUsers();
   const [selectedUser, setSelectedUser] = useState();
   const [isUpdateOpen, setIsUpdateOpen] = useState(false);
@@ -79,7 +81,7 @@ export default function Dashboard() {
   return (
     <>
       <Title title={'Admin Dashboard'} />
-      <Box width='100%'>
+      <Box width='100%' color={mode == 'light' ? '#000' : '#fff'}>
         <Typography variant='h4' component='h1' gutterBottom>Admin Dashboard</Typography>
         <TableContainer container={Paper}>
           <Table size='small' aria-label='User Management Table'>
@@ -108,7 +110,7 @@ export default function Dashboard() {
                   <TableCell align='center'>
                     <Box display='inline-flex' justifyContent='center' gap={1}>
                       <Button disabled={user.isAdmin} onClick={() => openUserSettings(user)} variant='contained' color='info' sx={{ p: 1, width: '30px', minWidth: '30px', maxHeight: '30px' }}><EditIcon /></Button>
-                      <Button disabled={user.isAdmin} onClick={() => handleOpen(user._id)} variant='contained' color='success' sx={{ p: 1, width: '30px', minWidth: '30px', maxHeight: '30px' }}><BadgeIcon /></Button>
+                      <Button disabled={user.isAdmin} onClick={() => handleOpen(user._id)} variant='contained' color='success' sx={{ p: 1, width: '30px', minWidth: '30px', maxHeight: '30px', color: mode == 'light' ? '#fff' : '#000' }}><BadgeIcon /></Button>
                     </Box>
                   </TableCell>
                 </TableRow>

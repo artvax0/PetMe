@@ -17,7 +17,7 @@ export default function OrderPage() {
   const { user } = useAuth();
   const location = useLocation();
   const products = location?.state?.products || '';
-  const { theme } = useTheme();
+  const { theme, mode } = useTheme();
   const { getProductById } = useProducts();
   const [productsList, setProductsList] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -60,7 +60,7 @@ export default function OrderPage() {
   if (!products) return (<Navigate to={ROUTES.ROOT} replace />);
   if (isLoading) return (<p>Loading...</p>);
   if (user && products && productsList && userData) return (
-    <Box display='flex' flexDirection='column' flexGrow={1} maxWidth='100%' gap={1}>
+    <Box display='flex' flexDirection='column' flexGrow={1} maxWidth='100%' gap={1} color={mode == 'light' ? '#000' : '#fff'}>
       <Title title={'Place Order'} />
       <Box component='section' display='flex' flexDirection='column'>
         <Typography variant='h4' component='h1' fontSize={{ xs: '1.7rem', sm: '2.125rem' }}>Place Order</Typography>

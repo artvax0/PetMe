@@ -7,7 +7,7 @@ import Title from "../components/utils/Title";
 import usePets from "../hooks/usePets";
 
 export default function ProductsPage() {
-  const { theme } = useTheme();
+  const { theme, mode } = useTheme();
   const { getAllProducts, categories, productsByCategory, error, isLoading } = useProducts();
   const { getAllPets, pets } = usePets();
 
@@ -27,7 +27,7 @@ export default function ProductsPage() {
 
           if (products && products.length > 0) return (
             <Box key={category._id} display='flex' flexDirection='column' gap={1}>
-              <Typography variant='h5' component='h2' fontWeight={theme.typography.fontWeightMedium}>{category.name}</Typography>
+              <Typography variant='h5' component='h2' fontWeight={theme.typography.fontWeightMedium} color={mode == 'light' ? '#000' : '#fff'}>{category.name}</Typography>
               <Grid2 container spacing={2} mx={3}>
                 {products.map((product) => (
                   <Grid2 key={product._id} display='inline-flex' size={{ xs: 12, sm: 4, lg: 1.5 }}>

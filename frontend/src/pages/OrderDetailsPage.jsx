@@ -14,7 +14,7 @@ export default function OrderDetailsPage() {
   const { user } = useAuth()
   const { isLoading, error, order, findOrder } = useOrders();
   const { allProducts, getAllProducts } = useProducts();
-  const { theme } = useTheme();
+  const { theme, mode } = useTheme();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export default function OrderDetailsPage() {
   return (
     <>
       <Title title={'Order Details'} />
-      <Box display='flex' flexDirection='column' width='100%'>
+      <Box display='flex' flexDirection='column' width='100%' color={mode == 'light' ? '#000' : '#fff'}>
         <Typography variant='h4' fontSize={{ xs: '1.7rem', sm: '2.125rem' }} component='h1'>Order Details</Typography>
         <Grid2 container>
           <Box display='flex' width='100%' flexDirection={{ xs: 'column-reverse', sm: 'row' }} justifyContent='space-between'>

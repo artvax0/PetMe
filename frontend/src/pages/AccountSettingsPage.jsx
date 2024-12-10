@@ -15,7 +15,7 @@ import normalizeProfile from '../helpers/normalization/normalizeProfile'
 
 export default function AccountSettingsPage() {
   const { user } = useAuth();
-  const { theme } = useTheme();
+  const { theme, mode } = useTheme();
   const { getUserInfo, updateUserInfo } = useUsers();
   const updateUser = (formData, e) => {
     const normalizedData = normalizeProfile(formData);
@@ -39,7 +39,7 @@ export default function AccountSettingsPage() {
   return (
     <>
       <Title title={'Account Preferences'} />
-      <Grid2 container flexDirection='column' width='100%'>
+      <Grid2 container flexDirection='column' width='100%' color={mode == 'light' ? '#000' : '#fff'}>
         <Typography variant='h5' component='h1' fontWeight={theme.typography.fontWeightMedium} gutterBottom>Account Preferences</Typography>
         <ProfileForm
           onSubmit={onSubmit}

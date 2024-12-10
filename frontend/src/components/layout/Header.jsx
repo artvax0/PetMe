@@ -11,6 +11,7 @@ import HistoryIcon from '@mui/icons-material/History';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { removeToken } from '../../services/storageService';
+import ThemeButton from './ThemeButton';
 
 export default function Header() {
   const { theme } = useTheme();
@@ -54,6 +55,7 @@ export default function Header() {
               <NavLink to={ROUTES.ROOT}>Home</NavLink>
               <NavLink to={ROUTES.PRODUCTS}>Our Products</NavLink>
             </Box>
+            <ThemeButton />
             {
               user ?
                 (<>

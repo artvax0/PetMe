@@ -44,16 +44,20 @@ const themes = {
     palette: {
       mode: 'dark',
       primary: {
-        main: '#FFF4A1'
+        main: '#5c5c5a'
       },
       secondary: {
-        main: '#FFCF93'
+        main: '#d98f52'
       },
       accent: {
-        main: '#EDC0FF'
+        main: '#a468bd'
       },
-      background: { // also known as 'highlight'
-        default: '#8873FF'
+      highlight: {
+        main: '#565457'
+      },
+      background: {
+        default: '#3b3b3b',
+        light: '#424242'
       }
     },
     typography: {

@@ -16,7 +16,7 @@ const Transition = forwardRef(function Transition(props, ref) {
 
 export default function OrdersPage() {
   const { user } = useAuth();
-  const { theme } = useTheme();
+  const { theme, mode } = useTheme();
   const { filteredOrders, listOrders, changeStatus, isLoading, error } = useOrders();
   const { getAllProducts, allProducts } = useProducts();
   const [filter, setFilter] = useState('orderID');
@@ -63,7 +63,7 @@ export default function OrdersPage() {
   return (
     <>
       <Title title='Search Orders' />
-      <Box width='100%' display='flex' flexDirection='column' gap={1}>
+      <Box width='100%' display='flex' flexDirection='column' gap={1} color={mode == 'light' ? '#000' : '#fff'}>
         <Typography variant='h4' component='h1' fontSize={{ xs: '1.7rem', sm: '2.125rem' }}>Search Orders</Typography>
         <Grid2 container size={12} spacing={2} display='flex'>
           <Grid2 size={{ xs: 12, md: 1.2 }}>
@@ -104,7 +104,7 @@ export default function OrdersPage() {
             }
           </Grid2>
           <Grid2 size={{ xs: 4, md: 1 }}>
-            <Button variant='contained' color='success' fullWidth onClick={handleSearch} >Search</Button>
+            <Button variant='contained' color='success' fullWidth onClick={handleSearch} sx={{ color: mode == 'light' ? '#000' : '#fff' }}>Search</Button>
           </Grid2>
         </Grid2 >
         <Box display='flex' flexDirection='column' gap={1} width='100%'>

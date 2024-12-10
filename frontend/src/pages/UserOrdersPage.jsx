@@ -14,7 +14,7 @@ export default function UserOrdersPage() {
   const { orders, listUserOrders, isLoading, error } = useOrders();
   const { allProducts, getAllProducts } = useProducts();
   const navigate = useNavigate();
-  const { theme } = useTheme();
+  const { theme, mode } = useTheme();
 
   useEffect(() => {
     if (user) {
@@ -31,7 +31,7 @@ export default function UserOrdersPage() {
     <>
       <Title title={'My Orders'} />
       <Grid2 container flexDirection='column' size={12}>
-        <Typography variant='h4' fontSize={{ xs: '1.7rem', sm: '2.125rem' }} component='h1'>My Orders</Typography>
+        <Typography variant='h4' fontSize={{ xs: '1.7rem', sm: '2.125rem' }} component='h1' color={mode == 'light' ? '#000' : '#fff'}>My Orders</Typography>
         <Grid2 container flexDirection='column' gap={2}>
           {isLoading ? <p>Loading...</p> : null}
           {error ? <p>Error: {error}</p> : null}

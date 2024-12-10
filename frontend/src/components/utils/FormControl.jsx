@@ -3,7 +3,7 @@ import capitalizeLetters from '../../utils/capitalizeLetters'
 import { useTheme } from '../../providers/ThemeProvider'
 
 export default function FormControl({ label, required = true, error, formData, name, onChange, size, type = 'text', options = [], slotProps = {}, multiple = false }) {
-  const { theme } = useTheme();
+  const { theme, mode } = useTheme();
   const getStyles = (id, selectedOptions) => {
     return {
       fontWeight: selectedOptions.includes(id) ? theme.typography.fontWeightMedium : theme.typography.fontWeightRegular,
@@ -14,7 +14,7 @@ export default function FormControl({ label, required = true, error, formData, n
     <Grid2 container size={{ xs: 12, ...size }}>
       {type == 'select' ? (
         <MUIFormControl fullWidth error={Boolean(error)} size='small' required={required}>
-          <InputLabel color='highlight' id={`${name}-label`}>{capitalizeLetters(label)}</InputLabel>
+          <InputLabel color={mode == 'light' ? 'highlight' : '#fff'} id={`${name}-label`}>{capitalizeLetters(label)}</InputLabel>
           <Select
             multiple={multiple}
             labelId={`${name}-label`}
@@ -23,7 +23,7 @@ export default function FormControl({ label, required = true, error, formData, n
             value={multiple ? (formData[name] || []) : (formData[name] || '')}
             onChange={onChange}
             name={name}
-            color='highlight'
+            color={mode == 'light' ? 'highlight' : '#fff'}
             input={<OutlinedInput id='select-multiple-chip' label={label} />}
             renderValue={(selected) => {
               if (multiple) {
@@ -64,7 +64,7 @@ export default function FormControl({ label, required = true, error, formData, n
           name={name}
           id={name}
           onChange={onChange}
-          color="highlight"
+          color={mode == 'light' ? 'highlight' : '#fff'}
           type={type}
           slotProps={slotProps}
         />

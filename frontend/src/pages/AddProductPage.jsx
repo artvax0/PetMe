@@ -10,12 +10,14 @@ import Title from '../components/utils/Title'
 import { useAuth } from '../providers/UserProvider'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { ROUTES } from '../routes/routesModel'
+import { useTheme } from '../providers/ThemeProvider'
 
 
 export default function AddProductPage() {
   const { user } = useAuth();
   const { addNewProduct } = useProducts();
   const navigate = useNavigate();
+  const { mode } = useTheme();
   const addProduct = async (formData, e) => {
     const prod = await addNewProduct(formData);
     if (prod) return navigate(ROUTES.PRODUCTS);
@@ -27,7 +29,7 @@ export default function AddProductPage() {
   if (!user || !user.isEmployee) return (<Navigate to={ROUTES.LOGIN} />)
 
   return (
-    <Box width='100%'>
+    <Box width='100%' color={mode == 'light' ? '#000' : '#fff'}>
       <Title title={'Add Product'} />
       <Typography gutterBottom variant='h4' component='h1'>Add New Product</Typography>
       <ProductForm
