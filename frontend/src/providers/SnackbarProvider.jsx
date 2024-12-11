@@ -1,9 +1,11 @@
 import { Alert, Grow, Snackbar } from "@mui/material";
 import { createContext, useCallback, useContext, useState } from "react";
+import { useTheme } from "./ThemeProvider";
 
 const SnackbarContext = createContext();
 
 export default function SnackbarProvider({ children }) {
+  const { mode } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const [snackType, setSnackType] = useState('success');
   const [snackMsg, setSnackMsg] = useState('Hello world!');
@@ -28,7 +30,7 @@ export default function SnackbarProvider({ children }) {
         <Alert
           severity={snackType}
           variant='filled'
-          sx={{ width: '100%' }}
+          sx={{ width: '100%', color: mode == 'light' ? '#000' : '#fff' }}
         >
           {snackMsg}
         </Alert>
