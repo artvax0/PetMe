@@ -31,6 +31,7 @@ export default function Dashboard() {
     updateUserInfo(selectedUser, normalizedData);
     e.target.disabled = false;
     e.target.classList.toggle('Mui-disabled');
+    closeUserSettings();
   }
   const { formData, setFormData, errors, setErrors, handleChange, validateForm, onSubmit } = useForm(initialProfileForm, profileSchema, updateUser)
 

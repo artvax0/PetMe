@@ -6,8 +6,10 @@ import { useCallback, useState } from "react";
 import { getUser, saveToken } from "../services/storageService";
 import { useAuth } from "../providers/UserProvider";
 import useAxios from "./useAxios";
+import { useSnack } from "../providers/SnackbarProvider";
 
 export default function useUsers() {
+  const snack = useSnack();
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState();
@@ -22,7 +24,8 @@ export default function useUsers() {
       await signup(normalizeUser(userInfo));
       navigate(ROUTES.LOGIN);
     } catch (error) {
-      setError(error)
+      setError(error.response.data)
+      snack(error.response.data, 'error');
     }
     e.target.disabled = false;
     e.target.classList.toggle('Mui-disabled');
@@ -38,7 +41,8 @@ export default function useUsers() {
       setUser(getUser);
       navigate(ROUTES.ROOT);
     } catch (error) {
-      setError(error);
+      setError(error.response.data);
+      snack(error.response.data, 'error');
     }
     e.target.disabled = false;
     e.target.classList.toggle('Mui-disabled');
@@ -53,7 +57,7 @@ export default function useUsers() {
       setIsLoading(false)
       return data;
     } catch (error) {
-      setError(error);
+      setError(error.response.data);
     }
     setIsLoading(false);
   })
@@ -63,8 +67,10 @@ export default function useUsers() {
     try {
       const { data } = await updateUser(userId, userInfo);
       setUserData(data);
+      snack('Successfully updated user info');
     } catch (error) {
-      setError(error);
+      setError(error.response.data);
+      snack(`Failed to update user info, ${error.response.data}`, 'error');
     }
     setIsLoading(false);
   })
@@ -75,7 +81,7 @@ export default function useUsers() {
       const { data } = await getUsers();
       setUsers(data);
     } catch (error) {
-      setError(error);
+      setError(error.response.data);
     }
     setIsLoading(false);
   })
@@ -84,8 +90,10 @@ export default function useUsers() {
     setIsLoading(true);
     try {
       await employUser(userId);
+      snack('Successfully updated user employment');
     } catch (error) {
-      setError(error);
+      setError(error.response.data);
+      snack(`Failed to update user employment, ${error.response.data}`, 'error');
     }
     setIsLoading(false);
   })

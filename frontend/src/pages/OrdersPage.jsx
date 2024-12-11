@@ -27,15 +27,17 @@ export default function OrdersPage() {
   const [id, setId] = useState()
   const handleOpen = useCallback((orderId) => { setId(orderId); setOpen(true) }, [user]);
   const handleClose = useCallback(() => { setId(); setOpen(false) }, [user]);
-  const handleStatus = useCallback(async (id, status) => { await changeStatus(id, status); handleClose(); location.reload() }, []);
+  const handleStatus = useCallback(async (id, status) => { await changeStatus(id, status); handleClose() }, []);
 
   useEffect(() => {
-    const getOrders = async () => {
-      await listOrders();
-      await getAllProducts();
+    if (isLoading) {
+      const getOrders = async () => {
+        await listOrders();
+        await getAllProducts();
+      }
+      getOrders();
     }
-    getOrders();
-  }, []);
+  }, [user, isLoading]);
 
   const handleChange = useCallback((e) => {
     setFilter(e.target.value);

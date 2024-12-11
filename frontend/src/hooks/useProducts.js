@@ -4,8 +4,10 @@ import { getCategories } from "../services/categoriesApiService";
 import useAxios from "./useAxios";
 import normalizeNewProduct from "../helpers/normalization/normalizeNewProduct";
 import normalizeProduct from "../helpers/normalization/normalizeProduct";
+import { useSnack } from "../providers/SnackbarProvider";
 
 export default function useProducts() {
+  const snack = useSnack();
   const [allProducts, setAllProducts] = useState([]);
   const [product, setProduct] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -51,7 +53,7 @@ export default function useProducts() {
       setIsLoading(false);
       return data;
     } catch (error) {
-      setError(error);
+      setError(error.response.data);
     }
     setIsLoading(false);
   }, []);
@@ -62,9 +64,11 @@ export default function useProducts() {
       const normalizedProduct = normalizeNewProduct(product);
       const { data } = await newProduct(normalizedProduct);
       setIsLoading(false);
+      snack('Product added successfully');
       return data;
     } catch (error) {
-      setError(error);
+      setError(error.response.data);
+      snack(`Failed to add product, ${error.response.data}`, 'error');
     }
     setIsLoading(false);
   })
@@ -74,8 +78,10 @@ export default function useProducts() {
     try {
       const normalizedProduct = normalizeProduct(product);
       await editProduct(productId, normalizedProduct);
+      snack('Product updated successfuly');
     } catch (error) {
-      setError(error);
+      setError(error.response.data);
+      snack(`Failed to update product, ${error.response.data}`, 'error');
     }
     setIsLoading(false);
   })
@@ -84,8 +90,10 @@ export default function useProducts() {
     setIsLoading(true);
     try {
       await updateStock(productId, stock);
+      snack('Stock updated');
     } catch (error) {
-      setError(error);
+      setError(error.response.data);
+      snack(`Failed to update stock, ${error.response.data}`, 'error');
     }
     setIsLoading(false);
   })
@@ -95,9 +103,11 @@ export default function useProducts() {
     try {
       const { data } = await deleteProduct(productId);
       setIsLoading(false);
+      snack('Product removed successfuly');
       return data;
     } catch (error) {
-      setError(error);
+      setError(error.response.data);
+      snack(`Failed to remove product, ${error.response.data}`, 'error');
     }
     setIsLoading(false);
   })

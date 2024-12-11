@@ -23,7 +23,7 @@ export default function ProductPage() {
   const { user } = useAuth();
   const { theme, mode } = useTheme();
   const { product, getProductById, editStock, removeProduct, isLoading, error } = useProducts();
-  const { getProductPets, pets } = usePets();
+  const { getProductPets, pets, isLoading: petIsLoading } = usePets();
   const { addProductToCart } = useCarts();
   const [count, setCount] = useState(1);
   const navigate = useNavigate();
@@ -32,12 +32,17 @@ export default function ProductPage() {
   const [stock, setStock] = useState(1);
 
   useEffect(() => {
-    getProductById(id);
-  }, [id]);
+    if (isLoading || petIsLoading) {
+      const getProduct = async () => {
+        await getProductById(id);
+      }
+      getProduct();
+    }
+  }, [id, isLoading]);
 
   useEffect(() => {
     getProductPets(product.petType_id);
-  }, [product])
+  }, [product?.petType_id])
 
   const addToCart = useCallback((e, productId, quantity) => {
     if (user) return addProductToCart(e, user._id, { product_id: productId, quantity });
@@ -49,14 +54,14 @@ export default function ProductPage() {
   const handleOpenSt = useCallback(() => setOpenSt(true), [user]);
   const handleCloseSt = useCallback(() => setOpenSt(false), [user]);
   const handleDel = useCallback(async () => { handleCloseDel(); await removeProduct(id); navigate(ROUTES.PRODUCTS) }, []);
-  const handleStock = useCallback(async (stock) => { await editStock(id, stock); location.reload() }, []);
+  const handleStock = useCallback(async (stock) => { await editStock(id, stock); handleCloseSt() }, []);
 
   let isDiscountValid = false;
   let now = new Date().toISOString();
 
   if (product.discount > 0 && product.discountStartDate <= now && product.discountEndDate >= now) { isDiscountValid = true };
 
-  if (isLoading) return (<><Title title={'Loading...'} /><p>Loading...</p></>)
+  if (isLoading && petIsLoading) return (<><Title title={'Loading...'} /><p>Loading...</p></>)
   if (error) return (<><Title title={'PetMe - Error'} /><p>Error: {error}</p></>)
   if (product)
     return (
@@ -64,7 +69,7 @@ export default function ProductPage() {
         <Title title={product.name} />
         <Grid2 container mt={2.75} width='100%' gap={2} sx={{ backgroundColor: mode == 'light' ? '#fff' : theme.palette.highlight.main, borderRadius: '15px' }}>
           <Grid2 size={{ xs: 12, sm: 4 }} sx={{ backgroundColor: '#fff', boxShadow: 'inset 5px 5px 5px 0 rgba(0, 0, 0, .25), inset -5px -5px 5px 0 rgba(0, 0, 0, .25)', borderRadius: '5px' }}>
-            <Box width='100%' component='img' src={product.image.url} alt={product.image.alt} />
+            <Box width='100%' component='img' src={product?.image?.url} alt={product?.image?.alt} />
           </Grid2>
           <Grid2 display='flex' flexDirection='column' flexGrow={1} py={1} maxWidth={{ xs: '100%', sm: '64%' }} gap={{ xs: 2, sm: 0 }}>
             <Box display='flex' justifyContent='space-between' flexDirection={{ xs: 'column', sm: 'row' }}>

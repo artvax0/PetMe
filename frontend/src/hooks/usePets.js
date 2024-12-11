@@ -13,7 +13,7 @@ export default function usePets() {
       const { data } = await getPets();
       setPets(data);
     } catch (error) {
-      setError(error);
+      setError(error.response.data);
     }
     setIsLoading(false);
   }
@@ -24,20 +24,21 @@ export default function usePets() {
       const { data } = await getPet(id);
       setPet(data);
     } catch (error) {
-      setError(error);
+      setError(error.response.data);
     }
     setIsLoading(false);
   }
 
   const getProductPets = async (petsArray) => {
     setIsLoading(true);
+    setPets([]);
     try {
       for (const petType of petsArray) {
         const pet = await getPet(petType);
-        setPets(prev => [...prev, pet.data])
+        setPets(prev => [...prev, pet.data]);
       };
     } catch (error) {
-      setError(error)
+      setError(error.response.data)
     }
     setIsLoading(false)
   }

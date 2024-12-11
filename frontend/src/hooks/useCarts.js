@@ -1,8 +1,10 @@
 import { useState } from "react";
 import useAxios from "./useAxios";
 import { addCart, getCart } from "../services/cartsApiService";
+import { useSnack } from "../providers/SnackbarProvider";
 
 export default function useCarts() {
+  const snack = useSnack();
   const [cart, setCart] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState();
@@ -25,9 +27,10 @@ export default function useCarts() {
     e.target.label = 'Adding to cart...';
     try {
       await addCart(userId, productInfo);
-      // set snack to successful
+      snack('Added product to cart');
     } catch (error) {
-      setError(error)
+      setError(error);
+      snack(`Failed to add product to cart, ${error}`, 'error');
     }
     setIsLoading(false);
     e.target.label = 'Add to cart';
@@ -38,8 +41,10 @@ export default function useCarts() {
     setIsLoading(true);
     try {
       await addCart(userId, productInfo);
+      snack('Updated cart stock');
     } catch (error) {
       setError(error);
+      snack(`Failed to add product to cart, ${error}`, 'error');
     }
     setIsLoading(false);
   }

@@ -2,9 +2,11 @@ import { useMemo, useState } from "react";
 import useAxios from "./useAxios";
 import { getOrder, getOrders, getUserOrders, newOrder, setStatus } from "../services/orderApiService";
 import { useSearchParams } from "react-router-dom";
+import { useSnack } from "../providers/SnackbarProvider";
 
 export default function useOrders() {
   useAxios();
+  const snack = useSnack();
   const [orders, setOrders] = useState([]);
   const [order, setOrder] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -43,9 +45,11 @@ export default function useOrders() {
       const { data } = await newOrder(userId, orderInfo);
       setOrder(data);
       setIsLoading(false);
+      snack('Order has been created successfully');
       return data;
     } catch (error) {
-      setError(error);
+      setError(error.response.data);
+      snack(`Failed to create order, ${error.response.data}`, 'error');
     }
     setIsLoading(false);
   }
@@ -56,7 +60,7 @@ export default function useOrders() {
       const { data } = await getUserOrders(userId);
       setOrders(data);
     } catch (error) {
-      setError(error);
+      setError(error.response.data);
     }
     setIsLoading(false);
   }
@@ -67,7 +71,7 @@ export default function useOrders() {
       const { data } = await getOrder(orderId);
       setOrder(data);
     } catch (error) {
-      setError(error);
+      setError(error.response.data);
     }
     setIsLoading(false);
   }
@@ -78,7 +82,7 @@ export default function useOrders() {
       const { data } = await getOrders();
       setOrders(data);
     } catch (error) {
-      setError(error);
+      setError(error.response.data);
     }
     setIsLoading(false);
   }
@@ -87,8 +91,10 @@ export default function useOrders() {
     setIsLoading(true);
     try {
       await setStatus(orderId, orderStatus);
+      snack('Successfully changed order status');
     } catch (error) {
-
+      setError(error.response.data);
+      snack(`Failed to change order status, ${error.response.data}`, 'error');
     }
     setIsLoading(false);
   }
