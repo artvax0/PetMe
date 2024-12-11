@@ -5,6 +5,7 @@ import { Box, Button, Divider, IconButton, Typography } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../routes/routesModel';
+import LoadingSpinner from '../utils/LoadingSpinner';
 
 export default function Cart({ user, setIsOpen }) {
   const { cart, isLoading, error, getUserCart, updateQuantity } = useCarts();
@@ -46,7 +47,7 @@ export default function Cart({ user, setIsOpen }) {
     await getUserCart(user._id);
   }
 
-  if (isLoading) return (<p>Loading...</p>);
+  if (isLoading) return (<LoadingSpinner />);
   if (error) return (<p>Error: {error}</p>)
   if (cart) return (
     <>

@@ -8,6 +8,7 @@ import { Box, Divider, Grid2, Typography } from '@mui/material';
 import { useTheme } from '../providers/ThemeProvider';
 import statusColors from '../utils/statusColors';
 import useProducts from '../hooks/useProducts';
+import LoadingSpinner from '../components/utils/LoadingSpinner';
 
 export default function OrderDetailsPage() {
   const { id } = useParams();
@@ -25,7 +26,7 @@ export default function OrderDetailsPage() {
     getOrder();
   }, [user])
 
-  if (isLoading) return (<p>Loading...</p>);
+  if (isLoading) return (<LoadingSpinner />);
   if (error) return (<p>Error: {error}</p>);
   if (!user || user._id != order.user_id) return (<Navigate to={ROUTES.LOGIN} replace />);
   return (

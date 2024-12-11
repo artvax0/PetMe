@@ -12,6 +12,7 @@ import useForm from "../hooks/useForm";
 import { initialCreditForm } from "../helpers/initial_forms/initialCreditForm";
 import creditCardSchema from "../models/creditCardSchema";
 import useOrders from "../hooks/useOrders";
+import LoadingSpinner from "../components/utils/LoadingSpinner";
 
 export default function OrderPage() {
   const { user } = useAuth();
@@ -58,7 +59,7 @@ export default function OrderPage() {
 
   if (!user) return (<Navigate to={ROUTES.LOGIN} replace />);
   if (!products) return (<Navigate to={ROUTES.ROOT} replace />);
-  if (isLoading) return (<p>Loading...</p>);
+  if (isLoading) return (<LoadingSpinner />);
   if (user && products && productsList && userData) return (
     <Box display='flex' flexDirection='column' flexGrow={1} maxWidth='100%' gap={1} color={mode == 'light' ? '#000' : '#fff'}>
       <Title title={'Place Order'} />

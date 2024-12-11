@@ -5,6 +5,7 @@ import useProducts from "../hooks/useProducts";
 import { useTheme } from "../providers/ThemeProvider";
 import Title from "../components/utils/Title";
 import usePets from "../hooks/usePets";
+import LoadingSpinner from "../components/utils/LoadingSpinner";
 
 export default function ProductsPage() {
   const { theme, mode } = useTheme();
@@ -16,8 +17,8 @@ export default function ProductsPage() {
     getAllPets();
   }, []);
 
-  if (isLoading) return <p>Loading...</p> //temporarry loading message until loading spinner is ready
-  if (error) return <p>Error: {error}</p> //temporary error message until error component is ready
+  if (isLoading) return (<LoadingSpinner />);
+  if (error) return (<p>Error: {error}</p>); //temporary error message until error component is ready
   if (categories && pets) return (
     <>
       <Title title={'Products'} />

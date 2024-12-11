@@ -13,6 +13,7 @@ import useCarts from '../hooks/useCarts';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import InputNumber from '../components/utils/InputNumber';
+import LoadingSpinner from '../components/utils/LoadingSpinner';
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -61,7 +62,7 @@ export default function ProductPage() {
 
   if (product.discount > 0 && product.discountStartDate <= now && product.discountEndDate >= now) { isDiscountValid = true };
 
-  if (isLoading && petIsLoading) return (<><Title title={'Loading...'} /><p>Loading...</p></>)
+  if (isLoading && petIsLoading) return (<><Title title={'Loading...'} /><LoadingSpinner /></>)
   if (error) return (<><Title title={'PetMe - Error'} /><p>Error: {error}</p></>)
   if (product)
     return (

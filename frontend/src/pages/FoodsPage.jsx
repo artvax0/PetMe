@@ -4,6 +4,7 @@ import { Box } from '@mui/system';
 import { Grid2, Typography } from '@mui/material';
 import { useTheme } from '../providers/ThemeProvider';
 import CardComponent from '../components/cards/CardComponent';
+import LoadingSpinner from '../components/utils/LoadingSpinner';
 
 export default function FoodsPage() {
   const { theme } = useTheme();
@@ -18,8 +19,8 @@ export default function FoodsPage() {
     return cat._id;
   }, [categories]);
 
-  if (isLoading) return <p>Loading. . . </p>
-  if (error) return <p>Error: {error}</p>
+  if (isLoading) return (<LoadingSpinner />);
+  if (error) return (<p>Error: {error}</p>);
   if (categories)
     return (
       <>

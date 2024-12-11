@@ -8,6 +8,7 @@ import { FilePond, registerPlugin } from 'react-filepond';
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
 import { useTheme } from '../../providers/ThemeProvider';
 import 'filepond/dist/filepond.min.css';
+import LoadingSpinner from '../utils/LoadingSpinner';
 
 registerPlugin(FilePondPluginFileValidateType);
 
@@ -57,7 +58,7 @@ export default function EditProductForm({ styles, onSubmit, validateForm, errors
     }
   }
 
-  if (petsIsLoading || catIsLoading) return (<p>Loading...</p>);
+  if (petsIsLoading || catIsLoading) return (<LoadingSpinner />);
   return (
     <Box component='form' sx={{ ...styles }}>
       <Grid2 container spacing={1} direction='row' width='100'>
