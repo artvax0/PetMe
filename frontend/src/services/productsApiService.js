@@ -42,11 +42,3 @@ export const updateStock = async (productId, stock) => {
     throw error;
   }
 }
-
-export const deleteProduct = async (productId) => {
-  try {
-    return await axios.delete(apiUrl + productId);
-  } catch (error) {
-    throw error;
-  }
-}

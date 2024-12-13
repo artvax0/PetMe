@@ -11,7 +11,6 @@ import { ROUTES } from '../routes/routesModel';
 import { useAuth } from '../providers/UserProvider';
 import useCarts from '../hooks/useCarts';
 import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
 import InputNumber from '../components/utils/InputNumber';
 import LoadingSpinner from '../components/utils/LoadingSpinner';
 
@@ -23,12 +22,11 @@ export default function ProductPage() {
   const { id } = useParams();
   const { user } = useAuth();
   const { theme, mode } = useTheme();
-  const { product, getProductById, editStock, removeProduct, isLoading, error } = useProducts();
+  const { product, getProductById, editStock, isLoading, error } = useProducts();
   const { getProductPets, pets, isLoading: petIsLoading } = usePets();
   const { addProductToCart } = useCarts();
   const [count, setCount] = useState(1);
   const navigate = useNavigate();
-  const [openDel, setOpenDel] = useState(false);
   const [openSt, setOpenSt] = useState(false);
   const [stock, setStock] = useState(1);
 
@@ -50,11 +48,8 @@ export default function ProductPage() {
     <Navigate to={ROUTES.LOGIN} replace />
   }, [])
 
-  const handleOpenDel = useCallback(() => setOpenDel(true), [user]);
-  const handleCloseDel = useCallback(() => setOpenDel(false), [user]);
   const handleOpenSt = useCallback(() => setOpenSt(true), [user]);
   const handleCloseSt = useCallback(() => setOpenSt(false), [user]);
-  const handleDel = useCallback(async () => { handleCloseDel(); await removeProduct(id); navigate(ROUTES.PRODUCTS) }, []);
   const handleStock = useCallback(async (stock) => { await editStock(id, stock); handleCloseSt() }, []);
 
   let isDiscountValid = false;
@@ -82,7 +77,6 @@ export default function ProductPage() {
                 <Box display='inline-flex' gap={1} justifyContent={{ xs: 'space-around', sm: 'normal' }}>
                   <Button variant='contained' color='success' sx={{ p: 1, width: '30px', minWidth: '30px', maxHeight: '30px' }} onClick={handleOpenSt}><InventoryIcon sx={{ color: mode == 'light' ? '#fff' : '#000' }} /></Button>
                   <Button variant='contained' color='warning' sx={{ p: 1, width: '30px', minWidth: '30px', maxHeight: '30px' }} onClick={() => navigate(ROUTES.EDIT_RODUCT + `/${id}`)}><EditIcon /></Button>
-                  <Button variant='contained' color='error' sx={{ p: 1, width: '30px', minWidth: '30px', maxHeight: '30px', color: mode == 'light' ? '#fff' : '#000' }} onClick={handleOpenDel}><DeleteIcon /></Button>
                 </Box>
               }
             </Box>
@@ -118,25 +112,6 @@ export default function ProductPage() {
             </Box>
           </Grid2>
         </Grid2 >
-        <Dialog
-          open={openDel}
-          TransitionComponent={Transition}
-          keepMounted
-          onClose={handleCloseDel}
-          aria-describedby='alert-dialog-slide-description'
-        >
-          <DialogTitle>{'Delete Product?'}</DialogTitle>
-          <DialogContent>
-            <DialogContentText component='div' id="alert-dialog-slide-description">
-              <Typography>Are you sure you want to delete this product? This action cannot be undone, and all information associated with this product will be permanently removed. <br /><br /></Typography>
-              <Typography>This is highlighy discouraged, setting the product's stock to zero is encouraged as an alternative solution.</Typography>
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleCloseDel} color='secondary'>Cancel</Button>
-            <Button onClick={handleDel} color='error'>Delete Product</Button>
-          </DialogActions>
-        </Dialog>
         <Dialog
           open={openSt}
           TransitionComponent={Transition}

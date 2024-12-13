@@ -98,19 +98,5 @@ export default function useProducts() {
     setIsLoading(false);
   })
 
-  const removeProduct = useCallback(async (productId) => {
-    setIsLoading(true);
-    try {
-      const { data } = await deleteProduct(productId);
-      setIsLoading(false);
-      snack('Product removed successfuly');
-      return data;
-    } catch (error) {
-      setError(error.response.data);
-      snack(`Failed to remove product, ${error.response.data}`, 'error');
-    }
-    setIsLoading(false);
-  })
-
-  return { getAllProducts, getProductById, allProducts, addNewProduct, updateProduct, editStock, removeProduct, product, categories, productsByCategory, error, isLoading };
+  return { getAllProducts, getProductById, allProducts, addNewProduct, updateProduct, editStock, product, categories, productsByCategory, error, isLoading };
 }
