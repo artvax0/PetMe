@@ -39,7 +39,8 @@ const newOrder = async (user_id, orderDetails) => {
           const isDiscountValid = productInfo.discount > 0 && productInfo.discountStartDate <= now && productInfo.discountEndDate >= now;
 
           if (isDiscountValid) {
-            product.price = productInfo.price * (1 - productInfo.discount / 100) * product.quantity
+            let discountedPrice = productInfo.price * (1 - productInfo.discount / 100);
+            product.price = (Math.floor(discountedPrice) + Math.round((discountedPrice % Math.floor(discountedPrice)) * 10) / 10) * product.quantity;
           } else {
             product.price = productInfo.price * product.quantity
           }

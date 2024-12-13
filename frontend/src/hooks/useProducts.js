@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { deleteProduct, editProduct, getProduct, getProducts, newProduct, updateStock } from "../services/productsApiService";
+import { editProduct, getProduct, getProducts, newProduct, updateStock } from "../services/productsApiService";
 import { getCategories } from "../services/categoriesApiService";
 import useAxios from "./useAxios";
 import normalizeNewProduct from "../helpers/normalization/normalizeNewProduct";
