@@ -14,6 +14,9 @@ export default function Cart({ user, setIsOpen }) {
   const [products, setProducts] = useState({});
   const navigate = useNavigate();
 
+  let isStocked = true;
+  let totalPrice = 0;
+
   useEffect(() => {
     const getCart = async () => {
       await getUserCart(user._id);
@@ -58,15 +61,30 @@ export default function Cart({ user, setIsOpen }) {
             <Box component='ul' display='flex' flexDirection='column' gap={1} p={0} sx={{ listStyleType: 'none' }}>
               {cart.products.map((product) => {
                 const productData = products[product.product_id];
+                if (productData?.stock > 0) { totalPrice += product.price * product.quantity };
                 return (
                   <React.Fragment key={product.product_id}>
                     <Box component='li' display='flex' px={1} gap={1} alignItems='center'>
                       <Box component='img' src={productData?.image?.url || ''} alt={productData?.image?.alt || ''} maxWidth='75px' maxHeight='75px' />
                       <Box flexGrow={1}>
                         <Typography>{productData?.name || ''}</Typography>
-                        <Typography>Total: <strong>${product.price}</strong></Typography>
-                        <Box display='flex' justifyContent='space-between' alignItems='center'>
-                          <Typography color='textDisabled'>Quantity: <strong>{product.quantity}</strong></Typography>
+                        {
+                          productData?.stock > 0 ?
+                            <>
+                              <Typography>Total: <strong>${product.price}</strong></Typography>
+                            </> :
+                            <>
+                              {isStocked = false}
+                              {console.log(isStocked)}
+                              <Typography fontWeight='bold'>Out of stock</Typography>
+                            </>
+                        }
+                        <Box display='flex' justifyContent={productData?.stock > 0 ? 'space-between' : 'flex-end'} alignItems='center'>
+                          {
+                            productData?.stock > 0 ?
+                              <Typography color='textDisabled'>Quantity: <strong>{product.quantity}</strong></Typography> :
+                              null
+                          }
                           <IconButton onClick={() => removeProduct(product.product_id)} sx={{ p: 0 }}><DeleteForeverIcon color='error' /></IconButton>
                         </Box>
                       </Box>
@@ -76,9 +94,9 @@ export default function Cart({ user, setIsOpen }) {
                 )
               })}
             </Box>
-            <Typography textAlign='center'>Total: <strong>${cart.products.reduce((acc, product) => acc += product.price, 0)}</strong></Typography>
+            <Typography textAlign='center'>Total: <strong>${totalPrice}</strong></Typography>
           </Box>
-          <Button color='success' fullWidth sx={{ alignSelf: 'flex-end' }} onClick={() => { navigate(ROUTES.ORDER, { state: { products: cart.products } }); setIsOpen(false) }}>Go to Checkout</Button>
+          <Button disabled={totalPrice == 0} color='success' fullWidth sx={{ alignSelf: 'flex-end' }} onClick={() => { navigate(ROUTES.ORDER, { state: { products: cart.products } }); setIsOpen(false) }}>Go to Checkout</Button>
         </Box>
         : <Typography textAlign='center' py={1} px={1.5} color='textDisabled'>You have no products in your cart :(</Typography>
       }
