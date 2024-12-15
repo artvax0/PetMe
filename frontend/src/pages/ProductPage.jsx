@@ -1,4 +1,4 @@
-import { forwardRef, useCallback, useEffect, useState } from 'react'
+import React, { forwardRef, useCallback, useEffect, useState } from 'react'
 import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, Grid2, Slide, Typography } from '@mui/material';
 import useProducts from '../hooks/useProducts';
@@ -53,9 +53,11 @@ export default function ProductPage() {
   const handleCloseSt = useCallback(() => setOpenSt(false), [user]);
   const handleStock = useCallback(async (stock) => { await editStock(id, stock); handleCloseSt() }, []);
 
+  let isStocked = true;
   let isDiscountValid = false;
   let now = new Date().toISOString();
 
+  if (product.stock == 0) { isStocked = false };
   if (product.discount > 0 && product.discountStartDate <= now && product.discountEndDate >= now) { isDiscountValid = true };
   let discountedPrice = product.price * (1 - product.discount / 100)
 
@@ -95,22 +97,30 @@ export default function ProductPage() {
             <Divider variant='middle' sx={{ mb: 2 }} />
             <Typography variant='h5' display='inline-flex' justifyContent={{ xs: 'center', sm: 'unset' }} alignItems='center' gap={1} gutterBottom color={mode == 'light' ? '#000' : '#fff'}><InventoryIcon color='secondary' /> {product.stock}</Typography>
             <Box display='flex' gap={2} pb={1} alignItems='center' flexDirection={{ xs: 'column', sm: 'row' }}>
-              {
-                isDiscountValid ?
-                  <>
-                    <Typography variant='h5' component='p' lineHeight={1} fontWeight={theme.typography.fontWeightLight} color='lightgray' sx={{ textDecoration: 'line-through' }}>${product.price}</Typography>
-                    <Typography variant='h4' component='h3' lineHeight={1} aria-label='Price' color='error' fontWeight={theme.typography.fontWeightBold}>{product.discount}% Discount - ${product.price = (Math.floor(discountedPrice) + Math.round((discountedPrice % Math.floor(discountedPrice)) * 10) / 10) * product.quantity}</Typography>
-                  </>
-                  :
-                  <>
-                    <Typography variant='h4' component='h3' lineHeight={1} aria-label='Price' color={mode == 'light' ? '#000' : '#fff'}>${product.price}</Typography>
-                  </>
+              {isStocked ? <>
+                {/* Price */}
+                {
+                  isDiscountValid ?
+                    <>
+                      <Typography variant='h5' component='p' lineHeight={1} fontWeight={theme.typography.fontWeightLight} color='lightgray' sx={{ textDecoration: 'line-through' }}>${product.price}</Typography>
+                      <Typography variant='h4' component='h3' lineHeight={1} aria-label='Price' color='error' fontWeight={theme.typography.fontWeightBold}>{product.discount}% Discount - ${product.price = (Math.floor(discountedPrice) + Math.round((discountedPrice % Math.floor(discountedPrice)) * 10) / 10) * product.quantity}</Typography>
+                    </>
+                    :
+                    <>
+                      <Typography variant='h4' component='h3' lineHeight={1} aria-label='Price' color={mode == 'light' ? '#000' : '#fff'}>${product.price}</Typography>
+                    </>
+                }
+                {/* Count and Purchase/Cart buttons */}
+                <Box>
+                  <Counter count={count} setCount={setCount} />
+                </Box>
+                <Button variant='contained' color={theme.palette.secondary.main} sx={{ backgroundColor: theme.palette.secondary.main, borderRadius: '100px', px: 4, py: 1, fontSize: '1.25rem', fontWeight: theme.typography.fontWeightBold, color: mode == 'light' ? '#000' : '#fff' }} onClick={(e) => addToCart(e, id, count)}>
+                  Add to cart
+                </Button>
+                <Button variant='contained' sx={{ borderRadius: '100px', px: 4, py: 1, fontSize: '1.25rem', fontWeight: theme.typography.fontWeightBold }} onClick={() => navigate(ROUTES.ORDER, { state: { products: [{ product_id: id, isStocked: product.isStocked, price: product.price, quantity: count }] } })}>Purchase Now</Button>
+              </> :
+                <Typography fontWeight='bold' fontSize={{ xs: '1rem', sm: '2.5rem' }} color={mode == 'light' ? '#000' : '#fff'}>Product is out of stock! :(</Typography>
               }
-              <Box><Counter count={count} setCount={setCount} /></Box>
-              <Button variant='contained' color={theme.palette.secondary.main} sx={{ backgroundColor: theme.palette.secondary.main, borderRadius: '100px', px: 4, py: 1, fontSize: '1.25rem', fontWeight: theme.typography.fontWeightBold, color: mode == 'light' ? '#000' : '#fff' }} onClick={(e) => addToCart(e, id, count)}>
-                Add to cart
-              </Button>
-              <Button variant='contained' sx={{ borderRadius: '100px', px: 4, py: 1, fontSize: '1.25rem', fontWeight: theme.typography.fontWeightBold }} onClick={() => navigate(ROUTES.ORDER, { state: { products: [{ product_id: id, isStocked: product.isStocked, price: product.price, quantity: count }] } })}>Purchase Now</Button>
             </Box>
           </Grid2>
         </Grid2 >
