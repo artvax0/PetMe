@@ -57,7 +57,7 @@ export default function ProductPage() {
   let now = new Date().toISOString();
 
   if (product.discount > 0 && product.discountStartDate <= now && product.discountEndDate >= now) { isDiscountValid = true };
-  let discountedPrice = productInfo.price * (1 - productInfo.discount / 100)
+  let discountedPrice = product.price * (1 - product.discount / 100)
 
   if (isLoading && petIsLoading) return (<><Title title={'Loading...'} /><LoadingSpinner /></>)
   if (error) return (<><Title title={'PetMe - Error'} /><Error error={error} /></>)

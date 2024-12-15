@@ -7,16 +7,18 @@ import { ROUTES } from "../../routes/routesModel";
 export default function CardComponent({ product, pets }) {
   const { theme } = useTheme();
   const navigate = useNavigate();
+  let isStocked = true;
   let isDiscountValid = false;
   let now = new Date().toISOString();
 
+  if (product.stock == 0) { isStocked = false };
   if (product.discount > 0 && product.discountStartDate <= now && product.discountEndDate >= now) { isDiscountValid = true };
   return (
     <>
-      <Card elevation={5} sx={{ width: '100%', backgroundColor: theme.palette.primary.main, borderRadius: '12px' }}>
+      <Card elevation={5} sx={{ width: '100%', backgroundColor: isStocked ? theme.palette.primary.main : '#aaaaaa75', borderRadius: '12px' }}>
         <CardActionArea onClick={() => navigate(ROUTES.PRODUCT + `/${product._id}`)} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <Box height='50%' width='100%'>
-            <CardImage isDiscountValid={isDiscountValid} url={product.image.url} alt={product.image.alt} pets={pets} petTypes={product.petType_id} />
+            <CardImage isStocked={isStocked} isDiscountValid={isDiscountValid} url={product.image.url} alt={product.image.alt} pets={pets} petTypes={product.petType_id} />
           </Box>
           <Box height='50%' display='flex' flexDirection='column' alignItems='center'>
             <CardContent sx={{ p: 1 }}>
@@ -29,18 +31,31 @@ export default function CardComponent({ product, pets }) {
                 <Typography variant='h6' fontWeight='medium' component='p' sx={{ textAlign: 'center' }}>${product.price}</Typography>}
             </CardContent>
 
-            <Button component='div' variant="contained"
-              sx={{
-                backgroundColor: theme.palette.success.main,
-                boxShadow: `0 4px 0 0 ${theme.palette.success.dark}`,
-                // '&:hover': { backgroundColor: theme.palette.primary.dark },
-                mb: 2,
-                fontSize: { xs: '0.75rem', sm: '1rem' },
-                color: '#fff',
-              }}
-            >
-              View Product
-            </Button>
+            {
+              isStocked ?
+                <Button component='div' variant="contained"
+                  sx={{
+                    backgroundColor: theme.palette.success.main,
+                    boxShadow: `0 4px 0 0 ${theme.palette.success.dark}`,
+                    mb: 2,
+                    fontSize: { xs: '0.75rem', sm: '1rem' },
+                    color: '#fff',
+                  }}
+                >
+                  View Product
+                </Button>
+                : <Button component='div' variant="contained"
+                  sx={{
+                    backgroundColor: '#64646475',
+                    boxShadow: `0 4px 0 0 #646464`,
+                    mb: 2,
+                    fontSize: { xs: '0.75rem', sm: '1rem' },
+                    color: '#fff',
+                  }}
+                >
+                  Out of Stock
+                </Button>
+            }
           </Box>
         </CardActionArea>
       </Card >
