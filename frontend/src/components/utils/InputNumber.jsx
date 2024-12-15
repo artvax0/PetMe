@@ -6,8 +6,8 @@ export default function InputNumber({ stock, setStock }) {
     const value = e.target.value;
     if (!isNaN(Number(value))) {
       if (Number(value) > 500) return setStock(500);
-      if (Number(value) < 1) return setStock(1);
-      setStock(Number(value));
+      if (Number(value) < 0) return setStock(0);
+      setStock(Math.floor(Number(value)));
     }
   }
 

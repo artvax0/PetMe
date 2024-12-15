@@ -15,7 +15,7 @@ export default function Counter({ count, setCount }) {
     if (!isNaN(Number(value))) {
       if (Number(value) > 100) return setCount(100);
       if (Number(value) < 1) return setCount(1);
-      setCount(Number(value));
+      setCount(Math.floor(Number(value)));
     }
   }
 
