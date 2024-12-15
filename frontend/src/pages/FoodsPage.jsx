@@ -5,6 +5,7 @@ import { Grid2, Typography } from '@mui/material';
 import { useTheme } from '../providers/ThemeProvider';
 import CardComponent from '../components/cards/CardComponent';
 import LoadingSpinner from '../components/utils/LoadingSpinner';
+import Error from '../components/utils/Error';
 
 export default function FoodsPage() {
   const { theme } = useTheme();
@@ -20,7 +21,7 @@ export default function FoodsPage() {
   }, [categories]);
 
   if (isLoading) return (<LoadingSpinner />);
-  if (error) return (<p>Error: {error}</p>);
+  if (error) return (<Error error={error} />);
   if (categories)
     return (
       <>

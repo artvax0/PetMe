@@ -6,6 +6,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../routes/routesModel';
 import LoadingSpinner from '../utils/LoadingSpinner';
+import Error from '../utils/Error';
 
 export default function Cart({ user, setIsOpen }) {
   const { cart, isLoading, error, getUserCart, updateQuantity } = useCarts();
@@ -48,7 +49,7 @@ export default function Cart({ user, setIsOpen }) {
   }
 
   if (isLoading) return (<LoadingSpinner />);
-  if (error) return (<p>Error: {error}</p>)
+  if (error) return (<Error error={error} />);
   if (cart) return (
     <>
       {cart?.products?.length > 0 ?

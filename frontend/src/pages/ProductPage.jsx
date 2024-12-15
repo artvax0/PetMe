@@ -13,6 +13,7 @@ import useCarts from '../hooks/useCarts';
 import EditIcon from '@mui/icons-material/Edit';
 import InputNumber from '../components/utils/InputNumber';
 import LoadingSpinner from '../components/utils/LoadingSpinner';
+import Error from '../components/utils/Error';
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -59,7 +60,7 @@ export default function ProductPage() {
   let discountedPrice = productInfo.price * (1 - productInfo.discount / 100)
 
   if (isLoading && petIsLoading) return (<><Title title={'Loading...'} /><LoadingSpinner /></>)
-  if (error) return (<><Title title={'PetMe - Error'} /><p>Error: {error}</p></>)
+  if (error) return (<><Title title={'PetMe - Error'} /><Error error={error} /></>)
   if (product)
     return (
       <>

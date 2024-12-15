@@ -12,6 +12,7 @@ import productSchema from '../models/ProductSchema';
 import initialProductForm from '../helpers/initial_forms/initialProductForm';
 import { useTheme } from '../providers/ThemeProvider';
 import LoadingSpinner from '../components/utils/LoadingSpinner';
+import Error from '../components/utils/Error';
 
 export default function EditProductPage() {
   const { id } = useParams();
@@ -29,7 +30,7 @@ export default function EditProductPage() {
   }, [id, setFormData]);
 
   if (isLoading) return (<LoadingSpinner />);
-  if (error) return (<p>Error: {error}</p>);
+  if (error) return (<Error error={error} />);
   if (!user || !user.isEmployee) return (<Navigate to={ROUTES.LOGIN} />)
   return (
     <Box width='100%' color={mode == 'light' ? '#000' : '#fff'}>

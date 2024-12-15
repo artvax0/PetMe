@@ -10,6 +10,7 @@ import statusColors from '../utils/statusColors';
 import { ROUTES } from '../routes/routesModel';
 import EditIcon from '@mui/icons-material/Edit';
 import LoadingSpinner from '../components/utils/LoadingSpinner';
+import Error from '../components/utils/Error';
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -62,7 +63,7 @@ export default function OrdersPage() {
   if (!user || !user.isEmployee) return (<Navigate to={ROUTES.LOGIN} />)
 
   if (isLoading) return (<LoadingSpinner />);
-  if (error) return (<p>Error: {error}</p>);
+  if (error) return (<Error error={error} />);
   return (
     <>
       <Title title='Search Orders' />

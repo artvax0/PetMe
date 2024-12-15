@@ -9,6 +9,7 @@ import { useTheme } from '../providers/ThemeProvider';
 import statusColors from '../utils/statusColors';
 import useProducts from '../hooks/useProducts';
 import LoadingSpinner from '../components/utils/LoadingSpinner';
+import Error from '../components/utils/Error';
 
 export default function OrderDetailsPage() {
   const { id } = useParams();
@@ -27,7 +28,7 @@ export default function OrderDetailsPage() {
   }, [user])
 
   if (isLoading) return (<LoadingSpinner />);
-  if (error) return (<p>Error: {error}</p>);
+  if (error) return (<Error error={error} />);
   if (!user || user._id != order.user_id) return (<Navigate to={ROUTES.LOGIN} replace />);
   return (
     <>

@@ -15,6 +15,7 @@ import ProfileForm from '../components/forms/ProfileForm';
 import normalizeProfile from '../helpers/normalization/normalizeProfile';
 import { useTheme } from '../providers/ThemeProvider';
 import LoadingSpinner from '../components/utils/LoadingSpinner';
+import Error from '../components/utils/Error';
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -79,7 +80,7 @@ export default function Dashboard() {
 
   if (!user.isAdmin) return (<Navigate to={ROUTES.LOGIN} />)
   if (isLoading) return (<LoadingSpinner />);
-  if (error) return (<p>Error: {error}</p>);
+  if (error) return (<Error error={error} />);
   return (
     <>
       <Title title={'Admin Dashboard'} />

@@ -9,6 +9,7 @@ import useProducts from '../hooks/useProducts';
 import { useTheme } from '../providers/ThemeProvider';
 import statusColors from '../utils/statusColors';
 import LoadingSpinner from '../components/utils/LoadingSpinner';
+import Error from '../components/utils/Error';
 
 export default function UserOrdersPage() {
   const { user } = useAuth();
@@ -35,7 +36,7 @@ export default function UserOrdersPage() {
         <Typography variant='h4' fontSize={{ xs: '1.7rem', sm: '2.125rem' }} component='h1' color={mode == 'light' ? '#000' : '#fff'}>My Orders</Typography>
         <Grid2 container flexDirection='column' gap={2}>
           {isLoading ? <LoadingSpinner /> : null}
-          {error ? <p>Error: {error}</p> : null}
+          {error ? <Error error={error} /> : null}
           {orders.map((order) => (
             <Card key={order._id} sx={{ p: 1, display: 'flex', flexDirection: 'column', gap: 1 }}>
               <CardActionArea onClick={() => navigate(ROUTES.ORDER + `/${order._id}`)}>
