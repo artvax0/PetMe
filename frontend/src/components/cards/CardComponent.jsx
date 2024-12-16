@@ -26,7 +26,7 @@ export default function CardComponent({ product, pets }) {
               {isDiscountValid ?
                 <Box display='flex' gap={1} justifyContent='center'>
                   <Typography variant='h6' fontWeight='light' component='p' sx={{ textAlign: 'center', textDecoration: 'line-through' }} color='darkgrey' >${product.price}</Typography>
-                  <Typography variant='h6' fontWeight='medium' component='p' sx={{ textAlign: 'center' }} color='error'>${product.price * product.discount / 100}</Typography>
+                  <Typography variant='h6' fontWeight='medium' component='p' sx={{ textAlign: 'center' }} color='error'>${product.price * (1 - product.discount / 100)}</Typography>
                 </Box> :
                 <Typography variant='h6' fontWeight='medium' component='p' sx={{ textAlign: 'center' }}>${product.price}</Typography>}
             </CardContent>
