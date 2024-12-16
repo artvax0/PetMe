@@ -23,16 +23,27 @@ export default function ProductPage() {
   const { id } = useParams();
   const { user } = useAuth();
   const { theme, mode } = useTheme();
+  const navigate = useNavigate();
+
   const { product, getProductById, editStock, isLoading, error } = useProducts();
   const { getProductPets, pets, isLoading: petIsLoading } = usePets();
   const { addProductToCart } = useCarts();
+
   const [count, setCount] = useState(1);
-  const navigate = useNavigate();
   const [openSt, setOpenSt] = useState(false);
   const [stock, setStock] = useState(1);
 
+  const handleOpenSt = useCallback(() => setOpenSt(true), [user]);
+  const handleCloseSt = useCallback(() => setOpenSt(false), [user]);
+  const handleStock = useCallback(async (stock) => { await editStock(id, stock); handleCloseSt() }, []);
+
+  const addToCart = useCallback((e, productId, quantity) => {
+    if (user) return addProductToCart(e, user._id, { product_id: productId, quantity });
+    <Navigate to={ROUTES.LOGIN} replace />
+  }, [])
+
   useEffect(() => {
-    if (isLoading || petIsLoading) {
+    if (isLoading) {
       const getProduct = async () => {
         await getProductById(id);
       }
@@ -41,17 +52,13 @@ export default function ProductPage() {
   }, [id, isLoading]);
 
   useEffect(() => {
-    getProductPets(product.petType_id);
-  }, [product?.petType_id])
-
-  const addToCart = useCallback((e, productId, quantity) => {
-    if (user) return addProductToCart(e, user._id, { product_id: productId, quantity });
-    <Navigate to={ROUTES.LOGIN} replace />
-  }, [])
-
-  const handleOpenSt = useCallback(() => setOpenSt(true), [user]);
-  const handleCloseSt = useCallback(() => setOpenSt(false), [user]);
-  const handleStock = useCallback(async (stock) => { await editStock(id, stock); handleCloseSt() }, []);
+    if (petIsLoading && product?.petType_id) {
+      const getPets = async () => {
+        await getProductPets(product?.petType_id);
+      }
+      getPets();
+    }
+  }, [product?.petType_id, petIsLoading]);
 
   let isStocked = true;
   let isDiscountValid = false;
