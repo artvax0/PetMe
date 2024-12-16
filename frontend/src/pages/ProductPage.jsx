@@ -59,7 +59,7 @@ export default function ProductPage() {
 
   if (product.stock == 0) { isStocked = false };
   if (product.discount > 0 && product.discountStartDate <= now && product.discountEndDate >= now) { isDiscountValid = true };
-  let discountedPrice = product.price * (1 - product.discount / 100)
+  let discountedPrice = product.price * (1 - product.discount / 100);
 
   if (isLoading && petIsLoading) return (<><Title title={'Loading...'} /><LoadingSpinner /></>)
   if (error) return (<><Title title={'PetMe - Error'} /><Error error={error} /></>)
@@ -103,7 +103,7 @@ export default function ProductPage() {
                   isDiscountValid ?
                     <>
                       <Typography variant='h5' component='p' lineHeight={1} fontWeight={theme.typography.fontWeightLight} color='lightgray' sx={{ textDecoration: 'line-through' }}>${product.price}</Typography>
-                      <Typography variant='h4' component='h3' lineHeight={1} aria-label='Price' color='error' fontWeight={theme.typography.fontWeightBold}>{product.discount}% Discount - ${product.price = (Math.floor(discountedPrice) + Math.round((discountedPrice % Math.floor(discountedPrice)) * 10) / 10) * product.quantity}</Typography>
+                      <Typography variant='h4' component='h3' lineHeight={1} aria-label='Price' color='error' fontWeight={theme.typography.fontWeightBold}>{product.discount}% Discount - ${discountedPrice}</Typography>
                     </>
                     :
                     <>
