@@ -96,7 +96,8 @@ export default function Cart({ user, setIsOpen }) {
             </Box>
             <Typography textAlign='center'>Total: <strong>${totalPrice}</strong></Typography>
           </Box>
-          <Button disabled={totalPrice == 0} color='success' fullWidth sx={{ alignSelf: 'flex-end' }} onClick={() => { navigate(ROUTES.ORDER, { state: { products: cart.products } }); setIsOpen(false) }}>Go to Checkout</Button>
+          <Button disabled={!isStocked || totalPrice == 0} color='success' fullWidth sx={{ alignSelf: 'flex-end' }} onClick={() => { navigate(ROUTES.ORDER, { state: { products: cart.products } }); setIsOpen(false) }}>Go to Checkout</Button>
+          {!isStocked && <Typography textAlign='center' color='error' fontWeight='light'>A product is out of stock!</Typography>}
         </Box>
         : <Typography textAlign='center' py={1} px={1.5} color='textDisabled'>You have no products in your cart :(</Typography>
       }
