@@ -23,6 +23,7 @@ import ClothingPage from '../pages/ClothingPage'
 import FeedingPage from '../pages/FeedingPage'
 import TrainingPage from '../pages/TrainingPage'
 import TravelPage from '../pages/TravelPage'
+import TechPage from '../pages/TechPage'
 
 export default function Router() {
   return (
@@ -40,6 +41,7 @@ export default function Router() {
       <Route path={ROUTES.FEEDING} element={<FeedingPage />} />
       <Route path={ROUTES.TRAINING} element={<TrainingPage />} />
       <Route path={ROUTES.TRAVEL} element={<TravelPage />} />
+      <Route path={ROUTES.TECH} element={<TechPage />} />
       <Route path={ROUTES.LOGIN} element={<LoginPage />} />
       <Route path={ROUTES.PRODUCT + '/:id'} element={<ProductPage />} />
       <Route path={ROUTES.SIGNUP} element={<SignupPage />} />
