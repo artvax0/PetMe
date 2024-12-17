@@ -61,11 +61,11 @@ export default function Cart({ user, setIsOpen }) {
             <Box component='ul' display='flex' flexDirection='column' gap={1} p={0} sx={{ listStyleType: 'none' }}>
               {cart.products.map((product) => {
                 const productData = products[product.product_id];
-                if (productData?.stock > 0) { totalPrice += product.price * product.quantity; isStocked = false };
+                if (productData?.stock > 0) { totalPrice += product.price * product.quantity };
                 return (
                   <React.Fragment key={product.product_id}>
                     <Box component='li' display='flex' px={1} gap={1} alignItems='center'>
-                      <Box component='img' src={productData?.image?.url || ''} alt={productData?.image?.alt || ''} sx={{ filter: productData.stock > 0 ? 'none' : 'grayscale(100%)', msFilter: productData.stock > 0 ? 'none' : 'grayscale(100%)', WebkitFilter: productData.stock > 0 ? 'none' : 'grayscale(100%)' }} maxWidth='75px' maxHeight='75px' />
+                      <Box component='img' src={productData?.image?.url || ''} alt={productData?.image?.alt || ''} sx={{ filter: productData?.stock > 0 ? 'none' : 'grayscale(100%)', msFilter: productData?.stock > 0 ? 'none' : 'grayscale(100%)', WebkitFilter: productData?.stock > 0 ? 'none' : 'grayscale(100%)' }} maxWidth='75px' maxHeight='75px' />
                       <Box flexGrow={1}>
                         <Typography>{productData?.name || ''}</Typography>
                         {
@@ -74,6 +74,7 @@ export default function Cart({ user, setIsOpen }) {
                               <Typography>Total: <strong>${product.price}</strong></Typography>
                             </> :
                             <>
+                              {isStocked = false}
                               <Typography fontWeight='bold'>Out of stock</Typography>
                             </>
                         }
