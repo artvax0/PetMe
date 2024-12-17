@@ -7,6 +7,7 @@ export const ROUTES = {
   FOOD: '/food',
   TREATS: '/treats',
   TOYS: '/toys',
+  BEDDINGS_FURNITURE: '/beddings_furniture',
   PRODUCT: '/product',
   ORDER: '/order',
   USER_SETTINGS: '/account-settings',
