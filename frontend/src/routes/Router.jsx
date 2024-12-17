@@ -21,6 +21,7 @@ import GroomingPage from '../pages/GroomingPage'
 import HealthPage from '../pages/HealthPage'
 import ClothingPage from '../pages/ClothingPage'
 import FeedingPage from '../pages/FeedingPage'
+import TrainingPage from '../pages/TrainingPage'
 
 export default function Router() {
   return (
@@ -36,6 +37,7 @@ export default function Router() {
       <Route path={ROUTES.CLOTHING} element={<ClothingPage />} />
       <Route path={ROUTES.HEALTH} element={<HealthPage />} />
       <Route path={ROUTES.FEEDING} element={<FeedingPage />} />
+      <Route path={ROUTES.TRAINING} element={<TrainingPage />} />
       <Route path={ROUTES.LOGIN} element={<LoginPage />} />
       <Route path={ROUTES.PRODUCT + '/:id'} element={<ProductPage />} />
       <Route path={ROUTES.SIGNUP} element={<SignupPage />} />
