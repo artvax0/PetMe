@@ -11,6 +11,7 @@ export const ROUTES = {
   GROOMING: '/grooming_products',
   HEALTH: '/health',
   PRODUCT: '/product',
+  CLOTHING: '/clothing',
   ORDER: '/order',
   USER_SETTINGS: '/account-settings',
   USER_ORDERS: '/my-orders',

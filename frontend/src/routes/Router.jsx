@@ -19,18 +19,20 @@ import ToysPage from '../pages/ToysPage'
 import BeddingsPage from '../pages/BeddingsPage'
 import GroomingPage from '../pages/GroomingPage'
 import HealthPage from '../pages/HealthPage'
+import ClothingPage from '../pages/ClothingPage'
 
 export default function Router() {
   return (
     <Routes>
       <Route path={ROUTES.ROOT} element={<ProductsPage />} />
       <Route path={ROUTES.ABOUT} element={<ProductsPage />} /> {/* Temp component */}
-      <Route path={ROUTES.PRODUCTS} element={<ProductsPage />} /> {/* Temp component */}
+      <Route path={ROUTES.PRODUCTS} element={<ProductsPage />} />
       <Route path={ROUTES.FOOD} element={<FoodsPage />} />
       <Route path={ROUTES.TREATS} element={<TreatsPage />} />
       <Route path={ROUTES.TOYS} element={<ToysPage />} />
       <Route path={ROUTES.BEDDINGS_FURNITURE} element={<BeddingsPage />} />
       <Route path={ROUTES.GROOMING} element={<GroomingPage />} />
+      <Route path={ROUTES.CLOTHING} element={<ClothingPage />} />
       <Route path={ROUTES.HEALTH} element={<HealthPage />} />
       <Route path={ROUTES.LOGIN} element={<LoginPage />} />
       <Route path={ROUTES.PRODUCT + '/:id'} element={<ProductPage />} />
