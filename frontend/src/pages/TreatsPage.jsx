@@ -8,7 +8,9 @@ import Error from '../components/utils/Error';
 import usePets from '../hooks/usePets';
 import Title from '../components/utils/Title';
 
-export default function TreatsPage() {
+const category = 'Treats';
+
+export default function ToysPage() {
   const { theme, mode } = useTheme();
 
   const { getAllProducts, categories, productsByCategory, error, isLoading } = useProducts();
@@ -29,7 +31,7 @@ export default function TreatsPage() {
   if (categories && pets)
     return (
       <>
-        <Title title='Treats Products' />
+        <Title title={`${category} Products`} />
         <Grid2 container flexDirection='column' width='100%'>
           <Typography
             variant='h5'
@@ -37,12 +39,12 @@ export default function TreatsPage() {
             fontWeight={theme.typography.fontWeightMedium}
             color={mode == 'light' ? '#000' : '#fff'}
           >
-            Treats Products
+            {category} Products
           </Typography>
           <Grid2 container spacing={2} mx={3}>
             {
-              productsByCategory[getCategory('Treats')].length > 0 ?
-                productsByCategory[getCategory('Treats')].map(prod => (
+              productsByCategory[getCategory(category)].length > 0 ?
+                productsByCategory[getCategory(category)].map(prod => (
                   <Grid2 key={prod._id} display='inline-flex' size={{ xs: 12, sm: 6, md: 4, lg: 1.5 }}>
                     <CardComponent product={prod} pets={pets} />
                   </Grid2>
