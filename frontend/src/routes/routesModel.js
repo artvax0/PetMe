@@ -14,6 +14,7 @@ export const ROUTES = {
   CLOTHING: '/clothing',
   FEEDING: '/feeding_watering',
   TRAINING: '/training',
+  TRAVEL: '/travel',
   ORDER: '/order',
   USER_SETTINGS: '/account-settings',
   USER_ORDERS: '/my-orders',
