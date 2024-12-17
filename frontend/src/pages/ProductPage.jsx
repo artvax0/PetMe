@@ -75,8 +75,17 @@ export default function ProductPage() {
       <>
         <Title title={product.name} />
         <Grid2 container mt={2.75} width='100%' gap={2} sx={{ backgroundColor: mode == 'light' ? '#fff' : theme.palette.highlight.main, borderRadius: '15px' }}>
-          <Grid2 size={{ xs: 12, sm: 4 }} sx={{ backgroundColor: '#fff', boxShadow: 'inset 5px 5px 5px 0 rgba(0, 0, 0, .25), inset -5px -5px 5px 0 rgba(0, 0, 0, .25)', borderRadius: '5px' }}>
-            <Box width='100%' component='img' src={product?.image?.url} alt={product?.image?.alt} />
+          <Grid2
+            size={{ xs: 12, sm: 4 }}
+            sx={{
+              backgroundColor: '#fff',
+              aspectRatio: '1/1',
+              borderRadius: '5px',
+              overflow: 'hidden',
+            }}>
+            <Box width='100%' component='img' src={product?.image?.url} alt={product?.image?.alt} sx={{
+              borderRadius: '5px', aspectRatio: '1/1', display: 'block'
+            }} />
           </Grid2>
           <Grid2 display='flex' flexDirection='column' flexGrow={1} py={1} maxWidth={{ xs: '100%', sm: '64%' }} gap={{ xs: 2, sm: 0 }}>
             <Box display='flex' justifyContent='space-between' flexDirection={{ xs: 'column', sm: 'row' }}>
