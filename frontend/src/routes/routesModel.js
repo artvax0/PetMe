@@ -12,6 +12,7 @@ export const ROUTES = {
   HEALTH: '/health',
   PRODUCT: '/product',
   CLOTHING: '/clothing',
+  FEEDING: '/feeding_watering',
   ORDER: '/order',
   USER_SETTINGS: '/account-settings',
   USER_ORDERS: '/my-orders',

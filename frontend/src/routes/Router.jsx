@@ -20,6 +20,7 @@ import BeddingsPage from '../pages/BeddingsPage'
 import GroomingPage from '../pages/GroomingPage'
 import HealthPage from '../pages/HealthPage'
 import ClothingPage from '../pages/ClothingPage'
+import FeedingPage from '../pages/FeedingPage'
 
 export default function Router() {
   return (
@@ -34,6 +35,7 @@ export default function Router() {
       <Route path={ROUTES.GROOMING} element={<GroomingPage />} />
       <Route path={ROUTES.CLOTHING} element={<ClothingPage />} />
       <Route path={ROUTES.HEALTH} element={<HealthPage />} />
+      <Route path={ROUTES.FEEDING} element={<FeedingPage />} />
       <Route path={ROUTES.LOGIN} element={<LoginPage />} />
       <Route path={ROUTES.PRODUCT + '/:id'} element={<ProductPage />} />
       <Route path={ROUTES.SIGNUP} element={<SignupPage />} />
