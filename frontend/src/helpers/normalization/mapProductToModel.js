@@ -10,8 +10,8 @@ const mapProductToModel = (product) => ({
   category_id: product.category_id,
   petType_id: product.petType_id,
   discount: product?.discount || '0',
-  discountStartDate: localTime(product?.discountStartDate) || localTime(Date.now()),
-  discountEndDate: localTime(product?.discountEndDate) || localTime(Date.now()),
+  discountStartDate: localTime(product?.discountStartDate || Date.now()),
+  discountEndDate: localTime(product?.discountEndDate || Date.now()),
 });
 
 export default mapProductToModel;
