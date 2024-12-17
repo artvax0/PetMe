@@ -8,6 +8,7 @@ export const ROUTES = {
   TREATS: '/treats',
   TOYS: '/toys',
   BEDDINGS_FURNITURE: '/beddings_furniture',
+  GROOMING: '/grooming_products',
   PRODUCT: '/product',
   ORDER: '/order',
   USER_SETTINGS: '/account-settings',
