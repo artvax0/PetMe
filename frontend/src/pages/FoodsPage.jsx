@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect } from 'react'
 import useProducts from '../hooks/useProducts';
-import { Box } from '@mui/system';
 import { Grid2, Typography } from '@mui/material';
 import { useTheme } from '../providers/ThemeProvider';
 import CardComponent from '../components/cards/CardComponent';
@@ -41,11 +40,15 @@ export default function FoodsPage() {
             Food Products
           </Typography>
           <Grid2 container spacing={2} mx={3}>
-            {productsByCategory[getCategory('Food')].map(prod => (
-              <Grid2 key={prod._id} display='inline-flex' size={{ xs: 12, sm: 6, md: 4, lg: 1.5 }}>
-                <CardComponent product={prod} pets={pets} />
-              </Grid2>
-            ))}
+            {
+              productsByCategory[getCategory('Food')].length > 0 ?
+                productsByCategory[getCategory('Food')].map(prod => (
+                  <Grid2 key={prod._id} display='inline-flex' size={{ xs: 12, sm: 6, md: 4, lg: 1.5 }}>
+                    <CardComponent product={prod} pets={pets} />
+                  </Grid2>
+                )) :
+                <Typography color='textDisabled'>There are no products in this category! :(</Typography>
+            }
           </Grid2>
         </Grid2>
       </>
