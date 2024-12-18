@@ -24,7 +24,6 @@ export default function useOrders() {
       case 'address':
         return orders.filter((order) => {
           const addressStr = Object.values(order.address).join(' ').toLowerCase();
-          console.log('addresstr:', addressStr, 'valid?', addressStr.includes(searchInput.trim().toLowerCase()))
           return addressStr.includes(searchInput.trim().toLowerCase());
         })
 

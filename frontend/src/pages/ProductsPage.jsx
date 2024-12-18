@@ -7,6 +7,7 @@ import Title from "../components/utils/Title";
 import usePets from "../hooks/usePets";
 import LoadingSpinner from "../components/utils/LoadingSpinner";
 import Error from "../components/utils/Error";
+import Searchbar from "../components/utils/Searchbar";
 
 export default function ProductsPage() {
   const { theme, mode } = useTheme();
@@ -24,6 +25,7 @@ export default function ProductsPage() {
     <>
       <Title title={'Products'} />
       <Box width='100%' display='flex' flexDirection='column' gap={2}>
+        <Searchbar />
         {categories.map(category => {
           const products = productsByCategory[category._id] || [];
 

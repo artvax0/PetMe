@@ -1,10 +1,11 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { editProduct, getProduct, getProducts, newProduct, updateStock } from "../services/productsApiService";
 import { getCategories } from "../services/categoriesApiService";
 import useAxios from "./useAxios";
 import normalizeNewProduct from "../helpers/normalization/normalizeNewProduct";
 import normalizeProduct from "../helpers/normalization/normalizeProduct";
 import { useSnack } from "../providers/SnackbarProvider";
+import { useSearchParams } from "react-router-dom";
 
 export default function useProducts() {
   const snack = useSnack();
@@ -14,6 +15,9 @@ export default function useProducts() {
   const [productsByCategory, setProductsByCategory] = useState({});
   const [error, setError] = useState();
   const [isLoading, setIsLoading] = useState(true);
+
+  const [searchParams] = useSearchParams();
+
   useAxios();
 
   const getAllProducts = useCallback(async () => {
@@ -22,28 +26,37 @@ export default function useProducts() {
       // fetch all categories and products and update state
       const categoriesResponse = await getCategories();
       const productsResponse = await getProducts();
+
       setCategories(categoriesResponse.data);
       setAllProducts(productsResponse.data);
-
-      // immediately group them up accordingly
-      const groupedProducts = categoriesResponse.data.reduce((acc, category) => {
-        acc[category._id] = [];
-        return acc;
-      }, {})
-      // insert products by categories
-      productsResponse.data.forEach(product => {
-        if (groupedProducts[product.category_id]) {
-          groupedProducts[product.category_id].push(product);
-        }
-      })
-
-      // update categories state
-      setProductsByCategory(groupedProducts)
     } catch (error) {
       setError(error.message);
     }
     setIsLoading(false);
-  }, [categories, allProducts]);
+  }, []);
+
+  useEffect(() => {
+    const search = searchParams.get('q')?.trim().toLowerCase() || '';
+
+    const filteredProducts = allProducts.filter(product => product.name.trim().toLowerCase().includes(search));
+
+    // immediately group them up accordingly
+    const groupedProducts = categories.reduce((acc, category) => {
+      acc[category._id] = [];
+      return acc;
+    }, {});
+
+    // insert products by categories
+    filteredProducts.forEach(product => {
+      if (groupedProducts[product.category_id]) {
+        groupedProducts[product.category_id].push(product);
+      }
+    })
+
+    // update categories state
+    setProductsByCategory(groupedProducts);
+
+  }, [searchParams, allProducts, categories])
 
   const getProductById = useCallback(async (id) => {
     setIsLoading(true)
