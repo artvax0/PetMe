@@ -37,7 +37,7 @@ export default function AboutPage() {
         </Grid2>
         <Grid2 container component='section' p={3}>
           <Grid2 size={{ xs: 12, sm: 6 }} display='flex' flexDirection='column' alignItems='center' justifyContent='center'>
-            <Typography component='h2' variant='h3' fontWeight='bold' gutterBottom>
+            <Typography component='h2' variant='h3' fontWeight='bold' gutterBottom color={mode == 'light' ? 'highlight.main' : '#fff'}>
               Our Mascot
             </Typography>
             <Typography>
