@@ -24,12 +24,13 @@ import FeedingPage from '../pages/FeedingPage'
 import TrainingPage from '../pages/TrainingPage'
 import TravelPage from '../pages/TravelPage'
 import TechPage from '../pages/TechPage'
+import AboutPage from '../pages/AboutPage'
 
 export default function Router() {
   return (
     <Routes>
       <Route path={ROUTES.ROOT} element={<ProductsPage />} />
-      <Route path={ROUTES.ABOUT} element={<ProductsPage />} /> {/* Temp component */}
+      <Route path={ROUTES.ABOUT} element={<AboutPage />} />
       <Route path={ROUTES.PRODUCTS} element={<ProductsPage />} />
       <Route path={ROUTES.FOOD} element={<FoodsPage />} />
       <Route path={ROUTES.TREATS} element={<TreatsPage />} />
