@@ -1,5 +1,5 @@
-import { AppBar, Avatar, Box, Button, Drawer, Grid2, IconButton, Menu, MenuItem, styled, Toolbar } from '@mui/material'
-import { useState } from 'react'
+import { AppBar, Avatar, Box, Button, Drawer, Grid2, IconButton, List, ListItem, Menu, MenuItem, Paper, styled, Toolbar, Typography } from '@mui/material'
+import { useEffect, useState } from 'react'
 import { useTheme } from '../../providers/ThemeProvider';
 import Banner from './Banner';
 import { ROUTES } from '../../routes/routesModel';
@@ -18,6 +18,7 @@ export default function Header() {
   const { user } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [menuAnchor, setMenuAnchor] = useState(null);
+  const [isCategoryVisible, setIsCategoryVisible] = useState(false);
   const isMenuOpen = Boolean(menuAnchor);
   const navigate = useNavigate();
   const handleMenu = (e) => {
@@ -39,6 +40,21 @@ export default function Header() {
     &:hover {text-shadow: #FC0 1px 0 10px};
   `);
 
+  const handleDropdown = () => {
+    setIsCategoryVisible(prev => !prev);
+  }
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (e.target.className.includes('category-dropdown')) return;
+      setIsCategoryVisible(false);
+    }
+
+    window.addEventListener('click', handleClickOutside);
+
+    return () => window.removeEventListener('click', handleClickOutside);
+  }, [setIsCategoryVisible]);
+
   return (
     <Grid2 component='header' container justifyContent='center' sx={{ backgroundColor: theme.palette.background.default }}>
       <Grid2 size={11}>
@@ -54,6 +70,51 @@ export default function Header() {
             <Box component='nav' display='flex' flexGrow={1} gap={{ xs: 2, sm: 5 }} textAlign='center' alignItems='center'>
               <NavLink to={ROUTES.ROOT}>Home</NavLink>
               <NavLink to={ROUTES.PRODUCTS}>Our Products</NavLink>
+              <Box position='relative' top={0}>
+                <Typography
+                  sx={{
+                    textDecoration: 'none',
+                    color: 'secondary.main',
+                    fontFamily: `${theme.typography.fontFamily}`,
+                    fontWeight: `${theme.typography.fontWeightMedium}`,
+                    userSelect: 'none',
+                    WebkitUserSelect: 'none',
+                    msUserSelect: 'none',
+                    '&:hover': {
+                      textShadow: '#FC0 1px 0 10px',
+                      cursor: 'pointer'
+                    },
+                    textShadow: isCategoryVisible ? '#FC0 1px 0 10px' : 'none'
+                  }}
+                  onClick={handleDropdown}
+                  className='category-dropdown'
+                >
+                  Category &nbsp; v
+                </Typography>
+                <List
+                  sx={{
+                    position: 'absolute',
+                    display: isCategoryVisible ? 'flex' : 'none',
+                    flexDirection: 'column',
+                    backgroundColor: 'highlight.main',
+                    borderRadius: '0 0 5px 5px',
+                    linearGradient: 'rgba(255, 255, 255, 0.082), rgba(255, 255, 255, 0.082)',
+                    boxShadow: '0px 3px 3px -2px rgba(0,0,0,0.2),0px 3px 4px 0px rgba(0,0,0,0.14),0px 1px 8px 0px rgba(0,0,0,0.12)',
+                    minWidth: '200px'
+                  }}>
+                  <ListItem><NavLink to={ROUTES.FOOD}>Food</NavLink></ListItem>
+                  <ListItem><NavLink to={ROUTES.TREATS}>Treats</NavLink></ListItem>
+                  <ListItem><NavLink to={ROUTES.TOYS}>Toys</NavLink></ListItem>
+                  <ListItem><NavLink to={ROUTES.BEDDINGS_FURNITURE}>Bedding & Furniture</NavLink></ListItem>
+                  <ListItem><NavLink to={ROUTES.GROOMING}>Grooming Products</NavLink></ListItem>
+                  <ListItem><NavLink to={ROUTES.HEALTH}>Health & Wellness</NavLink></ListItem>
+                  <ListItem><NavLink to={ROUTES.CLOTHING}>Clothing & Accessories</NavLink></ListItem>
+                  <ListItem><NavLink to={ROUTES.FEEDING}>Feeding & Watering Supplies</NavLink></ListItem>
+                  <ListItem><NavLink to={ROUTES.TRAINING}>Training & Behaviour Aids</NavLink></ListItem>
+                  <ListItem><NavLink to={ROUTES.TRAVEL}>Travel & Outdoor Gear</NavLink></ListItem>
+                  <ListItem><NavLink to={ROUTES.TECH}>Pet Tech</NavLink></ListItem>
+                </List>
+              </Box>
             </Box>
             <ThemeButton />
             {
