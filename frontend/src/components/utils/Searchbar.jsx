@@ -19,8 +19,8 @@ export default function Searchbar() {
   }, [searchInput]);
 
   return (
-    <Grid2 container spacing={3}>
-      <Grid2 size={10}>
+    <Grid2 container spacing={{ xs: 1, md: 3 }}>
+      <Grid2 size={{ xs: 8, md: 10 }}>
         <TextField
           size='small'
           variant='filled'
@@ -41,7 +41,7 @@ export default function Searchbar() {
             htmlInput: { sx: { p: 1 } },
           }} />
       </Grid2>
-      <Grid2 size={2}>
+      <Grid2 size={{ xs: 4, md: 2 }}>
         <Button
           fullWidth
           variant='contained'
