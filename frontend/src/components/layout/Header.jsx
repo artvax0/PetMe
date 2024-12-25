@@ -13,12 +13,14 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { removeToken } from '../../services/storageService';
 import ThemeButton from './ThemeButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import NavDrawer from './NavDrawer';
 
 export default function Header() {
   const { theme } = useTheme();
   const { user } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [menuAnchor, setMenuAnchor] = useState(null);
+  const [isNavOpen, setIsNavOpen] = useState(false);
   const [isCategoryVisible, setIsCategoryVisible] = useState(false);
   const isMenuOpen = Boolean(menuAnchor);
   const navigate = useNavigate();
@@ -47,7 +49,7 @@ export default function Header() {
 
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (e.target.className.includes('category-dropdown')) return;
+      if (e.target.nodeName == 'P' && e.target.className.includes('category-dropdown')) return;
       setIsCategoryVisible(false);
     }
 
@@ -70,11 +72,11 @@ export default function Header() {
             {/* NavBar */}
             <Box component='nav' display='flex' flexGrow={1} gap={{ xs: 2, sm: 5 }} textAlign='center' alignItems='center'>
               <Box display={{ xs: 'block', md: 'none' }}>
-                <IconButton>
+                <IconButton onClick={() => setIsNavOpen(true)}>
                   <MenuIcon />
                 </IconButton>
               </Box>
-              <Box display={{ xs: 'none', md: 'block' }}>
+              <Box display={{ xs: 'none', md: 'flex' }} flexGrow={1} gap={5} textAlign='center' alignItems='center'>
                 <NavLink to={ROUTES.ROOT}>Home</NavLink>
                 <NavLink to={ROUTES.PRODUCTS}>Our Products</NavLink>
                 <Box position='relative' top={0}>
@@ -182,6 +184,7 @@ export default function Header() {
               <MenuItem onClick={() => navigate(ROUTES.USER_SETTINGS)}><SettingsIcon sx={{ mr: 1 }} />Account Preferences</MenuItem>
               <MenuItem onClick={handleLogout}><LogoutIcon sx={{ mr: 1 }} />Logout</MenuItem>
             </Menu>
+            <NavDrawer isOpen={isNavOpen} setIsOpen={setIsNavOpen} />
           </Toolbar>
         </ AppBar>
       </Grid2>
