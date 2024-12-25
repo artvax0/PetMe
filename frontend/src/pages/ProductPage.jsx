@@ -93,7 +93,7 @@ export default function ProductPage() {
                 {product.name}
               </Typography>
               {
-                user.isEmployee &&
+                user && user.isEmployee &&
                 <Box display='inline-flex' gap={1} justifyContent={{ xs: 'space-around', sm: 'normal' }}>
                   <Button variant='contained' color='success' sx={{ p: 1, width: '30px', minWidth: '30px', maxHeight: '30px' }} onClick={handleOpenSt}><InventoryIcon sx={{ color: mode == 'light' ? '#fff' : '#000' }} /></Button>
                   <Button variant='contained' color='warning' sx={{ p: 1, width: '30px', minWidth: '30px', maxHeight: '30px' }} onClick={() => navigate(ROUTES.EDIT_RODUCT + `/${id}`)}><EditIcon /></Button>
