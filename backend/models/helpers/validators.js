@@ -19,7 +19,7 @@ const DEFAULT_STRING = {
   type: String,
   required: true,
   minLength: 2,
-  maxLength: 256,
+  maxLength: 2560,
   trim: true,
 }
 
