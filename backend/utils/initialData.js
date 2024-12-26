@@ -95,7 +95,7 @@ const initialProducts = [
       alt: 'Authority® Everyday Health Cat Wet Food - 66 Oz, Flaked in Gravy, With-Grain',
     },
     price: 22,
-    stock: 150,
+    stock: 54,
     category_id: `Food`,
     petType_id: [`Cats`],
     discount: 0
@@ -108,7 +108,7 @@ const initialProducts = [
       alt: `Hill's® Science Diet® Perfect Weight Adult Dry Cat Food - Chickene`,
     },
     price: 65,
-    stock: 75,
+    stock: 43,
     category_id: `Food`,
     petType_id: [`Cats`],
     discount: 0
@@ -121,7 +121,7 @@ const initialProducts = [
       alt: 'Hartz Delectables™ Squeeze Up Puree Variety Pack - 20 Pack',
     },
     price: 13,
-    stock: 20,
+    stock: 11,
     category_id: `Treats`,
     petType_id: [`Cats`],
     discount: 0
@@ -134,7 +134,7 @@ const initialProducts = [
       alt: 'Temptations™ Mixups Cat Treats - Soft & Crunchy, Catnip Fever',
     },
     price: 9.60,
-    stock: 20,
+    stock: 77,
     category_id: `Treats`,
     petType_id: [`Cats`],
     discount: 0
@@ -147,7 +147,7 @@ const initialProducts = [
       alt: `Whisker City® Crinkle Ball Cat Toy - (COLOR VARIES)`,
     },
     price: 2,
-    stock: 20,
+    stock: 7,
     category_id: `Toys`,
     petType_id: [`Cats`],
     discount: 0
@@ -160,7 +160,7 @@ const initialProducts = [
       alt: `Whisker City Space Cat Wavy Basic Corrugate Cat Scratcher`,
     },
     price: 10,
-    stock: 20,
+    stock: 7,
     category_id: `Toys`,
     petType_id: [`Cats`],
     discount: 0
@@ -173,7 +173,7 @@ const initialProducts = [
       alt: `Whisker City® 29.5-in Laid-Back Lookout with Catnip Cat Tree`,
     },
     price: 70,
-    stock: 20,
+    stock: 13,
     category_id: `Bedding & Furniture`,
     petType_id: [`Cats`],
     discount: 0
@@ -186,7 +186,7 @@ const initialProducts = [
       alt: `Whisker City® White Mohair Fur Donut Cat Bed`,
     },
     price: 35,
-    stock: 20,
+    stock: 71,
     category_id: `Bedding & Furniture`,
     petType_id: [`Cats`, `Dogs`],
     discount: 0
@@ -199,7 +199,7 @@ const initialProducts = [
       alt: `FURminator® Long Hair Undercoat deShedding Cat Tool`,
     },
     price: 34,
-    stock: 20,
+    stock: 69,
     category_id: `Grooming Products`,
     petType_id: [`Cats`],
     discount: 0
@@ -212,7 +212,7 @@ const initialProducts = [
       alt: `Skout's Honor® Pet Supply Company Cat Probiotic Honeysuckle Shampoo + Conditioner`,
     },
     price: 21,
-    stock: 20,
+    stock: 25,
     category_id: `Grooming Products`,
     petType_id: [`Cats`],
     discount: 0
@@ -225,7 +225,7 @@ const initialProducts = [
       alt: `Capstar™ 2-25 Lb Cat Flea Treatment - 6 Count`,
     },
     price: 44,
-    stock: 20,
+    stock: 32,
     category_id: `Health & Wellness`,
     petType_id: [`Cats`],
     discount: 0
@@ -234,11 +234,11 @@ const initialProducts = [
     name: `Greenies Feline Pill Pockets Cat Treats - Salmon`,
     description: `Take the stress out of giving your cat their medicine. FELINE GREENIES PILL POCKETS Treats for Cats easily hide most tablets and capsules in a great-tasting treat that's made with natural ingredients plus minerals and trace nutrients. These soft cat treats are the #1 vet recommended choice for giving pills* and feature a delicious salmon flavor that helps disguise the taste of the medicine. It's the hassle-free way to give your cat medicine, just place their medicine inside the pocket, pinch the pocket closed to secure the pill or capsule, and share with your cat. Just like that, the treat (and medicine) disappears. When it comes to taking meds, your cat is smart. But you're smarter, because you've got FELINE GREENIES PILL POCKETS Cat Treats. * Based on a survey of U.S. veterinarians`,
     image: {
-      url: 'https://s7d2.scene7.com/is/image/PetSmart/5286901?fmt=webp&wid=800&hei=800',
+      url: 'https://s7d2.scene7.com/is/image/PetSmart/5102586?fmt=webp&wid=800&hei=800',
       alt: `Greenies Feline Pill Pockets Cat Treats - Salmon`,
     },
     price: 8,
-    stock: 20,
+    stock: 32,
     category_id: `Health & Wellness`,
     petType_id: [`Cats`],
     discount: 0
@@ -251,7 +251,7 @@ const initialProducts = [
       alt: `Made By Cleo® Sunflowers Cat Bandana`,
     },
     price: 14,
-    stock: 20,
+    stock: 60,
     category_id: `Clothing & Accessories`,
     petType_id: [`Cats`],
     discount: 0
@@ -264,7 +264,7 @@ const initialProducts = [
       alt: `Rubie's Pet Shop Halloween Kidrobot Yummy World Avocado Headpiece Pet Accessory`,
     },
     price: 10,
-    stock: 20,
+    stock: 22,
     category_id: `Clothing & Accessories`,
     petType_id: [`Cats`],
     discount: 0
@@ -277,7 +277,7 @@ const initialProducts = [
       alt: `Catit® Flower Cat Drinking Fountain`,
     },
     price: 28,
-    stock: 20,
+    stock: 60,
     category_id: `Feeding & Watering Supplies`,
     petType_id: [`Cats`],
     discount: 0
@@ -290,7 +290,7 @@ const initialProducts = [
       alt: `Whisker City® Terracotta Ceramic Cat Saucer, 1.5-cup`,
     },
     price: 8,
-    stock: 20,
+    stock: 87,
     category_id: `Feeding & Watering Supplies`,
     petType_id: [`Cats`],
     discount: 0
@@ -303,7 +303,7 @@ const initialProducts = [
       alt: `PetSafe ScatMat Indoor Pet Training Mat`,
     },
     price: 76.30,
-    stock: 20,
+    stock: 59,
     category_id: `Training & Behaviour Aids`,
     petType_id: [`Cats`],
     discount: 0
@@ -316,7 +316,7 @@ const initialProducts = [
       alt: `Nature's Miracle® Brand Advanced Platinum Cat Scratch Deterrent Spray`,
     },
     price: 76.30,
-    stock: 20,
+    stock: 97,
     category_id: `Training & Behaviour Aids`,
     petType_id: [`Cats`],
     discount: 0
@@ -329,7 +329,7 @@ const initialProducts = [
       alt: `Whisker City Fish Foil Kitten Harness and Leash Combo Set`,
     },
     price: 20,
-    stock: 20,
+    stock: 85,
     category_id: `Travel & Outdoor Gear`,
     petType_id: [`Cats`],
     discount: 0
@@ -342,7 +342,7 @@ const initialProducts = [
       alt: `Top Paw Travel Airline Carrier`,
     },
     price: 43,
-    stock: 20,
+    stock: 74,
     category_id: `Travel & Outdoor Gear`,
     petType_id: [`Cats`, `Dogs`],
     discount: 0
@@ -355,7 +355,7 @@ const initialProducts = [
       alt: `PetSafe® 5 Meal Pet Food Dispenser - Dry or Semi-Moist Pet Food`,
     },
     price: 55,
-    stock: 20,
+    stock: 14,
     category_id: `Pet Tech`,
     petType_id: [`Cats`, `Dogs`],
     discount: 0
@@ -368,7 +368,7 @@ const initialProducts = [
       alt: `YIP Smart Tag Personalized ID Tag and Finder - Works with Apple Find My`,
     },
     price: 35,
-    stock: 20,
+    stock: 51,
     category_id: `Pet Tech`,
     petType_id: [`Cats`, `Dogs`],
     discount: 0
@@ -381,7 +381,7 @@ const initialProducts = [
       alt: `Top Fin® Custom Colorflow™ Aquarium with 7 Color-Changing LEDs`,
     },
     price: 35,
-    stock: 20,
+    stock: 14,
     category_id: `Bedding & Furniture`,
     petType_id: [`Fish`],
     discount: 0
@@ -394,7 +394,7 @@ const initialProducts = [
       alt: `Tetra® TetraMin Tropical Flakes Fish Food`,
     },
     price: 13.50,
-    stock: 20,
+    stock: 65,
     category_id: `Food`,
     petType_id: [`Fish`],
     discount: 0
@@ -407,7 +407,7 @@ const initialProducts = [
       alt: `Fluval® Bug Bites Color Enhancing Flakes`,
     },
     price: 10,
-    stock: 20,
+    stock: 76,
     category_id: `Treats`,
     petType_id: [`Fish`],
     discount: 0
@@ -420,7 +420,7 @@ const initialProducts = [
       alt: `Top Fin® Dinosaur Brontosaurus Aquarium Ornament`,
     },
     price: 8,
-    stock: 20,
+    stock: 30,
     category_id: `Toys`,
     petType_id: [`Fish`],
     discount: 0
@@ -433,7 +433,7 @@ const initialProducts = [
       alt: `API® E.M. Erythromycin Fish Bacterial Infection Treatment`,
     },
     price: 17.90,
-    stock: 20,
+    stock: 99,
     category_id: `Health & Wellness`,
     petType_id: [`Fish`],
     discount: 0
@@ -446,7 +446,7 @@ const initialProducts = [
       alt: `Marineland High-Definition LED Ensemble - 125G`,
     },
     price: 1000,
-    stock: 20,
+    stock: 68,
     category_id: `Bedding & Furniture`,
     petType_id: [`Fish`],
     discount: 0
@@ -459,7 +459,7 @@ const initialProducts = [
       alt: `Top Fin® Fin Automatic Fish Feeder`,
     },
     price: 30,
-    stock: 20,
+    stock: 1,
     category_id: `Feeding & Watering Supplies`,
     petType_id: [`Fish`],
     discount: 0
@@ -472,7 +472,7 @@ const initialProducts = [
       alt: `Fluval® FX6 Canister Filter`,
     },
     price: 370,
-    stock: 20,
+    stock: 99,
     category_id: `Feeding & Watering Supplies`,
     petType_id: [`Fish`],
     discount: 0
@@ -485,7 +485,7 @@ const initialProducts = [
       alt: `Top Fin® Fine Mesh Fish Net`,
     },
     price: 2.50,
-    stock: 20,
+    stock: 58,
     category_id: `Travel & Outdoor Gear`,
     petType_id: [`Fish`],
     discount: 0
@@ -498,7 +498,7 @@ const initialProducts = [
       alt: `Fluval® Submersible Heaters`,
     },
     price: 52,
-    stock: 20,
+    stock: 81,
     category_id: `Pet Tech`,
     petType_id: [`Fish`],
     discount: 0
@@ -511,7 +511,7 @@ const initialProducts = [
       alt: `Authority® Everyday Health All Life Stages Dry Dog Food - Chicken & Rice`,
     },
     price: 58,
-    stock: 20,
+    stock: 52,
     category_id: `Food`,
     petType_id: [`Dogs`],
     discount: 0
@@ -524,7 +524,7 @@ const initialProducts = [
       alt: `Authority® Everyday Health Adult Wet Dog Food - 13 Oz.`,
     },
     price: 2.30,
-    stock: 20,
+    stock: 89,
     category_id: `Food`,
     petType_id: [`Dogs`],
     discount: 0
@@ -537,7 +537,7 @@ const initialProducts = [
       alt: `Wiggles & Wags Bacon & Cheese Meaty Sticks Dog Treats 6 OZ`,
     },
     price: 7,
-    stock: 20,
+    stock: 99,
     category_id: `Treats`,
     petType_id: [`Dogs`],
     discount: 0
@@ -550,7 +550,7 @@ const initialProducts = [
       alt: `Merry & Bright Knotted Rawhide Bone 22 Inch 19 OZ`,
     },
     price: 13,
-    stock: 20,
+    stock: 83,
     category_id: `Treats`,
     petType_id: [`Dogs`],
     discount: 0
@@ -563,7 +563,7 @@ const initialProducts = [
       alt: `Joyhound Game On 6-Knot Rope Dog Toy`,
     },
     price: 16,
-    stock: 20,
+    stock: 5,
     category_id: `Toys`,
     petType_id: [`Dogs`],
     discount: 0
@@ -576,7 +576,7 @@ const initialProducts = [
       alt: `Joyhound Bite Shield™ Protection Plush Octopus Dog Toy - Squeaker, Crinkle`,
     },
     price: 20,
-    stock: 20,
+    stock: 12,
     category_id: `Toys`,
     petType_id: [`Dogs`],
     discount: 0
@@ -589,7 +589,7 @@ const initialProducts = [
       alt: `Top Paw® Orthopedic Cuddler Striped Dog Bed`,
     },
     price: 80,
-    stock: 20,
+    stock: 38,
     category_id: `Bedding & Furniture`,
     petType_id: [`Dogs`],
     discount: 0
@@ -602,7 +602,7 @@ const initialProducts = [
       alt: `KONG® Durable Crate Dog Mat`,
     },
     price: 70,
-    stock: 20,
+    stock: 85,
     category_id: `Bedding & Furniture`,
     petType_id: [`Dogs`],
     discount: 0
@@ -615,7 +615,7 @@ const initialProducts = [
       alt: `Top Paw® Nail Grinder with LED Light`,
     },
     price: 40,
-    stock: 20,
+    stock: 70,
     category_id: `Grooming Products`,
     petType_id: [`Dogs`],
     discount: 0
@@ -641,7 +641,7 @@ const initialProducts = [
       alt: `Purina® Pro Plan® Veterinary Supplements FortiFlora-Probiotic Powder Supplement for Dogs - 30 Count`,
     },
     price: 34,
-    stock: 20,
+    stock: 30,
     category_id: `Health & Wellness`,
     petType_id: [`Dogs`],
     discount: 0
@@ -654,7 +654,7 @@ const initialProducts = [
       alt: `Skout's Honor® Probiotic Ear Cleaner`,
     },
     price: 10,
-    stock: 20,
+    stock: 88,
     category_id: `Health & Wellness`,
     petType_id: [`Dogs`],
     discount: 0
@@ -667,7 +667,7 @@ const initialProducts = [
       alt: `Puppia® Mountaineer II Dog Harness Coat`,
     },
     price: 74,
-    stock: 20,
+    stock: 2,
     category_id: `Clothing & Accessories`,
     petType_id: [`Dogs`],
     discount: 0
@@ -680,7 +680,7 @@ const initialProducts = [
       alt: `Arcadia Trail™ Year-Round All-Terrain Dog Boots`,
     },
     price: 30,
-    stock: 20,
+    stock: 76,
     category_id: `Clothing & Accessories`,
     petType_id: [`Dogs`],
     discount: 0
@@ -693,7 +693,7 @@ const initialProducts = [
       alt: `Top Paw® Black Silicone Double Dog Bowl with Mat, 1.75-cup`,
     },
     price: 20,
-    stock: 20,
+    stock: 92,
     category_id: `Feeding & Watering Supplies`,
     petType_id: [`Dogs`],
     discount: 0
@@ -706,7 +706,7 @@ const initialProducts = [
       alt: `Vittles Vault® Elevated Pet Feeder Plus Pet Food Storage`,
     },
     price: 70,
-    stock: 20,
+    stock: 26,
     category_id: `Feeding & Watering Supplies`,
     petType_id: [`Dogs`],
     discount: 0
@@ -719,7 +719,7 @@ const initialProducts = [
       alt: `Bil-Jac® Little-Jacs Training Dog Treat`,
     },
     price: 13,
-    stock: 20,
+    stock: 10,
     category_id: `Training & Behaviour Aids`,
     petType_id: [`Dogs`],
     discount: 0
@@ -732,7 +732,7 @@ const initialProducts = [
       alt: `Great Choice® X-Large Dog Pads - 28"L x 30"W`,
     },
     price: 45,
-    stock: 20,
+    stock: 77,
     category_id: `Training & Behaviour Aids`,
     petType_id: [`Dogs`],
     discount: 0
@@ -745,7 +745,7 @@ const initialProducts = [
       alt: `KONG® Reflective Waste Bag Dog Harness`,
     },
     price: 35,
-    stock: 20,
+    stock: 70,
     category_id: `Travel & Outdoor Gear`,
     petType_id: [`Dogs`],
     discount: 0
@@ -758,7 +758,7 @@ const initialProducts = [
       alt: `flexi® Xtreme Tape Dog Leash: 16-ft long`,
     },
     price: 45,
-    stock: 20,
+    stock: 24,
     category_id: `Travel & Outdoor Gear`,
     petType_id: [`Dogs`],
     discount: 0
@@ -771,7 +771,7 @@ const initialProducts = [
       alt: `PETLIBRO Granary Automatic Pet Feeder`,
     },
     price: 45,
-    stock: 20,
+    stock: 28,
     category_id: `Pet Tech`,
     petType_id: [`Dogs`],
     discount: 0
@@ -784,7 +784,7 @@ const initialProducts = [
       alt: `Instachew PureSight 360 HD Smart Camera`,
     },
     price: 35,
-    stock: 20,
+    stock: 92,
     category_id: `Pet Tech`,
     petType_id: [`Dogs`, `Cats`, `Birds`, `Rodents`, `Reptiles`, `Fish`],
     discount: 0
@@ -797,7 +797,7 @@ const initialProducts = [
       alt: `ZuPreem® FruitBlend Medium Bird Food`,
     },
     price: 17,
-    stock: 20,
+    stock: 36,
     category_id: `Food`,
     petType_id: [`Birds`],
     discount: 0
@@ -810,7 +810,7 @@ const initialProducts = [
       alt: `All Living Things® Spray Millet Bird Treat`,
     },
     price: 11,
-    stock: 20,
+    stock: 23,
     category_id: `Treats`,
     petType_id: [`Birds`],
     discount: 0
@@ -823,7 +823,7 @@ const initialProducts = [
       alt: `All Living Things® Wooden Wind Chime Bird Toy`,
     },
     price: 5,
-    stock: 20,
+    stock: 44,
     category_id: `Toys`,
     petType_id: [`Birds`],
     discount: 0
@@ -836,7 +836,7 @@ const initialProducts = [
       alt: `All Living Things® Hanging Nest Bird Hut`,
     },
     price: 16,
-    stock: 20,
+    stock: 94,
     category_id: `Bedding & Furniture`,
     petType_id: [`Birds`],
     discount: 0
@@ -849,7 +849,7 @@ const initialProducts = [
       alt: `QUICKO Multivitamin Bird Supplement`,
     },
     price: 7.20,
-    stock: 20,
+    stock: 3,
     category_id: `Health & Wellness`,
     petType_id: [`Birds`],
     discount: 0
@@ -862,7 +862,7 @@ const initialProducts = [
       alt: `KAYTEE® Nut & Fruit Blend Wild Bird Food`,
     },
     price: 25,
-    stock: 20,
+    stock: 93,
     category_id: `Feeding & Watering Supplies`,
     petType_id: [`Birds`],
     discount: 0
@@ -875,7 +875,7 @@ const initialProducts = [
       alt: `All Living Things Fuzzy Bird Hut`,
     },
     price: 17,
-    stock: 20,
+    stock: 74,
     category_id: `Pet Tech`,
     petType_id: [`Birds`],
     discount: 0
@@ -888,7 +888,7 @@ const initialProducts = [
       alt: `Prevue Pet Products Playtop Bird Travel Carrier`,
     },
     price: 120,
-    stock: 20,
+    stock: 82,
     category_id: `Travel & Outdoor Gear`,
     petType_id: [`Birds`],
     discount: 0
@@ -901,7 +901,7 @@ const initialProducts = [
       alt: `Live Waxworms`,
     },
     price: 5.50,
-    stock: 20,
+    stock: 76,
     category_id: `Food`,
     petType_id: [`Reptiles`],
     discount: 0
@@ -914,7 +914,7 @@ const initialProducts = [
       alt: `Live Giant Mealworms - 35 Count Cup`,
     },
     price: 3.70,
-    stock: 20,
+    stock: 58,
     category_id: `Food`,
     petType_id: [`Reptiles`],
     discount: 0
@@ -927,7 +927,7 @@ const initialProducts = [
       alt: `Thrive Lightweight Eco-Flex Composite Reptile Terrarium - 46"`,
     },
     price: 187.50,
-    stock: 20,
+    stock: 73,
     category_id: `Bedding & Furniture`,
     petType_id: [`Reptiles`],
     discount: 0
@@ -940,7 +940,7 @@ const initialProducts = [
       alt: `Thrive Vertical Hexagon Tropical Reptile Terrarium -20 Gallon`,
     },
     price: 86.25,
-    stock: 20,
+    stock: 42,
     category_id: `Bedding & Furniture`,
     petType_id: [`Reptiles`],
     discount: 0
@@ -953,7 +953,7 @@ const initialProducts = [
       alt: `Zoo Med Repti Calcium Reptile Supplement`,
     },
     price: 2.40,
-    stock: 20,
+    stock: 60,
     category_id: `Health & Wellness`,
     petType_id: [`Reptiles`],
     discount: 0
@@ -966,7 +966,7 @@ const initialProducts = [
       alt: `Zoo Med Terra Terrium & Aquarium Water Pump`,
     },
     price: 24.70,
-    stock: 20,
+    stock: 85,
     category_id: `Feeding & Watering Supplies`,
     petType_id: [`Reptiles`],
     discount: 0
@@ -979,7 +979,7 @@ const initialProducts = [
       alt: `Tetra® ReptoFilter Aquarium Filter`,
     },
     price: 24.70,
-    stock: 20,
+    stock: 2,
     category_id: `Feeding & Watering Supplies`,
     petType_id: [`Reptiles`],
     discount: 0
@@ -992,7 +992,7 @@ const initialProducts = [
       alt: `Oxbow Essentials Adult Guinea Pig Food`,
     },
     price: 23,
-    stock: 20,
+    stock: 50,
     category_id: `Food`,
     petType_id: [`Rodents`],
     discount: 0
@@ -1005,7 +1005,7 @@ const initialProducts = [
       alt: `Oxbow Simple Rewards Baked Small Pet Treats - Apple & Banana`,
     },
     price: 7,
-    stock: 20,
+    stock: 89,
     category_id: `Treats`,
     petType_id: [`Rodents`],
     discount: 0
@@ -1018,7 +1018,7 @@ const initialProducts = [
       alt: `Full Cheeks™ Small Pet Timothy Hay Hoop Rabbit Chew`,
     },
     price: 5,
-    stock: 20,
+    stock: 16,
     category_id: `Toys`,
     petType_id: [`Rodents`],
     discount: 0
@@ -1031,7 +1031,7 @@ const initialProducts = [
       alt: `Tiny Tales™ Castle Connectable Hamster Home`,
     },
     price: 55,
-    stock: 20,
+    stock: 44,
     category_id: `Bedding & Furniture`,
     petType_id: [`Rodents`],
     discount: 0
@@ -1044,7 +1044,7 @@ const initialProducts = [
       alt: `Science Selective Bathing Sand`,
     },
     price: 12,
-    stock: 20,
+    stock: 57,
     category_id: `Grooming Products`,
     petType_id: [`Rodents`],
     discount: 0
@@ -1057,7 +1057,7 @@ const initialProducts = [
       alt: `Oxbow Critical Care - Herbivore`,
     },
     price: 13.80,
-    stock: 20,
+    stock: 64,
     category_id: `Health & Wellness`,
     petType_id: [`Rodents`],
     discount: 0
@@ -1070,7 +1070,7 @@ const initialProducts = [
       alt: `Merry & Bright Small Pet Ugly Sweater`,
     },
     price: 8,
-    stock: 20,
+    stock: 57,
     category_id: `Clothing & Accessories`,
     petType_id: [`Rodents`],
     discount: 0
@@ -1083,7 +1083,7 @@ const initialProducts = [
       alt: `Full Cheeks™ Small Pet 3 in 1 Space Saver Food & Water Dispenser`,
     },
     price: 13,
-    stock: 20,
+    stock: 42,
     category_id: `Feeding & Watering Supplies`,
     petType_id: [`Rodents`],
     discount: 0
@@ -1096,7 +1096,7 @@ const initialProducts = [
       alt: `Full Cheeks™ Exercise Wheel`,
     },
     price: 13,
-    stock: 20,
+    stock: 5,
     category_id: `Travel & Outdoor Gear`,
     petType_id: [`Rodents`],
     discount: 0
@@ -1112,7 +1112,7 @@ const initialCarts = [
     products: [
       {
         isStocked: true,
-        product_id: `Authority® Everyday Health Cat Wet Food - 66 Oz, Flaked in Gravy, With-Grain`,
+        product_id: `Whisker City® 29.5-in Laid-Back Lookout with Catnip Cat Tree`,
         quantity: 1,
         price: 1
       }
@@ -1123,13 +1123,13 @@ const initialCarts = [
     products: [
       {
         isStocked: true,
-        product_id: `Temptations™ Mixups Cat Treats - Soft & Crunchy, Catnip Fever`,
+        product_id: `Rubie's Pet Shop Halloween Kidrobot Yummy World Avocado Headpiece Pet Accessory`,
         quantity: 1,
         price: 1
       },
       {
         isStocked: true,
-        product_id: `Hartz Delectables™ Squeeze Up Puree Variety Pack - 20 Pack`,
+        product_id: `PetSafe® 5 Meal Pet Food Dispenser - Dry or Semi-Moist Pet Food`,
         quantity: 3,
         price: 1
       },
@@ -1142,7 +1142,7 @@ const initialOrders = [
     user_id: `0`,
     products: [
       {
-        product_id: `Authority® Everyday Health Cat Wet Food - 66 Oz, Flaked in Gravy, With-Grain`,
+        product_id: `Hartz Delectables™ Squeeze Up Puree Variety Pack - 20 Pack`,
         quantity: 1,
         price: 1
       }
@@ -1155,7 +1155,7 @@ const initialOrders = [
     user_id: `1`,
     products: [
       {
-        product_id: `Temptations™ Mixups Cat Treats - Soft & Crunchy, Catnip Fever`,
+        product_id: `CHI® for Dogs Oatmeal Shampoo`,
         quantity: 2,
         price: 2
       }
@@ -1168,7 +1168,7 @@ const initialOrders = [
     user_id: `2`,
     products: [
       {
-        product_id: `Hartz Delectables™ Squeeze Up Puree Variety Pack - 20 Pack`,
+        product_id: `Authority® Everyday Health Adult Wet Dog Food - 13 Oz.`,
         quantity: 1,
         price: 1
       }
