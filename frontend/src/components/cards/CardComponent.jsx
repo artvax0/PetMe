@@ -20,12 +20,12 @@ export default function CardComponent({ product, pets }) {
           <Box width='100%'>
             <CardImage isStocked={isStocked} isDiscountValid={isDiscountValid} url={product.image.url} alt={product.image.alt} pets={pets} petTypes={product.petType_id} />
           </Box>
-          <Box display='flex' flexDirection='column' alignItems='center'>
+          <Box display='flex' flexDirection='column' alignItems='center' width='100%'>
             <CardContent sx={{ p: 1 }}>
-              <Typography gutterBottom variant="h5" fontWeight={500} component='p' sx={{ textAlign: 'center' }}>{product.name}</Typography>
+              <Typography gutterBottom variant="h5" fontWeight={500} component='p' sx={{ textAlign: 'center' }} fontSize={{ xs: '0.75rem', lg: '1rem', xl: '1.5rem' }}>{product.name}</Typography>
               {isDiscountValid ?
                 <Box display='flex' gap={1} justifyContent='center'>
-                  <Typography variant='h6' fontWeight='light' component='p' sx={{ textAlign: 'center', textDecoration: 'line-through' }} color='darkgrey' >${product.price}</Typography>
+                  <Typography variant='h6' fontWeight='light' component='p' sx={{ textAlign: 'center', textDecoration: 'line-through' }} fontSize={{ xs: '0.75rem', lg: '1rem', xl: '1.5rem' }} color='darkgrey' >${product.price}</Typography>
                   <Typography variant='h6' fontWeight='medium' component='p' sx={{ textAlign: 'center' }} color='error'>${product.price * (1 - product.discount / 100)}</Typography>
                 </Box> :
                 <Typography variant='h6' fontWeight='medium' component='p' sx={{ textAlign: 'center' }}>${product.price}</Typography>}
@@ -37,8 +37,9 @@ export default function CardComponent({ product, pets }) {
                   sx={{
                     backgroundColor: theme.palette.success.main,
                     boxShadow: `0 4px 0 0 ${theme.palette.success.dark}`,
+                    px: { xs: '10px', xl: '16px' },
                     mb: 2,
-                    fontSize: { xs: '0.75rem', sm: '1rem' },
+                    fontSize: { xs: '0.75rem', xl: '1rem' },
                     color: '#fff',
                   }}
                 >
@@ -48,8 +49,9 @@ export default function CardComponent({ product, pets }) {
                   sx={{
                     backgroundColor: '#64646475',
                     boxShadow: `0 4px 0 0 #646464`,
+                    px: { xs: '10px', xl: '16px' },
                     mb: 2,
-                    fontSize: { xs: '0.75rem', sm: '1rem' },
+                    fontSize: { xs: '0.75rem', xl: '1rem' },
                     color: '#fff',
                   }}
                 >
