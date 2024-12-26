@@ -16,12 +16,12 @@ export default function CardComponent({ product, pets }) {
   return (
     <>
       <Card elevation={5} sx={{ width: '100%', backgroundColor: isStocked ? theme.palette.primary.main : '#aaaaaa75', borderRadius: '12px' }}>
-        <CardActionArea onClick={() => navigate(ROUTES.PRODUCT + `/${product._id}`)} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <CardActionArea onClick={() => navigate(ROUTES.PRODUCT + `/${product._id}`)} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%' }}>
           <Box width='100%'>
             <CardImage isStocked={isStocked} isDiscountValid={isDiscountValid} url={product.image.url} alt={product.image.alt} pets={pets} petTypes={product.petType_id} />
           </Box>
-          <Box display='flex' flexDirection='column' alignItems='center' width='100%'>
-            <CardContent sx={{ p: 1 }}>
+          <Box display='flex' flexDirection='column' alignItems='center' width='100%' flexGrow={1}>
+            <CardContent sx={{ p: 1, display: 'flex', flexDirection: 'column', flexGrow: 1, justifyContent: 'space-between' }}>
               <Typography gutterBottom variant="h5" fontWeight={500} component='p' sx={{ textAlign: 'center' }} fontSize='0.75rem' >{product.name}</Typography>
               {isDiscountValid ?
                 <Box display='flex' gap={1} justifyContent='center'>

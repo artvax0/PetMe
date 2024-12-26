@@ -3,7 +3,7 @@ import { Box, CardMedia } from "@mui/material";
 export default function CardImage({ isStocked, isDiscountValid, url, alt, pets, petTypes }) {
   return (
     <CardMedia
-      sx={{ aspectRatio: '1/1', margin: 1.5, backgroundColor: '#fff', borderRadius: '20px', boxShadow: 'inset 0 4px 4px rgba(0, 0, 0, .25), inset 0 -4px 4px rgba(0, 0, 0, .25)', position: 'relative', filter: isStocked ? 'none' : 'grayscale(100%)', msFilter: isStocked ? 'none' : 'grayscale(100%)', WebkitFilter: isStocked ? 'none' : 'grayscale(100%)' }}
+      sx={{ maxHeight: '100%', aspectRatio: '1/1', margin: 1.5, backgroundColor: '#fff', borderRadius: '20px', boxShadow: 'inset 0 4px 4px rgba(0, 0, 0, .25), inset 0 -4px 4px rgba(0, 0, 0, .25)', position: 'relative', filter: isStocked ? 'none' : 'grayscale(100%)', msFilter: isStocked ? 'none' : 'grayscale(100%)', WebkitFilter: isStocked ? 'none' : 'grayscale(100%)' }}
       image={url}
       title={alt}
     >

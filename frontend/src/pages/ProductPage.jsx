@@ -79,15 +79,18 @@ export default function ProductPage() {
             size={{ xs: 12, sm: 4 }}
             sx={{
               backgroundColor: '#fff',
-              aspectRatio: '1/1',
               borderRadius: '5px',
               overflow: 'hidden',
+              width: '100%',
+              aspectRatio: '1/1',
+              alignSelf: 'start',
+
             }}>
             <Box width='100%' component='img' src={product?.image?.url} alt={product?.image?.alt} sx={{
-              borderRadius: '5px', aspectRatio: '1/1', display: 'block'
+              borderRadius: '5px', aspectRatio: '1/1', display: 'block', objectFit: 'cover'
             }} />
           </Grid2>
-          <Grid2 display='flex' flexDirection='column' flexGrow={1} py={1} maxWidth={{ xs: '100%', sm: '64%' }} gap={{ xs: 2, sm: 0 }}>
+          <Grid2 display='flex' flexDirection='column' flexGrow={1} py={1} maxWidth={{ xs: '100%', md: '64%' }} gap={{ xs: 2, sm: 0 }}>
             <Box display='flex' justifyContent='space-between' flexDirection={{ xs: 'column', sm: 'row' }}>
               <Typography variant='h4' component='h2' fontWeight={theme.typography.fontWeightBold} fontSize={{ xs: '2rem', sm: '3rem' }} textAlign={{ xs: 'center', sm: 'left' }} color={theme.palette.secondary.main} gutterBottom>
                 {product.name}
