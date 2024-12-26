@@ -19,3 +19,21 @@ input[type=number] {
     margin: 0;
   }
 }
+
+.ext-link-light {
+  color: #ffae00;
+  text-decoration: none;
+
+  &:hover {
+    text-shadow: 0 0 10px #e68600;
+  }
+}
+
+.ext-link-dark {
+  color: #ffd700;
+  text-decoration: none;
+
+  &:hover {
+    text-shadow: 0 0 10px tomato;
+  }
+}

@@ -19,6 +19,22 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
   margin: 0;
 }
 
+.ext-link-light {
+  color: #ffae00;
+  text-decoration: none;
+}
+.ext-link-light:hover {
+  text-shadow: 0 0 10px #e68600;
+}
+
+.ext-link-dark {
+  color: #ffd700;
+  text-decoration: none;
+}
+.ext-link-dark:hover {
+  text-shadow: 0 0 10px tomato;
+}
+
 .filepond--wrapper {
   width: 100%;
 }

@@ -31,7 +31,7 @@ export default function AboutPage() {
           <Grid2 size={{ xs: 12, sm: 6 }} display='flex' flexDirection='column' justifyContent='center' alignItems='center'>
             <Box component='img' src='/eric-ward-ISg37AI2A-s-unsplash.jpg' alt='Man hugging dog ' maxWidth='85%' />
             <Typography>
-              Photo by <a href="https://unsplash.com/@ericjamesward?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Eric Ward</a> on <a href="https://unsplash.com/photos/photo-of-man-hugging-tan-dog-ISg37AI2A-s?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+              Photo by <a className={mode == 'light' ? 'ext-link-light' : 'ext-link-dark'} href="https://unsplash.com/@ericjamesward?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash" target='_blank' rel='noreferrer noopener'>Eric Ward</a> on <a className={mode == 'light' ? 'ext-link-light' : 'ext-link-dark'} href="https://unsplash.com/photos/photo-of-man-hugging-tan-dog-ISg37AI2A-s?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash" target='_blank' rel='noreferrer noopener'>Unsplash</a>
             </Typography>
           </Grid2>
         </Grid2>
