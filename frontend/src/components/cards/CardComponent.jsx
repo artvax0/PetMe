@@ -17,10 +17,10 @@ export default function CardComponent({ product, pets }) {
     <>
       <Card elevation={5} sx={{ width: '100%', backgroundColor: isStocked ? theme.palette.primary.main : '#aaaaaa75', borderRadius: '12px' }}>
         <CardActionArea onClick={() => navigate(ROUTES.PRODUCT + `/${product._id}`)} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <Box height='50%' width='100%'>
+          <Box width='100%'>
             <CardImage isStocked={isStocked} isDiscountValid={isDiscountValid} url={product.image.url} alt={product.image.alt} pets={pets} petTypes={product.petType_id} />
           </Box>
-          <Box height='50%' display='flex' flexDirection='column' alignItems='center'>
+          <Box display='flex' flexDirection='column' alignItems='center'>
             <CardContent sx={{ p: 1 }}>
               <Typography gutterBottom variant="h5" fontWeight={500} component='p' sx={{ textAlign: 'center' }}>{product.name}</Typography>
               {isDiscountValid ?
