@@ -8,7 +8,6 @@ const User = mongoose.model('User', new mongoose.Schema({
   name: NAME,
   email: EMAIL,
   password: { type: String, required: true, trim: true },
-  image: IMAGE,
   phone: PHONE,
   address: ADDRESS,
   order_ids: [{ type: mongoose.Schema.Types.ObjectId }],

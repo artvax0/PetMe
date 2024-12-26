@@ -2,8 +2,6 @@ export const initialProfileForm = {
   first: '',
   middle: '',
   last: '',
-  url: '',
-  alt: '',
   phone: '',
   country: '',
   state: '',

@@ -5,10 +5,6 @@ const normalizeProfile = (user) => ({
     "last": user.last
   },
   "email": user.email,
-  "image": {
-    "url": user.url,
-    "alt": user.alt
-  },
   "phone": user.phone,
   "address": {
     "country": user.country,

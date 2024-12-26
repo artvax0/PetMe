@@ -6,10 +6,6 @@ const normalizeUser = (user) => ({
   },
   "email": user.email,
   "password": user.password,
-  "image": {
-    "url": user.url,
-    "alt": user.alt
-  },
   "phone": user.phone,
   "address": {
     "country": user.country,

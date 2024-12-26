@@ -11,13 +11,6 @@ const userSchema = (user) => {
       .regex(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/)
       .rule({ message: 'Email must be a valid email address' })
       .required(),
-    image: Joi.object().keys({
-      url: Joi.string()
-        .regex(/(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,}|https?:\/\/localhost(?:\:\d{1,5})?(?:\/[^\s]*)?)/)
-        .rule({ message: 'User avatar must be a valid URL' })
-        .allow(''),
-      alt: Joi.string().min(0).max(256).allow('')
-    }).required(),
     phone: Joi.string()
       .regex(/0[0-9]{1,2}\-?\s?[0-9]{3}\s?[0-9]{4}/)
       .required(),

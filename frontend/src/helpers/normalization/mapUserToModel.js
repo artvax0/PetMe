@@ -3,8 +3,6 @@ const mapUserToModel = (user) => ({
   middle: user.name.middle,
   last: user.name.last,
   email: user.email,
-  url: user.image.url,
-  alt: user.image.alt,
   phone: user.phone,
   country: user.address.country,
   state: user.address.state,

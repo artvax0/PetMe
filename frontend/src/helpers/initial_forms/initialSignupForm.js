@@ -4,8 +4,6 @@ export const initialSignupForm = {
   last: '',
   email: '',
   password: '',
-  url: '',
-  alt: '',
   phone: '',
   country: '',
   state: '',

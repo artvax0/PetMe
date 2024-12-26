@@ -11,10 +11,6 @@ const initialUsers = [
     },
     email: 'yotta@terracotta.com',
     password: generateUserPassword('1yotta!Terracotta'),
-    image: {
-      url: `http://localhost:${PORT}/images/avatar_male.webp`,
-      alt: 'Male avatar',
-    },
     phone: '050-0000001',
     address: {
       country: 'USA',
@@ -36,10 +32,6 @@ const initialUsers = [
     },
     email: 'lthompson@petme.com',
     password: generateUserPassword('L@thompson321'),
-    image: {
-      url: `http://localhost:${PORT}/images/avatar_female.svg`,
-      alt: 'Female avatar',
-    },
     phone: '012-345 6788',
     address: {
       country: 'USA',
@@ -61,10 +53,6 @@ const initialUsers = [
     },
     email: 'peterjones@test.com',
     password: generateUserPassword('peterJones!123'),
-    image: {
-      url: `http://localhost:${PORT}/images/avatar_uni.png`,
-      alt: 'Avatar',
-    },
     phone: '012-345 6787',
     address: {
       country: 'USA',

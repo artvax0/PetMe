@@ -45,22 +45,6 @@ export default function SignupForm({ onSubmit, validateForm, styles = {}, errors
           type='password'
         />
         <FormControl
-          name='url'
-          label='image avatar'
-          error={errors.url}
-          onChange={onInputChange}
-          formData={formData}
-          required={false}
-        />
-        <FormControl
-          name='alt'
-          label='image description'
-          error={errors.alt}
-          onChange={onInputChange}
-          formData={formData}
-          required={false}
-        />
-        <FormControl
           name='phone'
           label='phone number'
           error={errors.phone}

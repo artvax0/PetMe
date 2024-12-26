@@ -37,22 +37,6 @@ export default function ProfileForm({ onSubmit, validateForm, styles = {}, error
           formData={formData}
         />
         <FormControl
-          name='url'
-          label='image avatar'
-          error={errors.url}
-          onChange={onInputChange}
-          formData={formData}
-          required={false}
-        />
-        <FormControl
-          name='alt'
-          label='image description'
-          error={errors.alt}
-          onChange={onInputChange}
-          formData={formData}
-          required={false}
-        />
-        <FormControl
           name='phone'
           label='phone number'
           error={errors.phone}
