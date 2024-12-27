@@ -135,7 +135,7 @@ export default function OrdersPage() {
                         <Typography variant='body1'>{productData?.name}</Typography>
                         <Box>
                           <Typography>Quantity: {product.quantity}</Typography>
-                          <Typography>Price: ${product.price}</Typography>
+                          <Typography>Price: ${Number.isSafeInteger(product.price) ? product.price : (product.price).toFixed(2)}</Typography>
                         </Box>
                       </Box>
                     </Grid2>
@@ -143,7 +143,7 @@ export default function OrdersPage() {
                   </React.Fragment>
                 )
               })}
-              <Typography fontWeight={theme.typography.fontWeightBold}>Total: ${order.total}</Typography>
+              <Typography fontWeight={theme.typography.fontWeightBold}>Total: ${Number.isSafeInteger(order.total) ? order.total : (order.total).toFixed(2)}</Typography>
               <Typography variant='h6' component='h3'>Delivery Details</Typography>
               <Typography variant='body1'>{`${order.address.street} ${order.address.houseNumber}, ${order.address.city}, ${order.address.state ? `${order.address.state},` : ''} ${order.address.country} | ${order.address.zip}`}</Typography>
             </Card>
