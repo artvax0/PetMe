@@ -39,7 +39,7 @@ export default function ProductPage() {
 
   const addToCart = useCallback((e, productId, quantity) => {
     if (user) return addProductToCart(e, user._id, { product_id: productId, quantity });
-    <Navigate to={ROUTES.LOGIN} replace />
+    return navigate(ROUTES.LOGIN);
   }, [])
 
   useEffect(() => {
