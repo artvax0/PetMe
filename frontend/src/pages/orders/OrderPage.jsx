@@ -14,6 +14,8 @@ import creditCardSchema from "../../models/creditCardSchema";
 import useOrders from "../../hooks/useOrders";
 import LoadingSpinner from "../../components/utils/LoadingSpinner";
 
+let now = new Date().toISOString();
+
 export default function OrderPage() {
   const { user } = useAuth();
   const location = useLocation();
@@ -80,13 +82,19 @@ export default function OrderPage() {
             <TableBody>
               {products.map((product) => {
                 const productData = productsList[product.product_id];
+
+                let isDiscountValid = false;
+
+                if (productData.discount > 0 && productData.discountStartDate <= now && productData.discountEndDate >= now) { isDiscountValid = true };
+                let discountedPrice = productData.price * (1 - productData.discount / 100);
+
                 return (
                   <TableRow onClick={() => navigate(ROUTES.PRODUCT + `/${product.product_id}`)} key={product.product_id} sx={{ '&:last-child td, &:last-child th': { border: 0 }, '&:hover': { backgroundColor: 'rgba(0, 0, 0, .10)' }, cursor: 'pointer' }}>
                     <TableCell component='th' scope='row' align='center'><Box component='img' src={productData?.image?.url || ''} alt={productData?.image?.alt || ''} maxWidth='50px' maxHeight='50px' /></TableCell>
                     <TableCell align='center'>{productData?.name || ''}</TableCell>
                     <TableCell align='center'>{product.quantity}</TableCell>
-                    <TableCell align='center'>${productData?.price || ''}</TableCell>
-                    <TableCell align='center'>${product.price}</TableCell>
+                    <TableCell align='center'>${isDiscountValid ? discountedPrice : productData?.price || ''}</TableCell>
+                    <TableCell align='center'>${isDiscountValid ? discountedPrice * product.quantity : product.price}</TableCell>
                   </TableRow>
                 )
               })}
