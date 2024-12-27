@@ -5,9 +5,6 @@ import Layout from "./components/layout/Layout"
 import UserContextProvider from "./providers/UserProvider"
 import SnackbarProvider from "./providers/SnackbarProvider"
 
-
-
-
 function App() {
   return (
     <>

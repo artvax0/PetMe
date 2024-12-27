@@ -12,7 +12,6 @@ const themes = {
       mode: 'light',
       primary: {
         main: '#F3D9F4',
-        // dark: '#FFF391',
       },
       secondary: {
         main: '#E9B97D'

@@ -17,7 +17,6 @@ export default function useOrders() {
     const search = searchParams.get('q')
     if (!search) return orders;
     const [filter, searchInput] = search.split('/');
-    console.log(search, filter, searchInput);
     if (!filter || !searchInput) return orders;
 
     switch (filter) {

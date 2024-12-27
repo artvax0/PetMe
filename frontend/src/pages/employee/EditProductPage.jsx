@@ -18,7 +18,7 @@ export default function EditProductPage() {
   const { id } = useParams();
   const { user } = useAuth();
   const { mode } = useTheme();
-  const { getProductById, updateProduct, product, isLoading, error } = useProducts();
+  const { getProductById, updateProduct, isLoading, error } = useProducts();
   const { formData, setFormData, errors, handleChange, validateForm, onSubmit } = useForm(initialProductForm, productSchema, () => { updateProduct(id, formData) });
 
   useEffect(() => {

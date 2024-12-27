@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import Title from '../../components/utils/Title'
-import { Box, Grid2, Typography } from '@mui/material'
+import { Grid2, Typography } from '@mui/material'
 import { useTheme } from '../../providers/ThemeProvider'
 import { useAuth } from '../../providers/UserProvider'
 import { Navigate } from 'react-router-dom'
