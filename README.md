@@ -94,6 +94,9 @@ Note: This needs to be performed in the terminal in the **root folder** of the p
   npm start
 ```
 
+It is recommended you **wait** until your terminal has the following (or `Database documents loaded`) *before* entering the website:  
+![Terminal example](https://github.com/user-attachments/assets/a427f2cc-3552-4f16-8d71-77af64cd3c6a)  
+
 This command will launch both the frontend side and the backend side.  
 At the first time running this command, the backend will create the following:
 
@@ -107,6 +110,12 @@ In addition, it will create all 6 allowed pets in the database, 11 categories, 7
 Detailed information about each of the initial mock data created will be listed further down below.  
 
 The website will be live under this [link](http://localhost:5173/).  
+
+### Possible Issues  
+
+It is possible the backend and database will not run, or load the database, this can happen when the MongoDB Server service is not running on your machine. Please make sure the service is active by going to your machine's services:  
+![Enable MongoDB Server Services](https://github.com/user-attachments/assets/59210c40-ef6a-4c4f-b298-a1cc33aecbf7)
+
 
 ## Features
 
