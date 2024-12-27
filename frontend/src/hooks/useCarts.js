@@ -16,7 +16,7 @@ export default function useCarts() {
       const { data } = await getCart(userId);
       setCart(data);
     } catch (error) {
-      setError(error);
+      setError(error.response.data);
     }
     setIsLoading(false);
   }
@@ -29,7 +29,7 @@ export default function useCarts() {
       await addCart(userId, productInfo);
       snack('Added product to cart');
     } catch (error) {
-      setError(error);
+      setError(error.response.data);
       snack(`Failed to add product to cart, ${error}`, 'error');
     }
     setIsLoading(false);
@@ -43,7 +43,7 @@ export default function useCarts() {
       await addCart(userId, productInfo);
       snack('Updated cart stock');
     } catch (error) {
-      setError(error);
+      setError(error.response.data);
       snack(`Failed to add product to cart, ${error}`, 'error');
     }
     setIsLoading(false);

@@ -31,6 +31,11 @@ const getCart = async (user_id) => {
   if (db == 'mongodb') {
     try {
       let cart = await Cart.findOne({ user_id });
+      if (!cart) {
+        let error = Error('Invalid user provided, if you are getting this error. Please re-login.');
+        error.status = 400;
+        return createError('Bad Request', error);
+      }
 
       // update products array if discord still applies or is in stock
       const updatedProducts = await Promise.all(cart.products.map(async (product) => {
