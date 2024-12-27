@@ -8,14 +8,13 @@ import { ROUTES } from '../../routes/routesModel';
 import LoadingSpinner from '../utils/LoadingSpinner';
 import Error from '../utils/Error';
 
+let now = new Date().toISOString();
+
 export default function Cart({ user, setIsOpen }) {
   const { cart, isLoading, error, getUserCart, updateQuantity } = useCarts();
   const { getProductById } = useProducts();
   const [products, setProducts] = useState({});
   const navigate = useNavigate();
-
-  let isStocked = true;
-  let totalPrice = 0;
 
   useEffect(() => {
     const getCart = async () => {
@@ -51,6 +50,18 @@ export default function Cart({ user, setIsOpen }) {
     await getUserCart(user._id);
   }
 
+  let isStocked = true;
+  let totalPrice = cart?.products?.reduce((acc, product) => {
+    const productData = products[product.product_id];
+    if (productData?.stock > 0) {
+      const isDiscountValid = productData?.discount > 0 && productData?.discountStartDate <= now && productData?.discountEndDate >= now;
+      const discountedPrice = productData.price * (1 - productData.discount / 100);
+      const effectivePrice = isDiscountValid ? discountedPrice.toFixed(2) : (productData.price).toFixed(2);
+      return acc + effectivePrice * (product.quantity).toFixed(2);
+    }
+    return acc;
+  }, 0) || 0;
+
   if (isLoading) return (<LoadingSpinner />);
   if (error) return (<Error error={error} />);
   if (cart) return (
@@ -61,7 +72,6 @@ export default function Cart({ user, setIsOpen }) {
             <Box component='ul' display='flex' flexDirection='column' gap={1} p={0} sx={{ listStyleType: 'none' }}>
               {cart.products.map((product) => {
                 const productData = products[product.product_id];
-                if (productData?.stock > 0) { totalPrice += product.price * product.quantity };
                 return (
                   <React.Fragment key={product.product_id}>
                     <Box component='li' display='flex' px={1} gap={1} alignItems='center'>

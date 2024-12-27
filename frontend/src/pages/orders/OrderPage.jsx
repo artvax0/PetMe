@@ -93,15 +93,23 @@ export default function OrderPage() {
                     <TableCell component='th' scope='row' align='center'><Box component='img' src={productData?.image?.url || ''} alt={productData?.image?.alt || ''} maxWidth='50px' maxHeight='50px' /></TableCell>
                     <TableCell align='center'>{productData?.name || ''}</TableCell>
                     <TableCell align='center'>{product.quantity}</TableCell>
-                    <TableCell align='center'>${isDiscountValid ? discountedPrice : productData?.price || ''}</TableCell>
-                    <TableCell align='center'>${isDiscountValid ? discountedPrice * product.quantity : product.price}</TableCell>
+                    <TableCell align='center'>${isDiscountValid ? (discountedPrice).toFixed(2) : (productData?.price).toFixed(2) || ''}</TableCell>
+                    <TableCell align='center'>${isDiscountValid ? (discountedPrice * product.quantity).toFixed(2) : (product.price).toFixed(2)}</TableCell>
                   </TableRow>
                 )
               })}
             </TableBody>
           </Table>
         </TableContainer>
-        <Typography textAlign='right' fontSize='1.2rem'>Total: <strong>${products.reduce((acc, product) => acc += product.price, 0)}</strong></Typography>
+        <Typography textAlign='right' fontSize='1.2rem'>Total: <strong>${
+          products.reduce((acc, product) => {
+            const productData = productsList[product.product_id];
+            const isDiscountValid = productData.discount > 0 && productData.discountStartDate <= now && productData.discountEndDate >= now;
+            const discountedPrice = productData.price * (1 - productData.discount / 100)
+            const productPrice = isDiscountValid ? discountedPrice * product.quantity : productData.price * product.quantity;
+            return acc += productPrice;
+          }, 0).toFixed(2)
+        }</strong></Typography>
       </Box>
       <Divider variant='middle' sx={{ my: 1 }} />
       <Box component='section' display='flex' flexDirection='column'>

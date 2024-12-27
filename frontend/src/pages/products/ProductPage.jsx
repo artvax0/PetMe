@@ -136,7 +136,7 @@ export default function ProductPage() {
                 <Button variant='contained' color={theme.palette.secondary.main} sx={{ backgroundColor: theme.palette.secondary.main, borderRadius: '100px', px: 4, py: 1, fontSize: '1.25rem', fontWeight: theme.typography.fontWeightBold, color: mode == 'light' ? '#000' : '#fff' }} onClick={(e) => addToCart(e, id, count)}>
                   Add to cart
                 </Button>
-                <Button variant='contained' sx={{ borderRadius: '100px', px: 4, py: 1, fontSize: '1.25rem', fontWeight: theme.typography.fontWeightBold }} onClick={() => navigate(ROUTES.ORDER, { state: { products: [{ product_id: id, isStocked: product.isStocked, price: product.price, quantity: count }] } })}>Purchase Now</Button>
+                <Button variant='contained' sx={{ borderRadius: '100px', px: 4, py: 1, fontSize: '1.25rem', fontWeight: theme.typography.fontWeightBold }} onClick={() => navigate(ROUTES.ORDER, { state: { products: [{ product_id: id, isStocked: product.isStocked, price: isDiscountValid ? discountedPrice : product.price, quantity: count }] } })}>Purchase Now</Button>
               </> :
                 <Typography fontWeight='bold' fontSize={{ xs: '1rem', sm: '2.5rem' }} color={mode == 'light' ? '#000' : '#fff'}>Product is out of stock! :(</Typography>
               }

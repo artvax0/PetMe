@@ -50,9 +50,9 @@ const getCart = async (user_id) => {
 
         if (isDiscountValid) {
           let discountedPrice = productInfo.price * (1 - productInfo.discount / 100);
-          product.price = (Math.floor(discountedPrice) + Math.round((discountedPrice % Math.floor(discountedPrice)) * 10) / 10) * product.quantity;
+          product.price = Number.isSafeInteger(discountedPrice * product.quantity) ? discountedPrice * product.quantity : parseFloat((discountedPrice * product.quantity).toFixed(2));
         } else {
-          product.price = productInfo.price * product.quantity
+          product.price = Number.isSafeInteger(productInfo.price * product.quantity) ? productInfo.price * product.quantity : parseFloat((productInfo.price * product.quantity).toFixed(2));
         }
         return product;
       }))
