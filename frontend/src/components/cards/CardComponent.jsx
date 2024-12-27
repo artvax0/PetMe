@@ -26,9 +26,9 @@ export default function CardComponent({ product, pets }) {
               {isDiscountValid ?
                 <Box display='flex' gap={1} justifyContent='center'>
                   <Typography variant='h6' fontWeight='light' component='p' sx={{ textAlign: 'center', textDecoration: 'line-through' }} fontSize='0.75rem' color='darkgrey' >${product.price}</Typography>
-                  <Typography variant='h6' fontWeight='medium' component='p' sx={{ textAlign: 'center' }} fontSize='1.25rem' color='error'>${product.price * (1 - product.discount / 100)}</Typography>
+                  <Typography variant='h6' fontWeight='medium' component='p' sx={{ textAlign: 'center' }} fontSize='1.25rem' color='error'>${Number.isSafeInteger(product.price * (1 - product.discount / 100)) ? product.price * (1 - product.discount / 100) : (product.price * (1 - product.discount / 100)).toFixed(2)}</Typography>
                 </Box> :
-                <Typography variant='h6' fontWeight='medium' component='p' sx={{ textAlign: 'center' }} fontSize='1.25rem'>${product.price}</Typography>}
+                <Typography variant='h6' fontWeight='medium' component='p' sx={{ textAlign: 'center' }} fontSize='1.25rem'>${Number.isSafeInteger(product.price) ? product.price : (product.price).toFixed(2)}</Typography>}
             </CardContent>
 
             {

@@ -81,7 +81,7 @@ export default function Cart({ user, setIsOpen }) {
                         {
                           productData?.stock > 0 ?
                             <>
-                              <Typography>Total: <strong>${product.price}</strong></Typography>
+                              <Typography>Total: <strong>${Number.isSafeInteger(product.price) ? product.price : (product.price).toFixed(2)}</strong></Typography>
                             </> :
                             <>
                               {isStocked = false}

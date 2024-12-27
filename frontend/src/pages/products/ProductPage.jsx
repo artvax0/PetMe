@@ -61,12 +61,11 @@ export default function ProductPage() {
   }, [product?.petType_id, petIsLoading]);
 
   let isStocked = true;
-  let isDiscountValid = false;
   let now = new Date().toISOString();
+  let isDiscountValid = product.discount > 0 && product.discountStartDate <= now && product.discountEndDate >= now;
 
   if (product.stock == 0) { isStocked = false };
-  if (product.discount > 0 && product.discountStartDate <= now && product.discountEndDate >= now) { isDiscountValid = true };
-  let discountedPrice = product.price * (1 - product.discount / 100);
+  let discountedPrice = Number.isSafeInteger(product.price * (1 - product.discount / 100)) ? product.price * (1 - product.discount / 100) : (product.price * (1 - product.discount / 100)).toFixed(2);
 
   if (isLoading && petIsLoading) return (<><Title title={'Loading...'} /><LoadingSpinner /></>)
   if (error) return (<><Title title={'PetMe - Error'} /><Error error={error} /></>)
@@ -121,12 +120,12 @@ export default function ProductPage() {
                 {
                   isDiscountValid ?
                     <>
-                      <Typography variant='h5' component='p' lineHeight={1} fontWeight={theme.typography.fontWeightLight} color='lightgray' sx={{ textDecoration: 'line-through' }}>${product.price}</Typography>
+                      <Typography variant='h5' component='p' lineHeight={1} fontWeight={theme.typography.fontWeightLight} color='lightgray' sx={{ textDecoration: 'line-through' }}>${Number.isSafeInteger(product.price) ? product.price : (product.price).toFixed(2)}</Typography>
                       <Typography variant='h4' component='h3' lineHeight={1} aria-label='Price' color='error' fontWeight={theme.typography.fontWeightBold}>{product.discount}% Discount - ${discountedPrice}</Typography>
                     </>
                     :
                     <>
-                      <Typography variant='h4' component='h3' lineHeight={1} aria-label='Price' color={mode == 'light' ? '#000' : '#fff'}>${product.price}</Typography>
+                      <Typography variant='h4' component='h3' lineHeight={1} aria-label='Price' color={mode == 'light' ? '#000' : '#fff'}>${Number.isSafeInteger(product.price) ? product.price : (product.price).toFixed(2)}</Typography>
                     </>
                 }
                 {/* Count and Purchase/Cart buttons */}
