@@ -78,7 +78,7 @@ export default function Dashboard() {
     setIsEmploymentOpen(false);
   }
 
-  if (!user.isAdmin) return (<Navigate to={ROUTES.LOGIN} />)
+  if (!user || !user.isAdmin) return (<Navigate to={ROUTES.LOGIN} />)
   if (isLoading) return (<LoadingSpinner />);
   if (error) return (<Error error={error} />);
   return (
