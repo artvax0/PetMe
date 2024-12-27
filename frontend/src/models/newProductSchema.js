@@ -1,7 +1,7 @@
 import Joi from "joi"
 
 const newProductSchema = {
-  name: Joi.string().min(2).max(75).required().label('Product Name'),
+  name: Joi.string().min(2).max(256).required().label('Product Name'),
   description: Joi.string().min(10).required().required().label('Product Description'),
   url: Joi.string().uri().required().label('Image URL'),
   alt: Joi.string().required().label('Alt Text'),
