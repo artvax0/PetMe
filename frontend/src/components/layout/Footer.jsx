@@ -26,11 +26,11 @@ export default function Footer() {
   return (
     <Grid2 component='footer' container sx={{ backgroundColor: theme.palette.highlight.main }} justifyContent='center'>
       <Grid2 container size={11} py={4} display='flex' gap={5}>
-        <Grid2 size={{ xs: 12, md: 6, lg: 2 }} display='flex' flexDirection='column'>
+        <Grid2 size={{ xs: 12, md: 3 }} display='flex' flexDirection='column'>
           <Box component='img' src='/pixelPetMe.svg' alt='PetMe! Logo' />
           <Typography color={theme.palette.secondary.main} fontWeight={theme.typography.fontWeightLight}>&copy;Logo Design By: <a className={mode == 'light' ? 'ext-link-light' : 'ext-link-dark'} href='https://cara.app/kwis' target='_blank' rel='noreferrer noopener'>Kwismass</a></Typography>
         </Grid2>
-        <Grid2 size={{ xs: 12, md: 2 }} display='flex' flexDirection='column'>
+        <Grid2 size={{ xs: 12, md: 3 }} display='flex' flexDirection='column'>
           <FooterTitle textTransform='uppercase' width='100%' fontWeight={theme.typography.fontWeightBold} fontSize='1.5rem' color={theme.palette.secondary.main}>
             main links
           </FooterTitle>
