@@ -93,8 +93,8 @@ export default function OrderPage() {
                     <TableCell component='th' scope='row' align='center'><Box component='img' src={productData?.image?.url || ''} alt={productData?.image?.alt || ''} maxWidth='50px' maxHeight='50px' /></TableCell>
                     <TableCell align='center'>{productData?.name || ''}</TableCell>
                     <TableCell align='center'>{product.quantity}</TableCell>
-                    <TableCell align='center'>${isDiscountValid ? (discountedPrice).toFixed(2) : (productData?.price).toFixed(2) || ''}</TableCell>
-                    <TableCell align='center'>${isDiscountValid ? (discountedPrice * product.quantity).toFixed(2) : (product.price).toFixed(2)}</TableCell>
+                    <TableCell align='center'>${isDiscountValid ? Number((discountedPrice)).toFixed(2) : Number((productData?.price)).toFixed(2) || ''}</TableCell>
+                    <TableCell align='center'>${isDiscountValid ? Number((discountedPrice * product.quantity)).toFixed(2) : Number((product.price)).toFixed(2)}</TableCell>
                   </TableRow>
                 )
               })}

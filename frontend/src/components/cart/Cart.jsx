@@ -81,7 +81,7 @@ export default function Cart({ user, setIsOpen }) {
                         {
                           productData?.stock > 0 ?
                             <>
-                              <Typography>Total: <strong>${Number.isSafeInteger(product.price) ? product.price : (product.price).toFixed(2)}</strong></Typography>
+                              <Typography>Total: <strong>${Number.isSafeInteger(product.price) ? Number(product.price) : Number((product.price)).toFixed(2)}</strong></Typography>
                             </> :
                             <>
                               {isStocked = false}
@@ -103,7 +103,7 @@ export default function Cart({ user, setIsOpen }) {
                 )
               })}
             </Box>
-            <Typography textAlign='center'>Total: <strong>${totalPrice}</strong></Typography>
+            <Typography textAlign='center'>Total: <strong>${Number.isSafeInteger(totalPrice) ? totalPrice : totalPrice.toFixed(2)}</strong></Typography>
           </Box>
           <Button disabled={!isStocked || totalPrice == 0} color='success' fullWidth sx={{ alignSelf: 'flex-end' }} onClick={() => { navigate(ROUTES.ORDER, { state: { products: cart.products } }); setIsOpen(false) }}>Go to Checkout</Button>
           {!isStocked && <Typography textAlign='center' color='error' fontWeight='light'>A product is out of stock!</Typography>}
