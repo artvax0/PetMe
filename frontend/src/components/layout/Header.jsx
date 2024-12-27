@@ -78,7 +78,6 @@ export default function Header() {
               </Box>
               <Box display={{ xs: 'none', md: 'flex' }} flexGrow={1} gap={5} textAlign='center' alignItems='center'>
                 <NavLink to={ROUTES.ROOT}>Home</NavLink>
-                <NavLink to={ROUTES.PRODUCTS}>Our Products</NavLink>
                 <Box position='relative' top={0}>
                   <Typography
                     sx={{
