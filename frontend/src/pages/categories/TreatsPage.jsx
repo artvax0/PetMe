@@ -1,17 +1,17 @@
 import React, { useCallback, useEffect } from 'react'
-import useProducts from '../hooks/useProducts';
+import useProducts from '../../hooks/useProducts';
 import { Box, Grid2, Typography } from '@mui/material';
-import { useTheme } from '../providers/ThemeProvider';
-import CardComponent from '../components/cards/CardComponent';
-import LoadingSpinner from '../components/utils/LoadingSpinner';
-import Error from '../components/utils/Error';
-import usePets from '../hooks/usePets';
-import Title from '../components/utils/Title';
-import Searchbar from '../components/utils/Searchbar';
+import { useTheme } from '../../providers/ThemeProvider';
+import CardComponent from '../../components/cards/CardComponent';
+import LoadingSpinner from '../../components/utils/LoadingSpinner';
+import Error from '../../components/utils/Error';
+import usePets from '../../hooks/usePets';
+import Title from '../../components/utils/Title';
+import Searchbar from '../../components/utils/Searchbar';
 
-const category = 'Travel & Outdoor Gear';
+const category = 'Treats';
 
-export default function TravelPage() {
+export default function TreatsPage() {
   const { theme, mode } = useTheme();
 
   const { getAllProducts, categories, productsByCategory, error, isLoading } = useProducts();

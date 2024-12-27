@@ -1,19 +1,19 @@
 import React, { forwardRef, useCallback, useEffect, useState } from 'react'
 import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, Grid2, Slide, Typography } from '@mui/material';
-import useProducts from '../hooks/useProducts';
-import { useTheme } from '../providers/ThemeProvider';
-import Title from '../components/utils/Title';
+import useProducts from '../../hooks/useProducts';
+import { useTheme } from '../../providers/ThemeProvider';
+import Title from '../../components/utils/Title';
 import InventoryIcon from '@mui/icons-material/Inventory';
-import usePets from '../hooks/usePets';
-import Counter from '../components/utils/Counter';
-import { ROUTES } from '../routes/routesModel';
-import { useAuth } from '../providers/UserProvider';
-import useCarts from '../hooks/useCarts';
+import usePets from '../../hooks/usePets';
+import Counter from '../../components/utils/Counter';
+import { ROUTES } from '../../routes/routesModel';
+import { useAuth } from '../../providers/UserProvider';
+import useCarts from '../../hooks/useCarts';
 import EditIcon from '@mui/icons-material/Edit';
-import InputNumber from '../components/utils/InputNumber';
-import LoadingSpinner from '../components/utils/LoadingSpinner';
-import Error from '../components/utils/Error';
+import InputNumber from '../../components/utils/InputNumber';
+import LoadingSpinner from '../../components/utils/LoadingSpinner';
+import Error from '../../components/utils/Error';
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;

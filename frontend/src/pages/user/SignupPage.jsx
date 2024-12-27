@@ -1,15 +1,15 @@
 import React from 'react'
-import Title from '../components/utils/Title'
-import SignupForm from '../components/forms/SignupForm'
-import useForm from '../hooks/useForm'
-import signupSchema from '../models/signupSchema';
-import { initialSignupForm } from '../helpers/initial_forms/initialSignupForm';
+import Title from '../../components/utils/Title'
+import SignupForm from '../../components/forms/SignupForm'
+import useForm from '../../hooks/useForm'
+import signupSchema from '../../models/signupSchema';
+import { initialSignupForm } from '../../helpers/initial_forms/initialSignupForm';
 import { Box, Grid2, Typography } from '@mui/material';
-import useUsers from '../hooks/useUsers';
-import { useAuth } from '../providers/UserProvider';
+import useUsers from '../../hooks/useUsers';
+import { useAuth } from '../../providers/UserProvider';
 import { Navigate } from 'react-router-dom';
-import { ROUTES } from '../routes/routesModel';
-import { useTheme } from '../providers/ThemeProvider';
+import { ROUTES } from '../../routes/routesModel';
+import { useTheme } from '../../providers/ThemeProvider';
 
 export default function SignupPage() {
   const { user } = useAuth();

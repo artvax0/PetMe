@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
-import useProducts from "../hooks/useProducts";
-import { useAuth } from "../providers/UserProvider"
+import useProducts from "../../hooks/useProducts";
+import { useAuth } from "../../providers/UserProvider"
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
-import { ROUTES } from "../routes/routesModel";
+import { ROUTES } from "../../routes/routesModel";
 import { Box, Divider, Grid2, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
-import Title from "../components/utils/Title";
-import { useTheme } from "../providers/ThemeProvider";
-import useUsers from "../hooks/useUsers";
-import TransactionForm from "../components/forms/TransactionForm";
-import useForm from "../hooks/useForm";
-import { initialCreditForm } from "../helpers/initial_forms/initialCreditForm";
-import creditCardSchema from "../models/creditCardSchema";
-import useOrders from "../hooks/useOrders";
-import LoadingSpinner from "../components/utils/LoadingSpinner";
+import Title from "../../components/utils/Title";
+import { useTheme } from "../../providers/ThemeProvider";
+import useUsers from "../../hooks/useUsers";
+import TransactionForm from "../../components/forms/TransactionForm";
+import useForm from "../../hooks/useForm";
+import { initialCreditForm } from "../../helpers/initial_forms/initialCreditForm";
+import creditCardSchema from "../../models/creditCardSchema";
+import useOrders from "../../hooks/useOrders";
+import LoadingSpinner from "../../components/utils/LoadingSpinner";
 
 export default function OrderPage() {
   const { user } = useAuth();

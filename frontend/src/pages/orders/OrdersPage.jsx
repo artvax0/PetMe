@@ -1,16 +1,16 @@
 import { Box, Button, Card, CardActionArea, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, FormControl, Grid2, InputLabel, MenuItem, Select, Slide, TextField, Typography } from '@mui/material'
-import { useAuth } from '../providers/UserProvider'
+import { useAuth } from '../../providers/UserProvider'
 import React, { forwardRef, useCallback, useEffect, useState } from 'react';
-import Title from '../components/utils/Title';
-import useOrders from '../hooks/useOrders';
+import Title from '../../components/utils/Title';
+import useOrders from '../../hooks/useOrders';
 import { Navigate, useSearchParams } from "react-router-dom";
-import useProducts from '../hooks/useProducts';
-import { useTheme } from '../providers/ThemeProvider';
-import statusColors from '../utils/statusColors';
-import { ROUTES } from '../routes/routesModel';
+import useProducts from '../../hooks/useProducts';
+import { useTheme } from '../../providers/ThemeProvider';
+import statusColors from '../../utils/statusColors';
+import { ROUTES } from '../../routes/routesModel';
 import EditIcon from '@mui/icons-material/Edit';
-import LoadingSpinner from '../components/utils/LoadingSpinner';
-import Error from '../components/utils/Error';
+import LoadingSpinner from '../../components/utils/LoadingSpinner';
+import Error from '../../components/utils/Error';
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;

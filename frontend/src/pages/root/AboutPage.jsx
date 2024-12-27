@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Button, Grid2, Typography } from '@mui/material';
-import { useTheme } from '../providers/ThemeProvider';
-import Title from '../components/utils/Title';
+import { useTheme } from '../../providers/ThemeProvider';
+import Title from '../../components/utils/Title';
 
 export default function AboutPage() {
   const { mode } = useTheme();

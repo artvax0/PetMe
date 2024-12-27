@@ -1,15 +1,15 @@
 import { Box, Card, CardActionArea, Divider, Grid2, Paper, Typography } from '@mui/material'
-import Title from '../components/utils/Title'
-import useOrders from '../hooks/useOrders'
+import Title from '../../components/utils/Title'
+import useOrders from '../../hooks/useOrders'
 import { Navigate, useNavigate } from "react-router-dom";
-import { useAuth } from '../providers/UserProvider'
-import { ROUTES } from '../routes/routesModel';
+import { useAuth } from '../../providers/UserProvider'
+import { ROUTES } from '../../routes/routesModel';
 import React, { useEffect } from 'react';
-import useProducts from '../hooks/useProducts';
-import { useTheme } from '../providers/ThemeProvider';
-import statusColors from '../utils/statusColors';
-import LoadingSpinner from '../components/utils/LoadingSpinner';
-import Error from '../components/utils/Error';
+import useProducts from '../../hooks/useProducts';
+import { useTheme } from '../../providers/ThemeProvider';
+import statusColors from '../../utils/statusColors';
+import LoadingSpinner from '../../components/utils/LoadingSpinner';
+import Error from '../../components/utils/Error';
 
 export default function UserOrdersPage() {
   const { user } = useAuth();

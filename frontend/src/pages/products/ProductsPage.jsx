@@ -1,13 +1,13 @@
 import { Box, Grid2, Typography } from "@mui/material";
-import CardComponent from "../components/cards/CardComponent";
+import CardComponent from "../../components/cards/CardComponent";
 import { useEffect } from "react";
-import useProducts from "../hooks/useProducts";
-import { useTheme } from "../providers/ThemeProvider";
-import Title from "../components/utils/Title";
-import usePets from "../hooks/usePets";
-import LoadingSpinner from "../components/utils/LoadingSpinner";
-import Error from "../components/utils/Error";
-import Searchbar from "../components/utils/Searchbar";
+import useProducts from "../../hooks/useProducts";
+import { useTheme } from "../../providers/ThemeProvider";
+import Title from "../../components/utils/Title";
+import usePets from "../../hooks/usePets";
+import LoadingSpinner from "../../components/utils/LoadingSpinner";
+import Error from "../../components/utils/Error";
+import Searchbar from "../../components/utils/Searchbar";
 
 export default function ProductsPage() {
   const { theme, mode } = useTheme();

@@ -1,17 +1,17 @@
 import React, { useCallback, useEffect } from 'react'
-import useProducts from '../hooks/useProducts';
+import useProducts from '../../hooks/useProducts';
 import { Box, Grid2, Typography } from '@mui/material';
-import { useTheme } from '../providers/ThemeProvider';
-import CardComponent from '../components/cards/CardComponent';
-import LoadingSpinner from '../components/utils/LoadingSpinner';
-import Error from '../components/utils/Error';
-import usePets from '../hooks/usePets';
-import Title from '../components/utils/Title';
-import Searchbar from '../components/utils/Searchbar';
+import { useTheme } from '../../providers/ThemeProvider';
+import CardComponent from '../../components/cards/CardComponent';
+import LoadingSpinner from '../../components/utils/LoadingSpinner';
+import Error from '../../components/utils/Error';
+import usePets from '../../hooks/usePets';
+import Title from '../../components/utils/Title';
+import Searchbar from '../../components/utils/Searchbar';
 
-const category = 'Training & Behaviour Aids';
+const category = 'Clothing & Accessories';
 
-export default function TrainingPage() {
+export default function ClothingPage() {
   const { theme, mode } = useTheme();
 
   const { getAllProducts, categories, productsByCategory, error, isLoading } = useProducts();
@@ -49,7 +49,7 @@ export default function TrainingPage() {
             {
               productsByCategory[getCategory(category)] && productsByCategory[getCategory(category)].length > 0 ?
                 productsByCategory[getCategory(category)].map(prod => (
-                  <Grid2 container key={prod._id} size={{ xs: 12, sm: 6, md: 4, lg: 1.5 }}>
+                  <Grid2 key={prod._id} size={{ xs: 12, sm: 6, md: 4, lg: 1.5 }}>
                     <CardComponent product={prod} pets={pets} />
                   </Grid2>
                 )) :

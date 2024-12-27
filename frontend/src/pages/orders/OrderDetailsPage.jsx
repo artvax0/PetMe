@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react'
 import { Navigate, useNavigate, useParams } from 'react-router-dom'
-import { useAuth } from '../providers/UserProvider';
-import useOrders from '../hooks/useOrders';
-import { ROUTES } from '../routes/routesModel';
-import Title from '../components/utils/Title';
+import { useAuth } from '../../providers/UserProvider';
+import useOrders from '../../hooks/useOrders';
+import { ROUTES } from '../../routes/routesModel';
+import Title from '../../components/utils/Title';
 import { Box, Divider, Grid2, Typography } from '@mui/material';
-import { useTheme } from '../providers/ThemeProvider';
-import statusColors from '../utils/statusColors';
-import useProducts from '../hooks/useProducts';
-import LoadingSpinner from '../components/utils/LoadingSpinner';
-import Error from '../components/utils/Error';
+import { useTheme } from '../../providers/ThemeProvider';
+import statusColors from '../../utils/statusColors';
+import useProducts from '../../hooks/useProducts';
+import LoadingSpinner from '../../components/utils/LoadingSpinner';
+import Error from '../../components/utils/Error';
 
 export default function OrderDetailsPage() {
   const { id } = useParams();

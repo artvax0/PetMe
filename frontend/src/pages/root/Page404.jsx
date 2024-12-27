@@ -1,5 +1,5 @@
 import { Box, Button, Grid2, Typography } from "@mui/material";
-import { useTheme } from "../providers/ThemeProvider";
+import { useTheme } from "../../providers/ThemeProvider";
 
 export default function Page404() {
   const { mode } = useTheme();

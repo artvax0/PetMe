@@ -1,21 +1,21 @@
 import React, { forwardRef, useCallback, useEffect, useState } from 'react'
-import { useAuth } from '../providers/UserProvider'
+import { useAuth } from '../../providers/UserProvider'
 import { Navigate } from 'react-router-dom';
-import { ROUTES } from '../routes/routesModel';
-import Title from '../components/utils/Title';
+import { ROUTES } from '../../routes/routesModel';
+import Title from '../../components/utils/Title';
 import { Box, Button, Checkbox, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Paper, Slide, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
-import useUsers from '../hooks/useUsers';
+import useUsers from '../../hooks/useUsers';
 import EditIcon from '@mui/icons-material/Edit';
 import BadgeIcon from '@mui/icons-material/Badge';
-import mapUserToModel from '../helpers/normalization/mapUsertoModel';
-import useForm from '../hooks/useForm';
-import { initialProfileForm } from '../helpers/initial_forms/initialProfileForm';
-import profileSchema from '../models/profileSchema';
-import ProfileForm from '../components/forms/ProfileForm';
-import normalizeProfile from '../helpers/normalization/normalizeProfile';
-import { useTheme } from '../providers/ThemeProvider';
-import LoadingSpinner from '../components/utils/LoadingSpinner';
-import Error from '../components/utils/Error';
+import mapUserToModel from '../../helpers/normalization/mapUsertoModel';
+import useForm from '../../hooks/useForm';
+import { initialProfileForm } from '../../helpers/initial_forms/initialProfileForm';
+import profileSchema from '../../models/profileSchema';
+import ProfileForm from '../../components/forms/ProfileForm';
+import normalizeProfile from '../../helpers/normalization/normalizeProfile';
+import { useTheme } from '../../providers/ThemeProvider';
+import LoadingSpinner from '../../components/utils/LoadingSpinner';
+import Error from '../../components/utils/Error';
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;

@@ -1,15 +1,15 @@
 import React from 'react'
-import Title from '../components/utils/Title'
-import LoginForm from '../components/forms/LoginForm'
+import Title from '../../components/utils/Title'
+import LoginForm from '../../components/forms/LoginForm'
 import { Box, Grid2, Typography } from '@mui/material'
-import useForm from '../hooks/useForm';
-import { initialLoginForm } from '../helpers/initial_forms/initialLoginForm';
-import useUsers from '../hooks/useUsers';
-import { useAuth } from '../providers/UserProvider';
+import useForm from '../../hooks/useForm';
+import { initialLoginForm } from '../../helpers/initial_forms/initialLoginForm';
+import useUsers from '../../hooks/useUsers';
+import { useAuth } from '../../providers/UserProvider';
 import { Navigate } from 'react-router-dom';
-import { ROUTES } from '../routes/routesModel';
-import loginSchema from '../models/loginSchema';
-import { useTheme } from '../providers/ThemeProvider';
+import { ROUTES } from '../../routes/routesModel';
+import loginSchema from '../../models/loginSchema';
+import { useTheme } from '../../providers/ThemeProvider';
 
 export default function LoginPage() {
   const { user } = useAuth();
